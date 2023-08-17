@@ -1,0 +1,19 @@
+npm install react-google-maps/api
+npm install fuse.js
+npm install @mui/material @emotion/react @emotion/styled
+npm install @aws-sdk/client-s3
+
+//UPDATE AMPLIFY
+amplify pull --appId d25hgj6mmosto5 --envName dev
+amplify configure
+amplify codegen //SI ACTUALIZAMOS LA BASE DE DATOS
+
+//CREAR LAMBDA
+mkdir lambda-nombre
+cd lambda-nombre
+touch index.js
+npm init
+
+//SUBIR LAMBDA
+zip -r function.zip . 
+aws lambda update-function-code --function-name lambda-nombre --zip-file fileb://function.zip

@@ -1,0 +1,92 @@
+.eventName {
+    display: inline-block;
+    color: rgb(0, 0, 0);
+    font-size: 100px;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.eventDate {
+    display: inline-block;
+    color: rgb(0, 0, 0);
+    font-size: 50px;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.eventDescription {
+    display: inline-block;
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.eventClass {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-family: 'Bebas Neue', sans-serif;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+    top: 10px;
+    flex: 1;
+    box-sizing: border-box;
+    max-width: 80%;
+}
+
+.imgEvent {
+    border-radius: 10px;
+    width: 60%;
+    height: 300px;
+}
+
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+    .eventClass {
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.8);
+        font-family: 'Bebas Neue', sans-serif;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+        max-width: 100%;
+        margin: 0 auto;
+        position: relative;
+        top: 10px;
+        flex: 1;
+        box-sizing: border-box;
+        max-width: 95%;
+    }
+
+    .eventName {
+        display: inline-block;
+        color: rgb(0, 0, 0);
+        font-size: 150px;
+        font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .eventDate {
+        display: inline-block;
+        color: rgb(0, 0, 0);
+        font-size: 90px;
+        font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .eventDescription {
+        display: inline-block;
+        color: rgb(0, 0, 0);
+        font-size: 50px;
+        font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .imgEvent {
+        border-radius: 10px;
+        width: 60%;
+        height: 300px;
+    }
+
+    .nombrePublica {
+        text-align: left;
+        padding-left: 3%;
+        font-size: 80px;
+    }
+}

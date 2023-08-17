@@ -1,0 +1,45 @@
+.col-form-label {
+  display: flex;
+  align-items: center;
+}
+
+.text-sm-right {
+  justify-content: flex-end;
+}
+
+.form-check-label {
+  margin-left: 0.5rem;
+}
+
+.create-type-ticket-form,
+.create-type-ticket-form .form-control,
+.create-type-ticket-form .col-form-label,
+.create-type-ticket-form .form-check-input {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 25px;
+  box-sizing: border-box;
+}
+
+
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+
+  .col-form-label {
+    display: flex;
+    align-items: center;
+  }
+
+  .text-sm-right {
+    justify-content: flex-end;
+  }
+
+  .create-type-ticket-form,
+  .create-type-ticket-form .form-control,
+  .create-type-ticket-form .col-form-label,
+  .create-type-ticket-form .form-check-input {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 50px;
+    box-sizing: border-box;
+  }
+
+}
