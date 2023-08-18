@@ -33,6 +33,8 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
     //     }));
     // };
 
+    //
+
     const handleSubmit = async (typeTicket) => {
         typeTicket.preventDefault();
 
