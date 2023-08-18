@@ -74,7 +74,7 @@ const Event = () => {
 
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => (
-      <div >
+      <div key={typeTicket.id} style={typeTicket.activeTT ? {} : { opacity: 0.5, filter: 'grayscale(90%)' }}>
         <div key={typeTicket.id} class="ticket-container">
           <div class="ticket-column">
             <h2 class="ticket-text">{typeTicket.nameTT}</h2>

@@ -637,13 +637,22 @@ header {
 
 /* CREATE TYPE TICKET */
 
+.create-type-ticket-form .inputs-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .col-form-label {
     display: flex;
     align-items: center;
 }
 
-.col-sm-9 {
-    min-width: 100%;
+.col {
+    flex: 1;
+    margin: 0 5px;
+
 }
 
 .create-type-ticket-form,
@@ -690,6 +699,18 @@ header {
     margin: 0;
     text-align: left;
     font-family: 'Bebas Neue', sans-serif;
+}
+
+.create-ticket-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #B1CD4A;
 }
 
 .ticket-container {

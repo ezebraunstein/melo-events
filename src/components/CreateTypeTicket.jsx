@@ -42,7 +42,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
             priceTT: parseInt(typeTicketData.priceTT),
             quantityTT: parseInt(typeTicketData.quantityTT),
             descriptionTT: typeTicketData.descriptionTT,
-            activeTT: Boolean(typeTicketData.activeTT),
+            activeTT: Boolean(true),
             startDateTT: new Date(typeTicketData.startDateTT),
             endDateTT: new Date(typeTicketData.endDateTT),
             eventID: eventId
@@ -75,64 +75,56 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
     return (
         <div>
             <form onSubmit={handleSubmit} className="create-type-ticket-form">
-                <div className="col-sm-9">
-                    <input
-                        type="text"
-                        name="nameTT"
-                        className="form-control"
-                        id="nameTT"
-                        value={typeTicketData.nameTT}
-                        placeholder="NOMBRE TIPO TICKET*"
-                        required
-                        onChange={handleInputChange}
-                    />
+                <div className="inputs-container">
+                    <div className="col">
+                        <input
+                            type="text"
+                            name="nameTT"
+                            className="form-control"
+                            id="nameTT"
+                            value={typeTicketData.nameTT}
+                            placeholder="NOMBRE TIPO TICKET*"
+                            required
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <br />
+                    <div className="col">
+                        <input
+                            type="int"
+                            name="priceTT"
+                            className="form-control"
+                            id="priceTT"
+                            value={typeTicketData.priceTT}
+                            placeholder="MONTO*"
+                            inputMode="numeric"
+                            required
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <br />
+                    <div className="col">
+                        <input
+                            type="int"
+                            name="quantityTT"
+                            className="form-control"
+                            id="quantityTT"
+                            value={typeTicketData.quantityTT}
+                            placeholder="CANTIDAD DISPONIBLE*"
+                            inputMode="numeric"
+                            required
+                            onChange={handleInputChange}
+                        />
+                    </div>
                 </div>
                 <br />
-                <div className="col-sm-9">
-                    <input
-                        type="int"
-                        name="priceTT"
-                        className="form-control"
-                        id="priceTT"
-                        value={typeTicketData.priceTT}
-                        placeholder="MONTO*"
-                        inputMode="numeric"
-                        required
-                        onChange={handleInputChange}
-                    />
-                </div>
-                <br />
-                <div className="col-sm-9">
-                    <input
-                        type="int"
-                        name="quantityTT"
-                        className="form-control"
-                        id="quantityTT"
-                        value={typeTicketData.quantityTT}
-                        placeholder="CANTIDAD DISPONIBLE*"
-                        inputMode="numeric"
-                        required
-                        onChange={handleInputChange}
-                    />
-                </div>
-                <br />
-                <div className="col-sm-9">
-                    <input
-                        type="text"
-                        name="descriptionTT"
-                        className="form-control"
-                        id="descriptionTT"
-                        value={typeTicketData.descriptionTT}
-                        placeholder="DESCRIPCIÓN (Opcional)"
-                        onChange={handleInputChange}
-                    />
-                </div>
                 <br />
                 <div>
                     <div className="col-sm-12 text-center">
                         <button type="submit" className="btnMain"> Agregar Ticket </button>
                     </div>
                 </div>
+                <br />
                 <br />
             </form>
         </div>

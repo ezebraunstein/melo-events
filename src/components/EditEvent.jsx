@@ -5,13 +5,15 @@ import { useState, useEffect } from 'react';
 import { listTypeTickets } from '../graphql/queries';
 import CreateTypeTicket from './CreateTypeTicket';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
+import ButtonTypeTicket from './ButtonTypeTicket';
+import DebugSwitch from './DebugSwitch';
 
 const EditEvent = () => {
 
   //CLOUDFRONT URL
 
   const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
-  
+
 
   //PARAMS
   const { eventId } = useParams();
@@ -21,6 +23,13 @@ const EditEvent = () => {
   //API GOOGLE MAPS
   const [mapsApiLoaded, setMapsApiLoaded] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
+
+
+  const [isActiveLocal, setIsActiveLocal] = useState(false);
+  const toggleActive = () => {
+    setIsActiveLocal(!isActiveLocal);
+  };
+
 
   useEffect(() => {
     setMapsApiLoaded(true);
@@ -68,8 +77,8 @@ const EditEvent = () => {
 
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => (
-      <div >
-        <div key={typeTicket.id} class="ticket-container">
+      <div key={typeTicket.id} style={typeTicket.activeTT ? {} : { opacity: 0.5, filter: 'grayscale(90%)' }}>
+        <div class="create-ticket-container">
           <div class="ticket-column">
             <h2 class="ticket-text">{typeTicket.nameTT}</h2>
           </div>
@@ -79,12 +88,28 @@ const EditEvent = () => {
           <div class="ticket-column">
             <h2 class="ticket-text">Disponibles {typeTicket.quantityTT}</h2>
           </div>
+          <div class="ticket-column">
+            <ButtonTypeTicket typeTicketId={typeTicket.id} isActive={typeTicket.activeTT} onTypeTicketToggled={handleTypeTicketToggle} />
+          </div>
         </div>
       </div>
     ));
   };
 
+  const handleTypeTicketToggle = (typeTicketId, newActiveState) => {
+    setTypeTickets((prevTypeTickets) => {
+      return prevTypeTickets.map((ticket) => {
+        if (ticket.id === typeTicketId) {
+          return { ...ticket, activeTT: newActiveState };
+        }
+        return ticket;
+      });
+    });
+  };
+
+
   const handleTypeTicketCreated = (newTypeTicket) => {
+    debugger;
     setTypeTickets((prevTypeTickets) => [...prevTypeTickets, newTypeTicket]);
   };
 
