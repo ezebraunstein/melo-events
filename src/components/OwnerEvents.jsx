@@ -2,11 +2,11 @@ import { API, graphqlOperation } from "aws-amplify";
 import { listEvents } from "../graphql/queries";
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import { useAuth0 } from "@auth0/auth0-react";
 import CircularProgress from '@mui/material/CircularProgress';
 import '@aws-amplify/ui-react/styles.css';
 
-const OwnerEvents = ({ user }) => {
+const OwnerEvents = () => {
 
   //CLOUDFRONT URL
 
@@ -16,12 +16,14 @@ const OwnerEvents = ({ user }) => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const { user } = useAuth0();
+
   const fetchEvents = async () => {
     try {
       const eventsData = await API.graphql(graphqlOperation(listEvents));
       const eventsList = eventsData.data.listEvents.items;
       const filterEventsList = eventsList.filter(
-        (event) => event.userID === user.username
+        (event) => event.userID === user.sub
       );
       const eventsWithImages = await Promise.all(
         filterEventsList.map(async (event) => {
@@ -70,4 +72,4 @@ const OwnerEvents = ({ user }) => {
     </div>
   );
 };
-export default withAuthenticator(OwnerEvents);
+export default OwnerEvents;

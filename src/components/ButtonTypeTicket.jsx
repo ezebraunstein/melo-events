@@ -6,10 +6,8 @@ import IOSSwitch from './IOSSwitch';
 const ButtonTypeTicket = ({ typeTicketId, isActive, onTypeTicketToggled }) => {
     const [isActiveLocal, setIsActiveLocal] = useState(isActive);
 
-    console.log("ButtonTypeTicket rendered with isActive:", isActive);
-
     const toggleActive = async () => {
-        console.log("toggleActive called");
+       
         const newIsActiveStatus = !isActiveLocal;
 
         setIsActiveLocal(newIsActiveStatus);

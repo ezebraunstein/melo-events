@@ -1,17 +1,12 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const ButtonLogin = () => {
-
-  const navigate = useNavigate();
-
-  function onclick() {
-    navigate('/login');
-  };
+  const { loginWithRedirect } = useAuth0();
 
   return (
     <div className="box-1">
-      <button className="btnHeader" onClick={onclick}>
+      <button className="btnHeader" onClick={() => loginWithRedirect()}>
         <span>Iniciar Sesión</span>
       </button>
     </div>

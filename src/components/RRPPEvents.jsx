@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listRRPPEvents } from '../graphql/queries';
-import { withAuthenticator } from '@aws-amplify/ui-react';
 import { useNavigate } from 'react-router-dom';
 import ModalRRPPEvent from './ModalRRPPEvent';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useAuth0 } from "@auth0/auth0-react";
 
 //CLOUDFRONT URL
-
 const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
 
-const RRPPEvents = ({ user }) => {
+const RRPPEvents = () => {
 
     const navigate = useNavigate();
     const [rrppEvents, setRrppEvents] = useState([]);
     const [refreshKey, setRefreshKey] = useState(0);
     const [loading, setLoading] = useState(true);
-
+    const { user } = useAuth0();
 
     useEffect(() => {
         fetchRrppEvents();
@@ -30,7 +29,7 @@ const RRPPEvents = ({ user }) => {
         try {
             const rrppEventsData = await API.graphql(
                 graphqlOperation(listRRPPEvents, {
-                    filter: { rrppID: { eq: user.username } },
+                    filter: { rrppID: { eq: user.sub } },
                 })
             );
 
@@ -90,4 +89,4 @@ const RRPPEvents = ({ user }) => {
     );
 };
 
-export default withAuthenticator(RRPPEvents);
+export default RRPPEvents;

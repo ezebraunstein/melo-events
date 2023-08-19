@@ -19,7 +19,7 @@ const Slider = () => {
       const eventsWithImages = await Promise.all(
 
         eventsList.map(async (event) => {
-          const imagePath = `${event.flyerEvent}`;
+          const imagePath = `${event.flyerMiniEvent}`;
           const imageUrl = `${cloudFrontUrl}/${imagePath}`;
           event.imageUrl = imageUrl;
           return event;

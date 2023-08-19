@@ -47,7 +47,7 @@ const Event = () => {
         graphqlOperation(getEvent, { id: eventId })
       );
       const event = eventResult.data.getEvent;
-      const imagePath = `${event.flyerEvent}`;
+      const imagePath = `${event.flyerMiniEvent}`;
       const imageUrl = `${cloudFrontUrl}/${imagePath}`;
       event.imageUrl = imageUrl;
       setEventData(event);

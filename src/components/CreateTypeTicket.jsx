@@ -3,7 +3,6 @@ import { v4 as uuid } from "uuid";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
 
     const [typeTicketData, setTypeTicketData] = useState({});
@@ -24,17 +23,6 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
         }));
     };
 
-    // const handleInputChangeBool = (typeTicket) => {
-    //     const { name, value, type, checked } = typeTicket.target;
-    //     const inputValue = type === "checkbox" ? checked : value;
-    //     setTypeTicketData((prevData) => ({
-    //         ...prevData,
-    //         [name]: inputValue
-    //     }));
-    // };
-
-    //
-
     const handleSubmit = async (typeTicket) => {
         typeTicket.preventDefault();
 
@@ -49,7 +37,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
             endDateTT: new Date(typeTicketData.endDateTT),
             eventID: eventId
         };
-        debugger;
+
         try {
             const response = await axios.post('https://6yncwz3d23b2iyt337sa4trgsy0deldh.lambda-url.us-east-1.on.aws/', JSON.stringify({ createTypeTicketInput: createTypeTicketInput }), {
                 headers: {
@@ -85,7 +73,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                             className="form-control"
                             id="nameTT"
                             value={typeTicketData.nameTT}
-                            placeholder="NOMBRE TIPO TICKET*"
+                            placeholder="NOMBRE*"
                             required
                             onChange={handleInputChange}
                         />
@@ -112,7 +100,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                             className="form-control"
                             id="quantityTT"
                             value={typeTicketData.quantityTT}
-                            placeholder="CANTIDAD DISPONIBLE*"
+                            placeholder="CANTIDAD*"
                             inputMode="numeric"
                             required
                             onChange={handleInputChange}

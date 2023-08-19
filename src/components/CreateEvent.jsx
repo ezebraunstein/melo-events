@@ -1,16 +1,19 @@
 import { useState, useEffect, useLayoutEffect } from "react";
-import { v4 as uuid } from "uuid";
-import { withAuthenticator } from '@aws-amplify/ui-react';
-import checkUser from './CheckUser';
 import { useNavigate } from 'react-router-dom';
-import CreateUser from './CreateUser';
+import { useAuth0 } from "@auth0/auth0-react";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { v4 as uuid } from "uuid";
+import axios from 'axios';
 import { GoogleMap, LoadScriptNext, Marker, StandaloneSearchBox } from "@react-google-maps/api";
 import CircularProgress from '@mui/material/CircularProgress';
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import axios from 'axios';
+import '@aws-amplify/ui-react/styles.css';
 import { Snackbar } from '@mui/material';
 import Alert from '@mui/material/Alert';
-import '@aws-amplify/ui-react/styles.css';
+import placeholderImage from '../images/placeholder.jpg';
+import TextField from '@mui/material/TextField';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+
 
 const s3Client = new S3Client({
     region: "us-east-1",
@@ -20,22 +23,26 @@ const s3Client = new S3Client({
     }
 });
 
-function AddEvent({ user }) {
+function AddEvent() {
+
+    //AUTH0 USER
+    const { user } = useAuth0();
 
     //PARAMS
     const [eventData, setEventData] = useState({});
-    const [flyerFile, setFlyerFile] = useState(null);
     const [flyerMiniFile, setFlyerMiniFile] = useState(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const navigate = useNavigate();
     const [showYourComponent, setShowYourComponent] = useState(false);
+    const [flyerMiniUrl, setFlyerMiniUrl] = useState(null);
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    const navigate = useNavigate();
 
     //MUI ALERT
-    const [loading, setLoading] = useState(true);
-
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     //API GOOGLE MAPS
     const [mapsApiLoaded, setMapsApiLoaded] = useState(true);
@@ -71,47 +78,20 @@ function AddEvent({ user }) {
     }, []);
 
     useEffect(() => {
-        const checkUserExistence = async () => {
-            const userExists = await checkUser(user);
-            if (userExists) {
-                setShowYourComponent(false);
-            } else {
-                setShowYourComponent(true);
-            }
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
         };
-        checkUserExistence();
-    }, [user]);
-
-    // const handleFlyerChange = (event) => {
-    //     const file = event.target.files[0];
-    //     setFlyerFile(file);
-    // };
-
-    // const handleFlyerMiniChange = (event) => {
-    //     const file = event.target.files[0];
-    //     setFlyerMiniFile(file);
-    // };
-
-    const [flyerUrl, setFlyerUrl] = useState(null);
-    const [flyerMiniUrl, setFlyerMiniUrl] = useState(null);
-
-    const handleFlyerChange = (event) => {
-        const file = event.target.files[0];
-        setFlyerFile(file);
-
-        // Read the selected file and set the URL
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setFlyerUrl(reader.result);
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
         };
-        reader.readAsDataURL(file);
-    };
+    }, []);
 
     const handleFlyerMiniChange = (event) => {
         const file = event.target.files[0];
         setFlyerMiniFile(file);
 
-        // Read the selected file and set the URL
         const reader = new FileReader();
         reader.onloadend = () => {
             setFlyerMiniUrl(reader.result);
@@ -131,6 +111,13 @@ function AddEvent({ user }) {
         setSnackbarOpen(false);
     };
 
+    const handleDateChange = (date) => {
+        setEventData((prevData) => ({
+            ...prevData,
+            startDateE: date,
+        }));
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsSubmitting(true);
@@ -146,20 +133,8 @@ function AddEvent({ user }) {
             upDateE: new Date(),
             downDateE: new Date(),
             nameLocationEvent: locationName,
-            userID: user.username
+            userID: user.sub
         };
-
-        if (flyerFile) {
-            const flyerKey = `events/${createEventInput.id}/flyer`;
-            const uploadParams = {
-                Bucket: 'melo-tickets',
-                Key: flyerKey,
-                Body: flyerFile,
-                ContentType: 'image/jpeg'
-            };
-            await s3Client.send(new PutObjectCommand(uploadParams));
-            createEventInput.flyerEvent = flyerKey;
-        }
 
         if (flyerMiniFile) {
             const flyerMiniKey = `events/${createEventInput.id}/flyerMini`;
@@ -174,8 +149,7 @@ function AddEvent({ user }) {
         }
 
         try {
-            debugger;
-            const response = await axios.post('https://z5wba3v4bvkxdytxba23ma2ajm0qcjed.lambda-url.us-east-1.on.aws/', JSON.stringify({ createEventInput: createEventInput }), {
+            await axios.post('https://z5wba3v4bvkxdytxba23ma2ajm0qcjed.lambda-url.us-east-1.on.aws/', JSON.stringify({ createEventInput: createEventInput }), {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -207,144 +181,161 @@ function AddEvent({ user }) {
     }
 
     return (
-        <>
-            {showYourComponent && <CreateUser />}
-            <div className="eventClass">
-                <br />
-                <div>
-                    <p className='textMessage1'>CREAR EVENTO</p>
-                </div>
-
-                <form onSubmit={handleSubmit}>
-                    {mapsApiLoaded && (
-                        <LoadScriptNext
-                            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
-                            libraries={googleMapsLibraries}
-                            onLoad={() => setMapsApiLoaded(true)}
-                        >
-                            <div style={{ display: 'flex' }}>
-                                <div className="input-container" >
-                                    <label className="labelEvent">
+        <div className="eventClass">
+            <br />
+            <div>
+                <p className='textMessage1'>CREAR EVENTO</p>
+            </div>
+            <form className="form-content" onSubmit={handleSubmit}>
+                {mapsApiLoaded && (
+                    <LoadScriptNext
+                        googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
+                        libraries={googleMapsLibraries}
+                        onLoad={() => setMapsApiLoaded(true)}
+                    >
+                        <div className="create-event-container">
+                            <div className="input-container" >
+                                <label className="labelEvent">
+                                    <input
+                                        className="inputEvent"
+                                        type="text"
+                                        name="nameEvent"
+                                        value={eventData.nameEvent}
+                                        onChange={handleInputChange}
+                                        placeholder={!eventData.nameEvent ? "Nombre*" : ""}
+                                    />
+                                </label>
+                                <label className="labelEvent">
+                                    <StandaloneSearchBox
+                                        onLoad={(ref) => setMapRef(ref)}
+                                        onPlacesChanged={() => {
+                                            const place = mapRef.getPlaces()[0];
+                                            if (place) {
+                                                setSelectedLocation({
+                                                    lat: place.geometry.location.lat(),
+                                                    lng: place.geometry.location.lng(),
+                                                });
+                                                setLocationName(place.name);
+                                            }
+                                        }}
+                                    >
                                         <input
+                                            type="text"
+                                            placeholder="ubicación (opcional)"
                                             className="inputEvent"
-                                            type="text"
-                                            name="nameEvent"
-                                            value={eventData.nameEvent}
-                                            onChange={handleInputChange}
-                                            placeholder={!eventData.nameEvent ? "Nombre*" : ""}
+                                            style={{ width: "100%" }}
+                                        />
+                                    </StandaloneSearchBox>
+                                </label>
+                                <label className="labelEvent">
+                                    <input className="inputEvent"
+                                        type="text"
+                                        name="descriptionEvent"
+                                        value={eventData.descriptionEvent}
+                                        onChange={handleInputChange}
+                                        placeholder={!eventData.descriptionEvent ? "Descripción (opcional)" : ""}
+                                    />
+                                </label>
+                                <div>
+                                    <label className='labelEvent'>
+                                        Fecha Inicio:
+                                    </label>
+                                    <input className='inputEvent'
+                                        type="date"
+                                        name="startDateE"
+                                        value={eventData.startDateE}
+                                        onChange={handleInputChange}
+                                        placeholder={!eventData.nameEvent ? "Campo obligatorio" : ""}
+                                    ></input>
+                                </div>
+                                <div >
+                                    <label className='labelEvent'>
+                                        Flyer (formato 1:1)*
+                                        <input className='inputEvent'
+                                            type="file"
+                                            accept=".jpg,.jpeg,.png"
+                                            name="flyerMiniEvent"
+                                            onChange={handleFlyerMiniChange}
                                         />
                                     </label>
-                                    <label className="labelEvent">
-                                        <StandaloneSearchBox
-                                            onLoad={(ref) => setMapRef(ref)}
-                                            onPlacesChanged={() => {
-                                                const place = mapRef.getPlaces()[0];
-                                                if (place) {
-                                                    setSelectedLocation({
-                                                        lat: place.geometry.location.lat(),
-                                                        lng: place.geometry.location.lng(),
-                                                    });
-                                                    setLocationName(place.name);
-                                                }
-                                            }}
-                                        >
-                                            <input
-                                                type="text"
-                                                placeholder="ubicación (opcional)"
-                                                className="inputEvent"
-                                                style={{ width: "100%" }}
-                                            />
-                                        </StandaloneSearchBox>
-                                    </label>
-                                    <label className="labelEvent">
-                                        <input className="inputEvent"
-                                            type="text"
-                                            name="descriptionEvent"
-                                            value={eventData.descriptionEvent}
-                                            onChange={handleInputChange}
-                                            placeholder={!eventData.descriptionEvent ? "Descripción (opcional)" : ""}
-                                        />
-                                    </label>
-                                    <div>
-                                        <label className='labelEvent'>
+                                </div>
+                                {/* <div className="date-flyer-container">
+                                        <div className="date-container">
                                             <label className='labelEvent'>
                                                 Fecha Inicio:
+                                                {isMobile ? (
+                                                    <MobileDatePicker
+                                                        value={eventData.startDateE}
+                                                        onChange={(date) => handleDateChange(date)}
+                                                        renderInput={(params) => <TextField {...params} />}
+                                                    />
+                                                ) : (
+                                                    <DesktopDatePicker
+                                                        value={eventData.startDateE}
+                                                        onChange={(date) => handleDateChange(date)}
+                                                        renderInput={(params) => <TextField {...params} />}
+                                                    />
+                                                )}
                                             </label>
-                                            <input className='inputEvent'
-                                                type="date"
-                                                name="startDateE"
-                                                value={eventData.startDateE}
-                                                onChange={handleInputChange}
-                                                placeholder={!eventData.nameEvent ? "Campo obligatorio" : ""}
-                                            ></input>
-                                        </label>
-                                    </div>
-
-                                </div>
-                                <div className="map-container" >
-                                    <GoogleMap
-                                        mapContainerStyle={{
-                                            width: "100%",
-                                            height: "100%",
-                                            borderRadius: '10px'
-                                        }}
-                                        zoom={15}
-                                        center={selectedLocation || { lat: -34.397, lng: 150.644 }}
-                                        onClick={(e) =>
-                                            setSelectedLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })
-                                        }
-                                    >
-                                        {selectedLocation && (
-                                            <Marker position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
-                                        )}
-                                    </GoogleMap>
-                                </div>
+                                        </div>
+                                        <div className="flyer-container">
+                                            <label className='labelEvent'>
+                                                Flyer (formato 1:1)*
+                                                <input className='inputEvent'
+                                                    type="file"
+                                                    accept=".jpg,.jpeg,.png"
+                                                    name="flyerMiniEvent"
+                                                    onChange={handleFlyerMiniChange}
+                                                />
+                                            </label>
+                                        </div>
+                                    </div> */}
 
                             </div>
-                        </LoadScriptNext>
-                    )}
-                    <div className="label-container">
-                        <div>
-                            <label className='labelEvent'>
-                                Flyer 1:1*
-                                <input className='inputEvent'
-                                    type="file"
-                                    accept=".jpg,.jpeg,.png"
-                                    name="flyerMiniEvent"
-                                    onChange={handleFlyerMiniChange}
-                                />
-                            </label>
-                            {/* {flyerMiniUrl && <img src={flyerMiniUrl} alt="Flyer Mini Preview" className="flyerMiniImg" />} */}
+                            <div className="image-container">
+                                {flyerMiniUrl ? (
+                                    <img src={flyerMiniUrl} alt="Flyer Mini Preview" className="image-style" />
+                                ) : (
+                                    <img src={placeholderImage} alt="Flyer Mini Preview" className="placeholder-style" />
+                                )}
+                            </div>
+                            <div className="map-container" >
+                                <GoogleMap
+                                    mapContainerStyle={{
+                                        width: "100%",
+                                        height: "100%",
+                                        borderRadius: '10px'
+                                    }}
+                                    zoom={15}
+                                    center={selectedLocation || { lat: -34.397, lng: 150.644 }}
+                                    onClick={(e) =>
+                                        setSelectedLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })
+                                    }
+                                >
+                                    {selectedLocation && (
+                                        <Marker position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
+                                    )}
+                                </GoogleMap>
+                            </div>
                         </div>
-                        <div>
-                            <label className='labelEvent'>
-                                Flyer 16:9 (opcional)
-                                <input className='inputEvent'
-                                    type="file"
-                                    accept=".jpg,.jpeg,.png"
-                                    name="flyerEvent"
-                                    onChange={handleFlyerChange}
-                                />
-                            </label>
-                            {/* {flyerUrl && <img src={flyerUrl} alt="Flyer Preview" className="flyerImg" />} */}
-                        </div>
-                    </div>
-                    <br />
-                    <br />
-                    <div style={{ textAlign: 'center' }}>
-                        <button className='btnMain' type="submit" disabled={!eventData.nameEvent || !eventData.startDateE || !flyerMiniFile || isSubmitting}>Agregar Evento</button>
-                    </div>
-                </form>
+                    </LoadScriptNext>
+                )}
                 <br />
                 <br />
-                <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={closeSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-                    <Alert onClose={closeSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
-                        {snackbarMessage}
-                    </Alert>
-                </Snackbar>
-            </div>
-        </>
+                <div style={{ textAlign: 'center' }}>
+                    <button className='btnMain' type="submit" disabled={!eventData.nameEvent || !eventData.startDateE || !flyerMiniFile || isSubmitting}>Agregar Evento</button>
+                </div>
+            </form>
+            <br />
+            <br />
+            <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={closeSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Alert onClose={closeSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
+        </div>
+
     );
 };
 
-export default withAuthenticator(AddEvent);
+export default AddEvent;

@@ -6,7 +6,6 @@ import { listTypeTickets } from '../graphql/queries';
 import CreateTypeTicket from './CreateTypeTicket';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 import ButtonTypeTicket from './ButtonTypeTicket';
-import DebugSwitch from './DebugSwitch';
 
 const EditEvent = () => {
 
@@ -53,7 +52,7 @@ const EditEvent = () => {
         graphqlOperation(getEvent, { id: eventId })
       );
       const event = eventResult.data.getEvent;
-      const imagePath = `${event.flyerEvent}`;
+      const imagePath = `${event.flyerMiniEvent}`;
       const imageUrl = `${cloudFrontUrl}/${imagePath}`;
       event.imageUrl = imageUrl;
       setEventData(event);

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import { withAuthenticator } from '@aws-amplify/ui-react';
 import { v4 as uuid } from "uuid";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 Modal.setAppElement("#root");
 
-const LinkEventModal = ({ user, onEventLinked }) => {
+const LinkEventModal = ({ onEventLinked }) => {
+
+    const { user } = useAuth0();
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [eventId, setEventId] = useState("");
@@ -19,7 +21,7 @@ const LinkEventModal = ({ user, onEventLinked }) => {
 
         const rrppEventInput = {
             id: uuid(),
-            rrppID: user.username,
+            rrppID: user.sub,
             eventID: eventId
         };
 
@@ -82,4 +84,4 @@ const LinkEventModal = ({ user, onEventLinked }) => {
     );
 };
 
-export default withAuthenticator(LinkEventModal);
+export default LinkEventModal;

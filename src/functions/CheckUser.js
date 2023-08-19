@@ -3,9 +3,9 @@ import { API, graphqlOperation } from 'aws-amplify';
 
 const checkUser = async (user) => {
 
-    const userCreado = user.username;
+    console.log("Checking user with ID:", user);
     const userData = await API.graphql(
-        graphqlOperation(getUser, { id: userCreado })
+        graphqlOperation(getUser, { id: user })
     );
 
     if (userData.data.getUser !== null) {

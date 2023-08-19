@@ -1,11 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
-import { getEvent } from '../graphql/queries';
-import { listTypeTickets } from '../graphql/queries';
-import { listTickets } from '../graphql/queries';
+import { listTypeTickets, listTickets, getRRPPEvent, getEvent } from '../graphql/queries';
 import { useState, useEffect } from 'react';
-import { getRRPPEvent } from '../graphql/queries';
-import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 import { Snackbar } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -14,7 +10,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 const RRPPEvent = () => {
 
   //CLOUDFRONT URL
-
   const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
 
   //PARAMS
@@ -24,16 +19,7 @@ const RRPPEvent = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
-
-  //API GOOGLE MAPS
-  const [mapsApiLoaded, setMapsApiLoaded] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState(null);
-
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
-
-  useEffect(() => {
-    setMapsApiLoaded(true);
-  }, []);
 
   useEffect(() => {
     fetchRRPPEvent();
@@ -160,32 +146,6 @@ const RRPPEvent = () => {
             <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
           </div>
         )}
-        {/* <div>
-          {/* <div style={{ display: "flex", padding: "10px" }}>
-            <img className="imgEvent" src={eventData.imageUrl} alt="" width="60%" height="300px" />
-            {mapsApiLoaded && (
-              <LoadScriptNext
-                googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
-                libraries={["places"]}
-                onLoad={() => setMapsApiLoaded(true)}>
-                <GoogleMap
-                  mapContainerStyle={{
-                    width: "40%",
-                    height: "400px",
-                    marginLeft: "10px",
-                    borderRadius: "10px"
-                  }}
-                  zoom={15}
-                  center={selectedLocation || { lat: -34.397, lng: 150.644 }}
-                >
-                  {selectedLocation && (
-                    <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
-                  )}
-                </GoogleMap>
-              </LoadScriptNext>
-            )}
-          </div> 
-        </div> */}
         <br />
         <div>
           <button type="button" class="btnMain" onClick={copyEventLinkToClipboard}>

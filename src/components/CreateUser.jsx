@@ -3,16 +3,18 @@ import { createUser, createRRPP } from "../graphql/mutations";
 import { Amplify, API, graphqlOperation } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import awsExports from "../aws-exports";
-import Swal from 'sweetalert2';
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import { useAuth0 } from "@auth0/auth0-react";
 
 Amplify.configure(awsExports);
 
-function App({ user }) {
+function App() {
+
   const [userData, setUsersData] = useState({});
   const [typeUser, setTypeUser] = useState('producer');
   const navigate = useNavigate();
   const [isFormValid, setIsFormValid] = useState(false);
+
+  const { user } = useAuth0();
 
   useEffect(() => {
     setIsFormValid(
@@ -27,23 +29,22 @@ function App({ user }) {
     event.preventDefault();
 
     const createUserInput = {
-      id: user.username,
+      id: user.sub,
       nameUser: userData.nameUser,
       surnameUser: userData.surnameUser,
       dniUser: userData.dniUser,
-      emailUser: user.attributes.email
+      emailUser: user.email
     };
 
     const createRRPPInput = {
-      id: user.username,
+      id: user.sub,
       nameRRPP: userData.nameUser,
       surnameRRPP: userData.surnameUser,
       dniRRPP: userData.dniUser,
-      emailRRPP: user.attributes.email
+      emailRRPP: user.email
     };
 
     try {
-      debugger;
       if (typeUser === 'rrpp') {
         await API.graphql(
           graphqlOperation(createRRPP, { input: createRRPPInput }));
@@ -132,4 +133,4 @@ function App({ user }) {
   );
 }
 
-export default withAuthenticator(App);
+export default App;

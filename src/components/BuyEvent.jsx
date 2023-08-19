@@ -4,8 +4,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { getEvent, getRRPP, getRRPPEvent } from '../graphql/queries';
 import { listTypeTickets } from '../graphql/queries';
 import ModalCheckout from './ModalCheckout';
-import stripeCheckout from './CheckoutStripe';
-//import mercadopagoCheckout from './CheckoutMercadoPago';
+import stripeCheckout from '../functions/StripeCheckout';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 import { CircularProgress } from '@mui/material';
 
@@ -17,12 +16,10 @@ const BuyEvent = () => {
   //PARAMS
   const { eventId, rrppEventId } = useParams();
   const [eventData, setEventData] = useState(null);
-  const [rrppID, setRRPPid] = useState(null);
   const [nameRRPP, setNameRRPP] = useState(null);
   const [surnameRRPP, setSurnameRRPP] = useState(null);
   const [typeTickets, setTypeTickets] = useState([]);
   const [cart, setCart] = useState([]);
-  //const [cartVisible, setCartVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   //API GOOGLE MAPS
@@ -59,7 +56,7 @@ const BuyEvent = () => {
       );
 
       const event = eventResult.data.getEvent;
-      const imagePath = `${event.flyerEvent}`;
+      const imagePath = `${event.flyerMiniEvent}`;
       const imageUrl = `${cloudFrontUrl}/${imagePath}`;
       event.imageUrl = imageUrl;
       setEventData(event);
@@ -87,7 +84,6 @@ const BuyEvent = () => {
       const rrppEventData = await API.graphql(graphqlOperation(getRRPPEvent, { id: rrppEventId }));
       const rrppEvent = rrppEventData.data.getRRPPEvent;
       const rrppID = rrppEvent.rrppID;
-      setRRPPid(rrppID)
       fetchRRPP(rrppID);
     } catch (error) {
       console.error("Error fetching RRPP:", error);
@@ -109,43 +105,40 @@ const BuyEvent = () => {
 
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => {
-        const cartItem = cart.find((item) => item.id === typeTicket.id);
-        const quantity = cartItem ? cartItem.selectedQuantity : 0;
-        
-        const isDisabledOrAgotado = !typeTicket.activeTT || typeTicket.quantityTT === 0;
-        const ticketStyle = isDisabledOrAgotado ? { opacity: 0.5, filter: 'grayscale(30%)' } : {};
+      const cartItem = cart.find((item) => item.id === typeTicket.id);
+      const quantity = cartItem ? cartItem.selectedQuantity : 0;
 
-        return (
-            <div key={typeTicket.id} style={ticketStyle}>
-                <br />
-                <div key={typeTicket.id} class="ticket-container">
-                    <div class="ticket-column">
-                        <h2 class="ticket-text">{typeTicket.nameTT}</h2>
-                    </div>
-                    <div class="ticket-column">
-                        <h2 class="ticket-text">${typeTicket.priceTT}</h2>
-                    </div>
-                    <div class="ticket-column">
-                        {typeTicket.activeTT && typeTicket.quantityTT > 0 ? (
-                            <div class="quantity-container">
-                                <button type="button" class="btn-Remove" disabled={isDisabledOrAgotado} onClick={() => addToCart(typeTicket, -1)}><i class="fas fa-minus"></i></button>
-                                <span class="ticket-text">&nbsp;{quantity}&nbsp;</span>
-                                <button type="button" class="btn-Add" disabled={isDisabledOrAgotado} onClick={() => addToCart(typeTicket, 1)}><i class="fas fa-plus"></i></button>
-                            </div>
-                        ) : (
-                            <div class="ticket-text">
-                                {typeTicket.quantityTT === 0 ? 'AGOTADO' : 'NO DISPONIBLE'}
-                            </div>
-                        )}
-                    </div>
-                </div>
+      const isDisabledOrAgotado = !typeTicket.activeTT || typeTicket.quantityTT === 0;
+      const ticketStyle = isDisabledOrAgotado ? { opacity: 0.5, filter: 'grayscale(30%)' } : {};
+
+      return (
+        <div key={typeTicket.id} style={ticketStyle}>
+          <br />
+          <div key={typeTicket.id} class="ticket-container">
+            <div class="ticket-column">
+              <h2 class="ticket-text">{typeTicket.nameTT}</h2>
             </div>
-        );
+            <div class="ticket-column">
+              <h2 class="ticket-text">${typeTicket.priceTT}</h2>
+            </div>
+            <div class="ticket-column">
+              {typeTicket.activeTT && typeTicket.quantityTT > 0 ? (
+                <div class="quantity-container">
+                  <button type="button" class="btn-Remove" disabled={isDisabledOrAgotado} onClick={() => addToCart(typeTicket, -1)}><i class="fas fa-minus"></i></button>
+                  <span class="ticket-text">&nbsp;{quantity}&nbsp;</span>
+                  <button type="button" class="btn-Add" disabled={isDisabledOrAgotado} onClick={() => addToCart(typeTicket, 1)}><i class="fas fa-plus"></i></button>
+                </div>
+              ) : (
+                <div class="ticket-text">
+                  {typeTicket.quantityTT === 0 ? 'AGOTADO' : 'NO DISPONIBLE'}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      );
     });
-};
-
-
-
+  };
 
   const addToCart = (typeTicket, quantity) => {
     const existingItemIndex = cart.findIndex((item) => item.id === typeTicket.id);

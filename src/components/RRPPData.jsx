@@ -10,7 +10,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 const RRPPData = () => {
 
   const { eventId } = useParams();
-  const [rrppEvents, setRrppEvents] = useState([]);
   const [rrpps, setRrpps] = useState([]);
   const [typeTicketsData, setTypeTicketsData] = useState({});
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -27,8 +26,6 @@ const RRPPData = () => {
       const filteredRRPPEvents = rrppEventData.data.listRRPPEvents.items.filter(
         item => item.Event.id === eventId
       );
-
-      setRrppEvents(filteredRRPPEvents);
 
       const rrppIDs = filteredRRPPEvents.map(item => item.rrppID);
       const rrppPromises = rrppIDs.map(rrppID => API.graphql(graphqlOperation(getRRPP, { id: rrppID })));
@@ -134,7 +131,7 @@ const RRPPData = () => {
           ) : (
             rrpps.map((rrpp) => (
               <div key={rrpp.id}>
-                <h3 className='nameRRPP'>{rrpp.nameRRPP}</h3>
+                <h3 className='nameRRPP'>{rrpp.nameRRPP} {rrpp.surnameRRPP}</h3>
                 {renderTypeTickets(rrpp.id)}
                 <br />
                 <br />

@@ -1,19 +1,16 @@
 import React from 'react';
-import { Auth } from 'aws-amplify';
+import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 
 const ButtonLogout = ({ onSignOut }) => {
-
+  const { logout } = useAuth0();
   const navigate = useNavigate();
-  const handleSignOut = async () => {
-    try {
-      await Auth.signOut();
-      navigate(`/`);
-      if (onSignOut) {
-        onSignOut();
-      }
-    } catch (error) {
-      console.error('Error signing out: ', error);
+
+  const handleSignOut = () => {
+    logout({ returnTo: window.location.origin });
+    navigate(`/`);
+    if (onSignOut) {
+      onSignOut();
     }
   };
 
@@ -27,3 +24,4 @@ const ButtonLogout = ({ onSignOut }) => {
 };
 
 export default ButtonLogout;
+

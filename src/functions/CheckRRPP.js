@@ -3,9 +3,9 @@ import { API, graphqlOperation } from 'aws-amplify';
 
 const checkRRPP = async (user) => {
 
-  const userCreado = user.username;
+  console.log("Checking user with ID:", user);
   const userData = await API.graphql(
-    graphqlOperation(getRRPP, { id: userCreado })
+    graphqlOperation(getRRPP, { id: user })
   );
 
   if (userData.data.getRRPP !== null) {

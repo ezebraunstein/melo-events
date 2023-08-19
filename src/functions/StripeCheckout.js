@@ -2,7 +2,6 @@ import AWS from 'aws-sdk';
 import { API, graphqlOperation } from 'aws-amplify';
 import { v4 as uuid } from 'uuid';
 import { createPayment } from '../graphql/mutations';
-import { updateTypeTicket } from "../graphql/mutations";
 import axios from "axios";
 import { loadStripe } from '@stripe/stripe-js';
 

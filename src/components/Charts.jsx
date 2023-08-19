@@ -1,4 +1,4 @@
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import { useAuth0 } from "@auth0/auth0-react";
 import { API, graphqlOperation } from 'aws-amplify';
 import { listPayments } from '../graphql/queries';
 import { listEvents } from "../graphql/queries";
@@ -22,7 +22,9 @@ import {
   Filler,
 } from 'chart.js';
 
-const Charts = ({ user }) => {
+const Charts = () => {
+
+  const { user } = useAuth0();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedChartInfo, setSelectedChartInfo] = useState(null);
@@ -408,4 +410,4 @@ const Modal = ({ onClose, selectedChartInfo }) => {
   );
 };
 
-export default withAuthenticator(Charts);
+export default Charts;

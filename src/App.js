@@ -8,16 +8,16 @@ import CreateUser from "./components/CreateUser";
 import OwnerEvents from "./components/OwnerEvents";
 import Event from "./components/Event";
 import EditEvent from "./components/EditEvent";
-import Login from "./components/Login";
+import Login from "./functions/Login";
 import BuyEvent from './components/BuyEvent';
 import Layout from "./components/Layout";
 import Charts from './components/Charts'
 import RRPPEvents from "./components/RRPPEvents";
 import RRPPEvent from "./components/RRPPEvent";
 import RRPPData from "./components/RRPPData";
+import ProtectedRoute from "./functions/ProtectedRoute";
 import './App.css';
 import '@aws-amplify/ui-react/styles.css';
-
 
 function App() {
   return (
@@ -28,62 +28,95 @@ function App() {
             <Slider />
             <HomeEvents />
           </Layout>
-        }
-        />
+        } />
         <Route path="/charts" element={
-          <Layout>
-            <Charts />
-          </Layout>
+          <ProtectedRoute>
+            <Layout>
+              <Charts />
+            </Layout>
+          </ProtectedRoute>
         } />
         <Route path="/login" element={
-          <Layout>
-            <Login />
-          </Layout>
+          <ProtectedRoute>
+            <Layout>
+              <Login />
+            </Layout>
+          </ProtectedRoute>
         } />
         <Route path="/create-event" element={
-          <Layout>
-            <CreateEvent />
-          </Layout>
+          <ProtectedRoute>
+            <Layout>
+              <CreateEvent />
+            </Layout>
+          </ProtectedRoute>
         } />
         <Route path="/create-typeticket" element={
-          <Layout>
-            <CreateTypeTicket />
-          </Layout>
+          <ProtectedRoute>
+            <Layout>
+              <CreateTypeTicket />
+            </Layout>
+          </ProtectedRoute>
         } />
         <Route path="/create-user" element={
-          <Layout>
-            <CreateUser />
-          </Layout>
+          <ProtectedRoute>
+            <Layout>
+              <CreateUser />
+            </Layout>
+          </ProtectedRoute>
         } />
         <Route path="/owner-events" element={
-          <Layout>
-            <OwnerEvents />
-          </Layout>
+          <ProtectedRoute>
+            <Layout>
+              <OwnerEvents />
+            </Layout>
+          </ProtectedRoute>
         } />
         <Route path="/events" element={
-          <Layout>
-            <OwnerEvents />
-          </Layout>
+          <ProtectedRoute>
+            <Layout>
+              <OwnerEvents />
+            </Layout>
+          </ProtectedRoute>
         } />
         <Route path="/events/:eventId" element={
-          <Layout>
-            <Event />
-          </Layout>
+          <ProtectedRoute>
+            <Layout>
+              <Event />
+            </Layout>
+          </ProtectedRoute>
         } />
         <Route path="/events/:eventId/rrpp" element={
-          <Layout>
-            <RRPPData />
-          </Layout>
+          <ProtectedRoute>
+            <Layout>
+              <RRPPData />
+            </Layout>
+          </ProtectedRoute>
         } />
         <Route path="/edit-event/:eventId" element={
-          <Layout>
-            <EditEvent />
-          </Layout>
+          <ProtectedRoute>
+            <Layout>
+              <EditEvent />
+            </Layout>
+          </ProtectedRoute>
         } />
         <Route path="/buy-ticket/:eventId/:rrppEventId?" element={
           <Layout>
             <BuyEvent />
           </Layout>
+        } />
+        <Route path="/rrpp-events" element={
+          <ProtectedRoute>
+            <Layout>
+              <RRPPEvents />
+            </Layout>
+          </ProtectedRoute>
+        } />
+        <Route path="/rrpp-events/:rrppEventId" element={
+          <ProtectedRoute>
+            <Layout>
+              <RRPPEvent />
+            </Layout>
+          </ProtectedRoute>
         } />
         <Route path="/checkout/success" element={
           <Layout>
@@ -102,16 +135,7 @@ function App() {
             </div>
           </Layout>
         } />
-        <Route path="/rrpp-events" element={
-          <Layout>
-            <RRPPEvents />
-          </Layout>
-        } />
-        <Route path="/rrpp-events/:rrppEventId" element={
-          <Layout>
-            <RRPPEvent />
-          </Layout>
-        } />
+
       </Routes>
     </div>
   );
