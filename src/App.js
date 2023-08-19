@@ -38,9 +38,7 @@ function App() {
         } />
         <Route path="/login" element={
           <ProtectedRoute>
-            <Layout>
-              <Login />
-            </Layout>
+            <Login />
           </ProtectedRoute>
         } />
         <Route path="/create-event" element={
