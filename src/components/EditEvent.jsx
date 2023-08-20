@@ -6,6 +6,7 @@ import { listTypeTickets } from '../graphql/queries';
 import CreateTypeTicket from './CreateTypeTicket';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 import ButtonTypeTicket from './ButtonTypeTicket';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const EditEvent = () => {
 
@@ -18,6 +19,7 @@ const EditEvent = () => {
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
   const [typeTickets, setTypeTickets] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   //API GOOGLE MAPS
   const [mapsApiLoaded, setMapsApiLoaded] = useState(false);
@@ -106,9 +108,7 @@ const EditEvent = () => {
     });
   };
 
-
   const handleTypeTicketCreated = (newTypeTicket) => {
-    debugger;
     setTypeTickets((prevTypeTickets) => [...prevTypeTickets, newTypeTicket]);
   };
 
@@ -116,33 +116,46 @@ const EditEvent = () => {
     return <div></div>;
   }
 
+  if (loading) {
+    return (
+      <div className="circular-progress">
+        <CircularProgress />
+      </div>
+    );
+  }
+
+
   return (
-    <main>
-      <div className="eventClass">
-        <div>
-          <h4 className="eventName"> {eventData.nameEvent}</h4>
-        </div>
-        <div>
-          <h4 className="eventDate"> {(eventData.startDateE).slice(0, 10)}</h4>
-        </div>
-        {eventData.descriptionEvent && (
-          <div>
-            <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
-          </div>
-        )}
-        <div>
-          <div style={{ display: "flex", padding: "10px" }}>
-            <img className="imgEvent" src={eventData.imageUrl} alt="" width="60%" />
-            {mapsApiLoaded && (
-              <LoadScriptNext
-                googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
-                libraries={["places"]}
-                onLoad={() => setMapsApiLoaded(true)}>
+    <div className="eventClass">
+      <br />
+      <div className="test">
+        {mapsApiLoaded && (
+          <LoadScriptNext
+            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
+            libraries={["places"]}
+            onLoad={() => setMapsApiLoaded(true)}>
+            <div className="edit-event-container">
+              <div className="data-container">
+                <div>
+                  <h4 className="eventName"> {eventData.nameEvent}</h4>
+                </div>
+                <div>
+                  <h4 className="eventDate"> {(eventData.startDateE).slice(0, 10)}</h4>
+                </div>
+                {eventData.descriptionEvent && (
+                  <div>
+                    <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
+                  </div>
+                )}
+              </div>
+              <div className="image-container">
+                <img className="image-style" src={eventData.imageUrl} alt="" />
+              </div>
+              <div className="map-container">
                 <GoogleMap
                   mapContainerStyle={{
-                    width: "40%",
-                    height: "400px",
-                    marginLeft: "10px",
+                    width: "100%",
+                    height: "100%",
                     borderRadius: "10px"
                   }}
                   zoom={15}
@@ -152,23 +165,26 @@ const EditEvent = () => {
                     <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
                   )}
                 </GoogleMap>
-              </LoadScriptNext>
-            )}
-          </div>
-        </div>
-        <br />
-        <div>
-          <p className='textMessage1'>TICKETS</p>
-        </div>
-        {renderTypeTickets()}
-        <br />
-        <div>
-          <p className='textMessage1'>NUEVO TIPO DE TICKET</p>
-        </div>
-        <CreateTypeTicket eventId={eventId} onTypeTicketCreated={handleTypeTicketCreated} />
-        <br />
+              </div>
+            </div>
+          </LoadScriptNext>
+        )}
       </div>
-    </main>
+      <br />
+      {typeTickets.length > 0 ? (
+        <>
+          <div>
+            <p className="textMessage1">TICKETS</p>
+          </div>
+          {renderTypeTickets()}
+        </>
+      ) : null}
+      <div>
+        <p className='textMessage1'>NUEVO TIPO DE TICKET</p>
+      </div>
+      <CreateTypeTicket eventId={eventId} onTypeTicketCreated={handleTypeTicketCreated} />
+      <br />
+    </div>
   );
 };
 

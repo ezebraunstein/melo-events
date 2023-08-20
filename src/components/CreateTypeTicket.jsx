@@ -2,10 +2,12 @@ import { useState } from "react";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
 
     const [typeTicketData, setTypeTicketData] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const handleInputChange = (typeTicket) => {
         const { name, value } = typeTicket.target;
@@ -38,6 +40,8 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
             eventID: eventId
         };
 
+        setLoading(true);
+
         try {
             const response = await axios.post('https://6yncwz3d23b2iyt337sa4trgsy0deldh.lambda-url.us-east-1.on.aws/', JSON.stringify({ createTypeTicketInput: createTypeTicketInput }), {
                 headers: {
@@ -47,6 +51,8 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
 
         } catch (error) {
             console.log(error);
+        } finally {
+            setLoading(false);
         }
         if (onTypeTicketCreated) {
             onTypeTicketCreated(createTypeTicketInput);
@@ -61,6 +67,14 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
             endDateTT: "",
         });
     };
+
+    if (loading) {
+        return (
+            <div className="circular-progress">
+                <CircularProgress />
+            </div>
+        );
+    }
 
     return (
         <div>

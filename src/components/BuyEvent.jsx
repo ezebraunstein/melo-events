@@ -161,48 +161,57 @@ const BuyEvent = () => {
 
   return (
     <div className="eventClass">
-      <div>
-        <h4 className="eventName"> {eventData.nameEvent}</h4>
-      </div>
-      <div>
-        <h4 className="eventDate"> {(eventData.startDateE).slice(0, 10)}</h4>
-      </div>
-      {eventData.descriptionEvent && (
-        <div>
-          <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
-        </div>
-      )}
-      <div>
-        <div style={{ display: "flex" }}>
-          <img className="imgEvent" src={eventData.imageUrl} alt="" />
-          {mapsApiLoaded && (
-            <LoadScriptNext
-              googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
-              libraries={["places"]}
-              onLoad={() => setMapsApiLoaded(true)}>
-              <GoogleMap
-                mapContainerStyle={{
-                  width: "40%",
-                  height: "400px",
-                  marginLeft: "10px",
-                  borderRadius: "10px"
-                }}
-                zoom={15}
-                center={selectedLocation || { lat: -34.397, lng: 150.644 }}>
-                {selectedLocation && (
-                  <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
+      <br />
+      <div className="test">
+        {mapsApiLoaded && (
+          <LoadScriptNext
+            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
+            libraries={["places"]}
+            onLoad={() => setMapsApiLoaded(true)}>
+            <div className="edit-event-container">
+              <div className="data-container">
+                <div>
+                  <h4 className="eventName"> {eventData.nameEvent}</h4>
+                </div>
+                <div>
+                  <h4 className="eventDate"> {(eventData.startDateE).slice(0, 10)}</h4>
+                </div>
+                {eventData.descriptionEvent && (
+                  <div>
+                    <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
+                  </div>
                 )}
-              </GoogleMap>
-            </LoadScriptNext>
-          )}
-        </div>
-      </div>
-      <div>
-        {renderTypeTickets()}
+              </div>
+              <div className="image-container">
+                <img className="image-style" src={eventData.imageUrl} alt="" />
+              </div>
+              <div className="map-container">
+                <GoogleMap
+                  mapContainerStyle={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "10px"
+                  }}
+                  zoom={15}
+                  center={selectedLocation || { lat: -34.397, lng: 150.644 }}
+                >
+                  {selectedLocation && (
+                    <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
+                  )}
+                </GoogleMap>
+              </div>
+            </div>
+          </LoadScriptNext>
+        )}
       </div>
       <br />
-      <ModalCheckout handleModalSubmit={handleModalSubmit} />
+      {typeTickets.length > 0 ? (
+        <>
+          {renderTypeTickets()}
+        </>
+      ) : null}
       <br />
+      <ModalCheckout handleModalSubmit={handleModalSubmit} cart={cart} />
       <br />
       {isSubmitting && (
         <div className="circularProgress">

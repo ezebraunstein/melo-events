@@ -3,7 +3,7 @@ import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 
-const InputModal = ({ handleModalSubmit }) => {
+const InputModal = ({ handleModalSubmit, cart }) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
@@ -27,7 +27,7 @@ const InputModal = ({ handleModalSubmit }) => {
 
     return (
         <div>
-            <button type="button" class="btnMain" onClick={() => setModalIsOpen(true)}>Comprar</button>
+            <button type="button" class="btnMain" disabled={!cart.length} onClick={() => setModalIsOpen(true)}>Comprar</button>
             <Modal
                 className="custom-modal"
                 isOpen={modalIsOpen}
@@ -103,7 +103,7 @@ const InputModal = ({ handleModalSubmit }) => {
                             pattern="\d{8}"
                             maxLength="8"
                             minLength="8"
-                            inputMode="numeric" 
+                            inputMode="numeric"
                         />
                     </div>
                     <br />

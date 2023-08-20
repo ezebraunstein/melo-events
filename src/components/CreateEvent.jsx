@@ -175,7 +175,7 @@ function AddEvent() {
     };
 
     if (isSubmitting) {
-        return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
+        return <div className="circular-progress">
             <CircularProgress />
         </div>
     }
@@ -183,16 +183,12 @@ function AddEvent() {
     return (
         <div className="eventClass">
             <br />
-            <div>
-                <p className='textMessage1'>CREAR EVENTO</p>
-            </div>
             <form className="form-content" onSubmit={handleSubmit}>
                 {mapsApiLoaded && (
                     <LoadScriptNext
                         googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
                         libraries={googleMapsLibraries}
-                        onLoad={() => setMapsApiLoaded(true)}
-                    >
+                        onLoad={() => setMapsApiLoaded(true)}>
                         <div className="create-event-container">
                             <div className="input-container" >
                                 <label className="labelEvent">

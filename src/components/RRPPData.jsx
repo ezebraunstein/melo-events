@@ -103,7 +103,7 @@ const RRPPData = () => {
   };
 
   if (loading) {
-    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
+    return <div className="circular-progress">
       <CircularProgress />
     </div>
   }
@@ -111,30 +111,31 @@ const RRPPData = () => {
   return (
     <main>
       <div className="eventClass">
-        <br />
-        <br />
-        <br />
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <button className="btnMain" onClick={copyEventIdToClipboard} >
-            Copiar Código Públicas
-          </button>
-        </div>
-        <br />
-        <br />
-        <br />
         <div>
           {rrpps.length === 0 ? (
-            <div>
-              <p className='titleMessage'>No hay públicas vinculados a este evento</p>
-              <p className='textMessage1'>Copiá el código y compartíselos</p>
+            <div className='containerMessage'>
+              <div>
+                <h1 className='titleMessage'>No hay públicas vinculados a este evento</h1>
+              </div>
+              <div>
+                <h1 className='textMessage1'>Copiá el código y compartíselos</h1>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <button className="btnMain" onClick={copyEventIdToClipboard} >
+                  Copiar Código Públicas
+                </button>
+              </div>
             </div>
           ) : (
             rrpps.map((rrpp) => (
-              <div key={rrpp.id}>
-                <h3 className='nameRRPP'>{rrpp.nameRRPP} {rrpp.surnameRRPP}</h3>
-                {renderTypeTickets(rrpp.id)}
-                <br />
-                <br />
+              <div >
+                <h1 className="eventBoxTitle">Mis Públicas</h1>
+                <div key={rrpp.id}>
+                  <h3 className='nameRRPP'>{rrpp.nameRRPP} {rrpp.surnameRRPP}</h3>
+                  {renderTypeTickets(rrpp.id)}
+                  <br />
+                  <br />
+                </div>
               </div>
             )))}
         </div>

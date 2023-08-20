@@ -4,14 +4,15 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import CircularProgress from '@mui/material/CircularProgress';
+
 import '@aws-amplify/ui-react/styles.css';
 
 const OwnerEvents = () => {
 
   //CLOUDFRONT URL
-
   const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
 
+  //PARAMS
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -49,27 +50,47 @@ const OwnerEvents = () => {
     navigate(`/events/${event.id}`);
   }
 
+  function onclick() {
+    navigate(`/create-event`);
+  };
+
   if (loading) {
-    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
-      <CircularProgress />
-    </div>
+    return <div className="circular-progress">
+              <CircularProgress />
+           </div>
   }
 
   return (
-    <div id="boxes">
-      <h1 className="eventBoxTitle">Mis Eventos</h1>
-      <div className="eventBoxContainer">
-        {events.map((event) => (
-          <div key={event.id} className="eventBox">
-            <img className="imgEventBox" src={event.imageUrl} alt={event.nameEvent} />
-            <h3 className="nameEventBox">{event.nameEvent}</h3>
-            <button onClick={() => handleButtonClick(event)} className="eventBoxBtnBuy">
-              <i className="icon-ticket"></i>Acceder
+    <div className="eventClass">
+      {events.length > 0 ? (
+        <div id="boxes">
+          <h1 className="eventBoxTitle">Mis Eventos</h1>
+          <div className="eventBoxContainer">
+            {events.map((event) => (
+              <div key={event.id} className="eventBox">
+                <img className="imgEventBox" src={event.imageUrl} alt={event.nameEvent} />
+                <h3 className="nameEventBox">{event.nameEvent}</h3>
+                <button onClick={() => handleButtonClick(event)} className="eventBoxBtnBuy">
+                  Acceder
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="containerMessage">
+          <div>
+            <h1 className="titleMessage">Todavía no hay eventos creados</h1>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <button className="btnMain" onClick={onclick}>
+              Crear nuevo Evento
             </button>
           </div>
-        ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
+
 export default OwnerEvents;

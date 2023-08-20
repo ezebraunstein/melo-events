@@ -103,38 +103,42 @@ const Event = () => {
   };
 
   if (loading) {
-    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
+    return <div className="circular-progress">
       <CircularProgress />
     </div>
   }
 
   return (
-    <main>
-      <div className="eventClass">
-        <div>
-          <h4 className="eventName"> {eventData.nameEvent}</h4>
-        </div>
-        <div>
-          <h4 className="eventDate"> {(eventData.startDateE).slice(0, 10)}</h4>
-        </div>
-        {eventData.descriptionEvent && (
-          <div>
-            <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
-          </div>
-        )}
-        <div>
-          <div style={{ display: "flex", padding: "10px" }}>
-            <img className="imgEvent" src={eventData.imageUrl} />
-            {mapsApiLoaded && (
-              <LoadScriptNext
-                googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
-                libraries={["places"]}
-                onLoad={() => setMapsApiLoaded(true)}>
+    <div className="eventClass">
+      <br />
+      <div className="test">
+        {mapsApiLoaded && (
+          <LoadScriptNext
+            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
+            libraries={["places"]}
+            onLoad={() => setMapsApiLoaded(true)}>
+            <div className="edit-event-container">
+              <div className="data-container">
+                <div>
+                  <h4 className="eventName"> {eventData.nameEvent}</h4>
+                </div>
+                <div>
+                  <h4 className="eventDate"> {(eventData.startDateE).slice(0, 10)}</h4>
+                </div>
+                {eventData.descriptionEvent && (
+                  <div>
+                    <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
+                  </div>
+                )}
+              </div>
+              <div className="image-container">
+                <img className="image-style" src={eventData.imageUrl} alt="" />
+              </div>
+              <div className="map-container">
                 <GoogleMap
                   mapContainerStyle={{
-                    width: "40%",
-                    height: "400px",
-                    marginLeft: "10px",
+                    width: "100%",
+                    height: "100%",
                     borderRadius: "10px"
                   }}
                   zoom={15}
@@ -144,28 +148,32 @@ const Event = () => {
                     <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
                   )}
                 </GoogleMap>
-              </LoadScriptNext>
-            )}
-          </div>
-        </div>
-        <br />
-        <div>
-          <p className='textMessage1'>TICKETS</p>
-        </div>
-        {renderTypeTickets()}
-        <br />
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <button className="btnMain" onClick={handleEditEvent} style={{ marginRight: '50px' }}>
-            Editar Evento
-          </button>
-          <button className="btnMain" onClick={redirectRRPP}>
-            Ver Públicas
-          </button>
-        </div>
-        <br />
-        <br />
+              </div>
+            </div>
+          </LoadScriptNext>
+        )}
       </div>
-    </main>
+      <br />
+      {typeTickets.length > 0 ? (
+        <>
+          <div>
+            <p className="textMessage1">TICKETS</p>
+          </div>
+          {renderTypeTickets()}
+        </>
+      ) : null}
+      <br />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <button className="btnMain" onClick={handleEditEvent} style={{ marginRight: '50px' }}>
+          Editar Evento
+        </button>
+        <button className="btnMain" onClick={redirectRRPP}>
+          Ver Públicas
+        </button>
+      </div>
+      <br />
+      <br />
+    </div>
   );
 };
 

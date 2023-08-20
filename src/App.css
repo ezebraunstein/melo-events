@@ -99,7 +99,7 @@ header {
 /* SEARCHBAR */
 
 .divSearchBar {
-    padding-top: 20px;
+    padding-bottom: 40px;
     padding-left: 30px;
     padding-right: 30px;
     margin: auto;
@@ -326,16 +326,14 @@ header {
 /* EVENT BOX */
 
 .eventBoxTitle {
-    padding-top: 40px;
+    padding-top: 20px;
     text-align: center;
     font-family: 'Bebas Neue', sans-serif;
     font-size: 150px;
     color: #f28d46;
-    ;
 }
 
 #boxes .eventBoxContainer {
-    padding-top: 40px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -1016,103 +1014,6 @@ header {
     }
 }
 
-/* MESSAGE */
-
-.titleMessage {
-    display: inline-block;
-    color: rgb(0, 0, 0);
-    font-size: 100px;
-    font-family: 'Bebas Neue', sans-serif;
-}
-
-.textMessage1 {
-    display: inline-block;
-    color: rgb(0, 0, 0);
-    font-size: 50px;
-    font-family: 'Bebas Neue', sans-serif;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-
-.textMessage2 {
-    display: inline-block;
-    color: rgb(0, 0, 0);
-    font-size: 30px;
-    font-family: 'Bebas Neue', sans-serif;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-
-.textMessage3 {
-    display: inline-block;
-    color: rgb(0, 0, 0);
-    font-size: 20px;
-    font-family: 'Bebas Neue', sans-serif;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-
-.containerMessage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    width: 100vw;
-    flex-direction: column;
-}
-
-@media (max-width: 768px),
-(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
-    .titleMessage {
-        display: inline-block;
-        color: rgb(0, 0, 0);
-        font-size: 100px;
-        font-family: 'Bebas Neue', sans-serif;
-    }
-
-    .textMessage1 {
-        display: inline-block;
-        color: rgb(0, 0, 0);
-        font-size: 80px;
-        font-family: 'Bebas Neue', sans-serif;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-    }
-
-    .textMessage2 {
-        display: inline-block;
-        color: rgb(0, 0, 0);
-        font-size: 30px;
-        font-family: 'Bebas Neue', sans-serif;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-    }
-
-    .textMessage3 {
-        display: inline-block;
-        color: rgb(0, 0, 0);
-        font-size: 20px;
-        font-family: 'Bebas Neue', sans-serif;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-    }
-
-    .containerMessage {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 80vh;
-        width: 100vw;
-        flex-direction: column;
-    }
-}
-
 /* BUTTON MAIN */
 
 .btnMain {
@@ -1545,8 +1446,9 @@ header {
 
 /*CIRCULAR PROGRESS*/
 
-.circularProgress {
+.circular-progress {
     display: flex;
+    color: #f28d46;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -1555,6 +1457,132 @@ header {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 1);
     z-index: 999;
+}
+
+/*EDIT EVENT*/
+.edit-event-container {
+    display: flex;
+    height: 500px;
+    gap: 10px;
+}
+
+.image-style {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+.data-container,
+.image-container,
+.map-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.data-container {
+    justify-content: center;
+    align-items: center;
+}
+
+/* MESSAGE */
+
+.titleMessage {
+    display: inline-block;
+    color: rgb(0, 0, 0);
+    font-size: 100px;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.textMessage1 {
+    display: inline-block;
+    color: rgb(0, 0, 0);
+    font-size: 50px;
+    font-family: 'Bebas Neue', sans-serif;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.textMessage2 {
+    display: inline-block;
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    font-family: 'Bebas Neue', sans-serif;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.textMessage3 {
+    display: inline-block;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.containerMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    width: 100%;
+    flex-direction: column;
+}
+
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+    .titleMessage {
+        display: inline-block;
+        color: rgb(0, 0, 0);
+        font-size: 100px;
+        font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .textMessage1 {
+        display: inline-block;
+        color: rgb(0, 0, 0);
+        font-size: 80px;
+        font-family: 'Bebas Neue', sans-serif;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .textMessage2 {
+        display: inline-block;
+        color: rgb(0, 0, 0);
+        font-size: 30px;
+        font-family: 'Bebas Neue', sans-serif;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .textMessage3 {
+        display: inline-block;
+        color: rgb(0, 0, 0);
+        font-size: 20px;
+        font-family: 'Bebas Neue', sans-serif;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .containerMessage {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        width: 100vw;
+        flex-direction: column;
+    }
 }
