@@ -4,7 +4,7 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <div className="divSearchBar">
+    < div className="divSearchBar" >
       <form role="search" id="form" className="searchBar">
         <input
           className="searchInput"
@@ -16,7 +16,7 @@ const SearchBar = ({ onSearch }) => {
           onChange={handleInputChange}
         />
       </form>
-    </div>
+    </div >
   );
 };
 

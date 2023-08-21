@@ -1,16 +1,11 @@
-import { API, graphqlOperation, Storage } from "aws-amplify";
-import { listEvents } from "../graphql/queries";
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import SearchBar from "./SearchBar";
 import Fuse from "fuse.js";
+import fetchEvents from "../functions/fetchEvents";
 import { CircularProgress } from "@mui/material";
 
 const HomeEvents = () => {
-
-    //CLOUDFRONT URL
-
-    const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
 
     //PARAMS
     const navigate = useNavigate();
@@ -20,6 +15,19 @@ const HomeEvents = () => {
     //MUI LOADING
     const [loading, setLoading] = useState(true);
 
+    useEffect(() => {setLoading(true);
+        (async () => {
+            try {
+                const fetchedEvents = await fetchEvents();
+                setEvents(fetchedEvents);
+                setFilteredEvents(fetchedEvents);
+                setLoading(false);
+            } catch (error) {
+                console.error("Error:", error);
+                setLoading(false);
+            }
+        })();
+    }, []);
 
     const handleSearch = (searchQuery) => {
         if (searchQuery === "") {
@@ -34,46 +42,31 @@ const HomeEvents = () => {
         }
     };
 
-    const fetchEvents = async () => {
-        try {
-            const eventsData = await API.graphql(graphqlOperation(listEvents));
-            const eventsList = eventsData.data.listEvents.items;
-            const eventsWithImages = await Promise.all(
-                eventsList.map(async (event) => {
-                    const imagePath = `${event.flyerMiniEvent}`;
-                    const imageUrl = `${cloudFrontUrl}/${imagePath}`;
-                    event.imageUrl = imageUrl;
-                    return event;
-                })
-            );
-            setEvents(eventsWithImages);
-            setFilteredEvents(eventsWithImages);
-        } catch (error) {
-            console.log("", error);
-        }
-    };
-
     const goToBuyEvent = (eventId) => {
-        navigate(`/buy-ticket/${eventId}`);
+        navigate(`/comprar-tickets/${eventId}`);
     };
 
-    useEffect(() => {
-        fetchEvents();
-    }, []);
+    if (loading) {
+        return <div className="circular-progress">
+            <CircularProgress />
+        </div>
+    }
 
     return (
-        <div id="boxes">
-            <h1 className="eventBoxTitle">Eventos Destacados</h1>
-            <SearchBar onSearch={handleSearch} />
-            <div className="eventBoxContainer">
-                {filteredEvents.map((event) => (
-                    <div key={event.id} className="eventBox">
-                        <img src={event.imageUrl} alt={event.nameEvent} className="imgEventBox" />
-                        <h3 className="nameEventBox">{event.nameEvent}</h3>
-                        <button onClick={() => goToBuyEvent(event.id)} className="eventBoxBtnBuy">Comprar Tickets</button>
-                    </div>
-                ))}
-            </div>
+        <div className="eventClass">
+            < div id="boxes" >
+                <h1 className="eventBoxTitle">Eventos Destacados</h1>
+                <SearchBar onSearch={handleSearch} />
+                <div className="eventBoxContainer">
+                    {filteredEvents.map((event) => (
+                        <div key={event.id} className="eventBox">
+                            <img src={event.imageUrl} alt={event.nameEvent} className="imgEventBox" />
+                            <h3 className="nameEventBox">{event.nameEvent}</h3>
+                            <button onClick={() => goToBuyEvent(event.id)} className="eventBoxBtnBuy">Comprar Tickets</button>
+                        </div>
+                    ))}
+                </div>
+            </div >
         </div>
     );
 };

@@ -3,6 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 
 const ButtonLogout = ({ onSignOut }) => {
+  
   const { logout } = useAuth0();
   const navigate = useNavigate();
 

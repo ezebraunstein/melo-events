@@ -43,7 +43,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
         setLoading(true);
 
         try {
-            const response = await axios.post('https://6yncwz3d23b2iyt337sa4trgsy0deldh.lambda-url.us-east-1.on.aws/', JSON.stringify({ createTypeTicketInput: createTypeTicketInput }), {
+            await axios.post('https://6yncwz3d23b2iyt337sa4trgsy0deldh.lambda-url.us-east-1.on.aws/', JSON.stringify({ createTypeTicketInput: createTypeTicketInput }), {
                 headers: {
                     'Content-Type': 'application/json',
                 },

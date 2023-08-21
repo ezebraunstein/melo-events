@@ -1,23 +1,21 @@
+import './App.css';
 import React from "react";
 import { Route, Routes } from 'react-router-dom';
 import Slider from "./components/Slider";
 import HomeEvents from "./components/HomeEvents";
 import CreateEvent from "./components/CreateEvent";
-import CreateTypeTicket from "./components/CreateTypeTicket";
 import CreateUser from "./components/CreateUser";
 import OwnerEvents from "./components/OwnerEvents";
 import Event from "./components/Event";
 import EditEvent from "./components/EditEvent";
-import Login from "./functions/Login";
+import Login from "./functions/login";
 import BuyEvent from './components/BuyEvent';
 import Layout from "./components/Layout";
 import Charts from './components/Charts'
 import RRPPEvents from "./components/RRPPEvents";
 import RRPPEvent from "./components/RRPPEvent";
 import RRPPData from "./components/RRPPData";
-import ProtectedRoute from "./functions/ProtectedRoute";
-import './App.css';
-import '@aws-amplify/ui-react/styles.css';
+import ProtectedRoute from "./functions/protectedRoute";
 
 function App() {
   return (
@@ -41,82 +39,68 @@ function App() {
             <Login />
           </ProtectedRoute>
         } />
-        <Route path="/create-event" element={
+        <Route path="/crear-evento" element={
           <ProtectedRoute>
             <Layout>
               <CreateEvent />
             </Layout>
           </ProtectedRoute>
         } />
-        <Route path="/create-typeticket" element={
-          <ProtectedRoute>
-            <Layout>
-              <CreateTypeTicket />
-            </Layout>
-          </ProtectedRoute>
-        } />
-        <Route path="/create-user" element={
+        <Route path="/crear-usuario" element={
           <ProtectedRoute>
             <Layout>
               <CreateUser />
             </Layout>
           </ProtectedRoute>
         } />
-        <Route path="/owner-events" element={
+        <Route path="/mis-eventos" element={
           <ProtectedRoute>
             <Layout>
               <OwnerEvents />
             </Layout>
           </ProtectedRoute>
         } />
-        <Route path="/events" element={
-          <ProtectedRoute>
-            <Layout>
-              <OwnerEvents />
-            </Layout>
-          </ProtectedRoute>
-        } />
-        <Route path="/events/:eventId" element={
+        <Route path="/mi-evento/:eventId" element={
           <ProtectedRoute>
             <Layout>
               <Event />
             </Layout>
           </ProtectedRoute>
         } />
-        <Route path="/events/:eventId/rrpp" element={
+        <Route path="/mi-evento/:eventId/rrpp" element={
           <ProtectedRoute>
             <Layout>
               <RRPPData />
             </Layout>
           </ProtectedRoute>
         } />
-        <Route path="/edit-event/:eventId" element={
+        <Route path="/editar-evento/:eventId" element={
           <ProtectedRoute>
             <Layout>
               <EditEvent />
             </Layout>
           </ProtectedRoute>
         } />
-        <Route path="/buy-ticket/:eventId/:rrppEventId?" element={
+        <Route path="/comprar-tickets/:eventId/:rrppEventId?" element={
           <Layout>
             <BuyEvent />
           </Layout>
         } />
-        <Route path="/rrpp-events" element={
+        <Route path="/mi-evento-rrpp" element={
           <ProtectedRoute>
             <Layout>
               <RRPPEvents />
             </Layout>
           </ProtectedRoute>
         } />
-        <Route path="/rrpp-events/:rrppEventId" element={
+        <Route path="/mi-evento-rrpp/:rrppEventId" element={
           <ProtectedRoute>
             <Layout>
               <RRPPEvent />
             </Layout>
           </ProtectedRoute>
         } />
-        <Route path="/checkout/success" element={
+        <Route path="/compra-exitosa" element={
           <Layout>
             <div className="containerMessage">
               <h1 className="titleMessage">Gracias por tu compra!</h1>
@@ -125,7 +109,7 @@ function App() {
             </div>
           </Layout>
         } />
-        <Route path="/checkout/failure" element={
+        <Route path="/compra-fallida" element={
           <Layout>
             <div className="containerMessage">
               <h1 className="titleMessage">Hubo un error al procesar tu compra!</h1>
@@ -133,7 +117,6 @@ function App() {
             </div>
           </Layout>
         } />
-
       </Routes>
     </div>
   );

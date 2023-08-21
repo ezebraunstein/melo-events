@@ -13,7 +13,6 @@ function App() {
   const [typeUser, setTypeUser] = useState('producer');
   const navigate = useNavigate();
   const [isFormValid, setIsFormValid] = useState(false);
-
   const { user } = useAuth0();
 
   useEffect(() => {
@@ -24,52 +23,49 @@ function App() {
     );
   }, [userData]);
 
-  const handleSubmit = async (event) => {
-
-    event.preventDefault();
-
-    const createUserInput = {
+  const getInputData = () => {
+    const baseData = {
       id: user.sub,
       nameUser: userData.nameUser,
       surnameUser: userData.surnameUser,
       dniUser: userData.dniUser,
       emailUser: user.email
     };
-
-    const createRRPPInput = {
-      id: user.sub,
+    return (typeUser === 'rrpp') ? {
+      ...baseData,
       nameRRPP: userData.nameUser,
       surnameRRPP: userData.surnameUser,
-      dniRRPP: userData.dniUser,
-      emailRRPP: user.email
-    };
+      dniRRPP: userData.dniUser
+    } : baseData;
+  };
+
+  const handleSubmit = async (event) => {
+
+    event.preventDefault();
+    const inputData = getInputData();
+
+    let path = '/';
+    let operation = createUser;
+    if (typeUser === 'rrpp') {
+      path = '/mi-evento-rrpp';
+      operation = createRRPP;
+    }
 
     try {
-      if (typeUser === 'rrpp') {
-        await API.graphql(
-          graphqlOperation(createRRPP, { input: createRRPPInput }));
-        navigate(`/rrpp-events`);
-      } else if (typeUser === 'producer') {
-        await API.graphql(
-          graphqlOperation(createUser, { input: createUserInput }));
-        navigate(`/`);
-      }
+      await API.graphql(graphqlOperation(operation, { input: inputData }));
+      navigate(path);
     } catch (error) {
       console.error("Error creating user", error);
     }
   };
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
+      const { name, value } = event.target;
 
-    if (name === 'dniUser') {
-      const regex = /^[0-9]*$/;
-      if (!(regex.test(value) || value === "")) {
+      if (name === 'dniUser' && !/^[0-9]*$/.test(value) && value !== "") {
         return;
       }
-    }
-
-    setUsersData({ ...userData, [name]: value.toUpperCase() });
+      setUsersData({ ...userData, [name]: value.toUpperCase() });
   };
 
   const handleTypeUserChange = (event) => {

@@ -6,7 +6,7 @@ const ButtonOwnerEvents = () => {
   const navigate = useNavigate();
 
   function onclick() {
-    navigate('/owner-events');
+    navigate('/mis-eventos');
   };
 
   return (

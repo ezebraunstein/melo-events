@@ -7,7 +7,7 @@ const ButtonTypeTicket = ({ typeTicketId, isActive, onTypeTicketToggled }) => {
     const [isActiveLocal, setIsActiveLocal] = useState(isActive);
 
     const toggleActive = async () => {
-       
+
         const newIsActiveStatus = !isActiveLocal;
 
         setIsActiveLocal(newIsActiveStatus);
@@ -20,7 +20,6 @@ const ButtonTypeTicket = ({ typeTicketId, isActive, onTypeTicketToggled }) => {
                     activeTT: newIsActiveStatus
                 }
             }));
-            console.log("Updated successfully");
         } catch (error) {
             console.error("Error updating activeTT:", error);
             setIsActiveLocal(isActive);

@@ -1,63 +1,44 @@
-import { API, graphqlOperation } from "aws-amplify";
-import { listEvents } from "../graphql/queries";
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import CircularProgress from '@mui/material/CircularProgress';
-
+import fetchEvents from "../functions/fetchEvents";
 import '@aws-amplify/ui-react/styles.css';
 
 const OwnerEvents = () => {
-
-  //CLOUDFRONT URL
-  const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
 
   //PARAMS
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const { user } = useAuth0();
 
-  const fetchEvents = async () => {
-    try {
-      const eventsData = await API.graphql(graphqlOperation(listEvents));
-      const eventsList = eventsData.data.listEvents.items;
-      const filterEventsList = eventsList.filter(
-        (event) => event.userID === user.sub
-      );
-      const eventsWithImages = await Promise.all(
-        filterEventsList.map(async (event) => {
-          const imagePath = `${event.flyerMiniEvent}`;
-          const imageUrl = `${cloudFrontUrl}/${imagePath}`;
-          event.imageUrl = imageUrl;
-          return event;
-        })
-      );
-      setEvents(eventsWithImages);
-      setLoading(false);
-    } catch (error) {
-      console.log("", error);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchEvents();
-  }, []);
+    setLoading(true);
+    (async () => {
+      try {
+        const fetchedEvents = await fetchEvents(user.sub);
+        setEvents(fetchedEvents);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error:", error);
+        setLoading(false);
+      }
+    })();
+  }, [user.sub]);
 
   function handleButtonClick(event) {
-    navigate(`/events/${event.id}`);
+    navigate(`/mi-evento/${event.id}`);
   }
 
   function onclick() {
-    navigate(`/create-event`);
+    navigate(`/crear-evento`);
   };
 
   if (loading) {
     return <div className="circular-progress">
-              <CircularProgress />
-           </div>
+      <CircularProgress />
+    </div>
   }
 
   return (

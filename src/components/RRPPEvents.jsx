@@ -52,7 +52,7 @@ const RRPPEvents = () => {
     };
 
     const handleButtonClick = (rrppEventId) => {
-        navigate(`/rrpp-events/${rrppEventId}`);
+        navigate(`/mi-evento-rrpp/${rrppEventId}`);
     };
 
     if (loading) {

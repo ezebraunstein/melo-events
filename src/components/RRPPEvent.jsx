@@ -1,17 +1,15 @@
 import { useParams } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
-import { listTypeTickets, listTickets, getRRPPEvent, getEvent } from '../graphql/queries';
+import { listTickets, getRRPPEvent } from '../graphql/queries';
 import { useState, useEffect } from 'react';
 import { Snackbar } from '@mui/material';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import fetchEventData from '../functions/fetchEventData';
+import fetchTypeTickets from '../functions/fetchTypeTickets';
 
 const RRPPEvent = () => {
-
-  //CLOUDFRONT URL
-  const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
 
   //PARAMS
   const { rrppEventId } = useParams();
@@ -26,12 +24,28 @@ const RRPPEvent = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
 
   useEffect(() => {
-    fetchRRPPEvent();
-  }, [rrppEventId]);
+    const fetchData = async () => {
+      try {
+        const rrppEventResult = await API.graphql(graphqlOperation(getRRPPEvent, { id: rrppEventId }));
+        const eventId = rrppEventResult.data.getRRPPEvent.Event.id;
 
-  useEffect(() => {
+        const fetchedEventData = await fetchEventData(eventId);
+        setEventData(fetchedEventData);
+
+        const typeCounts = await fetchTicketsAndCountByType(rrppEventId);
+        const fetchedTypeTickets = await fetchTypeTickets(eventId, typeCounts);
+        setTypeTickets(fetchedTypeTickets);
+
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+    fetchData();
+
     setMapsApiLoaded(true);
-  }, []);
+  }, [rrppEventId]);
 
   useEffect(() => {
     if (eventData && eventData.locationEvent) {
@@ -40,66 +54,17 @@ const RRPPEvent = () => {
     }
   }, [eventData]);
 
-  const fetchRRPPEvent = async () => {
-    try {
-      const rrppEventResult = await API.graphql(
-        graphqlOperation(getRRPPEvent, { id: rrppEventId })
-      );
-      const rrppEvent = rrppEventResult.data.getRRPPEvent;
-      const eventId = rrppEvent.Event.id;
-      const typeCounts = await fetchTicketsAndCountByType(rrppEventId);
-      await fetchEventData(eventId, typeCounts);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching RRPP event:", error);
-      setLoading(false);
-    }
-  };
-
-  const fetchEventData = async (eventId, typeCounts) => {
-    try {
-      const eventResult = await API.graphql(
-        graphqlOperation(getEvent, { id: eventId })
-      );
-      const event = eventResult.data.getEvent;
-      const imagePath = `${event.flyerMiniEvent}`;
-      const imageUrl = `${cloudFrontUrl}/${imagePath}`;
-      event.imageUrl = imageUrl;
-      setEventData(event);
-      fetchTypeTickets(eventId, typeCounts);
-    } catch (error) {
-      console.error("Error fetching event:", error);
-    }
-  };
-
   const fetchTicketsAndCountByType = async (rrppEventId) => {
     try {
-      const ticketsData = await API.graphql(graphqlOperation(listTickets, {
-        filter: { rrppeventID: { eq: rrppEventId } }
-      }));
+      const ticketsData = await API.graphql(graphqlOperation(listTickets, { filter: { rrppeventID: { eq: rrppEventId } } }));
       const ticketsList = ticketsData.data.listTickets.items;
-      let typeCounts = {};
-      ticketsList.forEach((ticket) => {
-        typeCounts[ticket.typeticketID] = (typeCounts[ticket.typeticketID] || 0) + 1;
-      });
-      return typeCounts;
+
+      return ticketsList.reduce((acc, ticket) => {
+        acc[ticket.typeticketID] = (acc[ticket.typeticketID] || 0) + 1;
+        return acc;
+      }, {});
     } catch (error) {
       console.error("Error fetching tickets:", error);
-    }
-  };
-
-  const fetchTypeTickets = async (eventId, typeCounts) => {
-    try {
-      const typeTicketsData = await API.graphql(graphqlOperation(listTypeTickets, {
-        filter: { eventID: { eq: eventId } }
-      }));
-      const typeTicketsList = typeTicketsData.data.listTypeTickets.items.map((typeTicket) => ({
-        ...typeTicket,
-        count: typeCounts[typeTicket.id] || 0
-      }));
-      setTypeTickets(typeTicketsList);
-    } catch (error) {
-      console.error("Error fetching type tickets:", error);
     }
   };
 
@@ -119,7 +84,7 @@ const RRPPEvent = () => {
   };
 
   const copyEventLinkToClipboard = async () => {
-    const link = `${baseUrl}/buy-ticket/${eventData.id}/${rrppEventId}`;
+    const link = `${baseUrl}/comprar-tickets/${eventData.id}/${rrppEventId}`;
     try {
       await navigator.clipboard.writeText(link);
       setSnackbarOpen(true);

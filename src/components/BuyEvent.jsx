@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
-import { getEvent, getRRPP, getRRPPEvent } from '../graphql/queries';
-import { listTypeTickets } from '../graphql/queries';
+import { getRRPP, getRRPPEvent } from '../graphql/queries';
 import ModalCheckout from './ModalCheckout';
-import stripeCheckout from '../functions/StripeCheckout';
+import stripeCheckout from '../functions/stripeCheckout';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 import { CircularProgress } from '@mui/material';
+import fetchEventData from '../functions/fetchEventData';
+import fetchTypeTickets from '../functions/fetchTypeTickets';
 
 const BuyEvent = () => {
-
-  //CLOUDFRONT URL
-  const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
 
   //PARAMS
   const { eventId, rrppEventId } = useParams();
@@ -38,45 +36,24 @@ const BuyEvent = () => {
   }, [eventData]);
 
   useEffect(() => {
-    fetchEventData();
+    const fetchData = async () => {
+      const event = await fetchEventData(eventId);
+      setEventData(event);
+      try {
+        const tickets = await fetchTypeTickets(eventId);
+        setTypeTickets(tickets);
+      } catch (error) {
+        console.error("Error fetching type tickets:", error);
+      }
+      fetchRRPPEvent(rrppEventId);
+    };
+    fetchData();
   }, [eventId]);
 
   const handleModalSubmit = async (data) => {
-
     setIsSubmitting(true);
     await stripeCheckout(cart, data, eventData);
     //await mercadopagoCheckout(data, path, cart, eventData);
-
-  };
-
-  const fetchEventData = async () => {
-    try {
-      const eventResult = await API.graphql(
-        graphqlOperation(getEvent, { id: eventId })
-      );
-
-      const event = eventResult.data.getEvent;
-      const imagePath = `${event.flyerMiniEvent}`;
-      const imageUrl = `${cloudFrontUrl}/${imagePath}`;
-      event.imageUrl = imageUrl;
-      setEventData(event);
-      fetchTypeTickets();
-      fetchRRPPEvent(rrppEventId);
-    } catch (error) {
-      console.error("Error fetching event:", error);
-    }
-  };
-
-  const fetchTypeTickets = async () => {
-    try {
-      const typeTicketsData = await API.graphql(graphqlOperation(listTypeTickets, {
-        filter: { eventID: { eq: eventId } }
-      }));
-      const typeTicketsList = typeTicketsData.data.listTypeTickets.items;
-      setTypeTickets(typeTicketsList);
-    } catch (error) {
-      console.error("Error fetching type tickets:", error);
-    }
   };
 
   const fetchRRPPEvent = async (rrppEventId) => {
@@ -105,10 +82,10 @@ const BuyEvent = () => {
 
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => {
+
       const cartItem = cart.find((item) => item.id === typeTicket.id);
       const quantity = cartItem ? cartItem.selectedQuantity : 0;
-
-      const isDisabledOrAgotado = !typeTicket.activeTT || typeTicket.quantityTT === 0;
+      const isDisabledOrAgotado = !typeTicket.activeTT || typeTicket.quantityTT <= 0;
       const ticketStyle = isDisabledOrAgotado ? { opacity: 0.5, filter: 'grayscale(30%)' } : {};
 
       return (
@@ -130,7 +107,7 @@ const BuyEvent = () => {
                 </div>
               ) : (
                 <div class="ticket-text">
-                  {typeTicket.quantityTT === 0 ? 'AGOTADO' : 'NO DISPONIBLE'}
+                  {typeTicket.quantityTT <= 0 ? 'AGOTADO' : 'NO DISPONIBLE'}
                 </div>
               )}
             </div>

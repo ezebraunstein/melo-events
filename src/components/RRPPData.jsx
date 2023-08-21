@@ -6,7 +6,6 @@ import { Snackbar } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
 
-
 const RRPPData = () => {
 
   const { eventId } = useParams();

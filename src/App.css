@@ -100,8 +100,6 @@ header {
 
 .divSearchBar {
     padding-bottom: 40px;
-    padding-left: 30px;
-    padding-right: 30px;
     margin: auto;
     display: flex;
     justify-content: center;
@@ -111,7 +109,7 @@ header {
     background-color: #B1CD4A;
     width: 70%;
     height: 44px;
-    border-radius: 5px;
+    border-radius: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;

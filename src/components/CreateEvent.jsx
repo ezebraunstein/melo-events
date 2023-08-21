@@ -160,7 +160,7 @@ function AddEvent() {
             setSnackbarOpen(true);
 
             setTimeout(() => {
-                navigate(`/edit-event/${createEventInput.id}`);
+                navigate(`/editar-evento/${createEventInput.id}`);
             }, 1000);
 
         } catch (error) {

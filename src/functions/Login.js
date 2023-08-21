@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
-import checkUser from '../functions/CheckUser'
-import checkRRPP from '../functions/CheckRRPP';
+import checkUser from './checkUser'
+import checkRRPP from './checkRRPP';
 import CircularProgress from '@mui/material/CircularProgress';
 import '@aws-amplify/ui-react/styles.css';
 
 const Login = () => {
 
     const { isAuthenticated, user, loginWithRedirect, isLoading } = useAuth0();
-
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
@@ -28,9 +27,6 @@ const Login = () => {
 
         if (isAuthenticated && user) {
             const checkData = async () => {
-                const userCreado = user.sub;
-                console.log("Checking user with ID:", userCreado);
-
                 const [userExistsResult, RRPPExistsResult] = await Promise.all([
                     checkUser(user.sub),
                     checkRRPP(user.sub),
@@ -40,13 +36,12 @@ const Login = () => {
                     navigate(`/`);
                     console.log("User Existe");
                 } else if (RRPPExistsResult === true) {
-                    navigate(`/rrpp-events`);
+                    navigate(`/mi-evento-rrpp`);
                     console.log("RRPP Existe");
                 } else {
-                    navigate(`/create-user`);
+                    navigate(`/crear-usuario`);
                     console.log("No existe");
                 }
-
                 setLoading(false);
             };
             checkData();

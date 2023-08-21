@@ -1,19 +1,13 @@
 import { useParams } from 'react-router-dom';
-import { API, graphqlOperation } from 'aws-amplify';
-import { getEvent } from '../graphql/queries';
 import { useState, useEffect } from 'react';
-import { listTypeTickets } from '../graphql/queries';
 import CreateTypeTicket from './CreateTypeTicket';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 import ButtonTypeTicket from './ButtonTypeTicket';
 import CircularProgress from '@mui/material/CircularProgress';
+import fetchEventData from '../functions/fetchEventData';
+import fetchTypeTickets from '../functions/fetchTypeTickets';
 
 const EditEvent = () => {
-
-  //CLOUDFRONT URL
-
-  const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
-
 
   //PARAMS
   const { eventId } = useParams();
@@ -24,13 +18,6 @@ const EditEvent = () => {
   //API GOOGLE MAPS
   const [mapsApiLoaded, setMapsApiLoaded] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
-
-
-  const [isActiveLocal, setIsActiveLocal] = useState(false);
-  const toggleActive = () => {
-    setIsActiveLocal(!isActiveLocal);
-  };
-
 
   useEffect(() => {
     setMapsApiLoaded(true);
@@ -44,37 +31,18 @@ const EditEvent = () => {
   }, [eventData]);
 
   useEffect(() => {
-    fetchEventData();
-  }, [eventId]);
-
-  const fetchEventData = async () => {
-    debugger;
-    try {
-      const eventResult = await API.graphql(
-        graphqlOperation(getEvent, { id: eventId })
-      );
-      const event = eventResult.data.getEvent;
-      const imagePath = `${event.flyerMiniEvent}`;
-      const imageUrl = `${cloudFrontUrl}/${imagePath}`;
-      event.imageUrl = imageUrl;
+    const fetchData = async () => {
+      const event = await fetchEventData(eventId);
       setEventData(event);
-      fetchTypeTickets();
-    } catch (error) {
-      console.error("Error fetching event:", error);
-    }
-  };
-
-  const fetchTypeTickets = async () => {
-    try {
-      const typeTicketsData = await API.graphql(graphqlOperation(listTypeTickets, {
-        filter: { eventID: { eq: eventId } }
-      }));
-      const typeTicketsList = typeTicketsData.data.listTypeTickets.items;
-      setTypeTickets(typeTicketsList);
-    } catch (error) {
-      console.error("Error fetching type tickets:", error);
-    }
-  };
+      try {
+        const tickets = await fetchTypeTickets(eventId);
+        setTypeTickets(tickets);
+      } catch (error) {
+        console.error("Error fetching type tickets:", error);
+      }
+    };
+    fetchData();
+  }, [eventId]);
 
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => (
@@ -116,14 +84,13 @@ const EditEvent = () => {
     return <div></div>;
   }
 
-  if (loading) {
-    return (
-      <div className="circular-progress">
-        <CircularProgress />
-      </div>
-    );
-  }
-
+  // if (loading) {
+  //   return (
+  //     <div className="circular-progress">
+  //       <CircularProgress />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="eventClass">

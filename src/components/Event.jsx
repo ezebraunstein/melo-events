@@ -5,19 +5,16 @@ import { listTypeTickets } from '../graphql/queries';
 import { useState, useEffect } from 'react';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 import CircularProgress from '@mui/material/CircularProgress';
+import fetchEventData from '../functions/fetchEventData';
+import fetchTypeTickets from '../functions/fetchTypeTickets';
 
 const Event = () => {
-
-  //CLOUDFRONT URL
-
-  const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
 
   //PARAMS
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
   const [typeTickets, setTypeTickets] = useState([]);
   const [loading, setLoading] = useState(true);
-
 
   //NAVIGATE
   const navigate = useNavigate();
@@ -38,39 +35,18 @@ const Event = () => {
   }, [eventData]);
 
   useEffect(() => {
-    fetchEventData();
-  }, [eventId]);
-
-  const fetchEventData = async () => {
-    try {
-      const eventResult = await API.graphql(
-        graphqlOperation(getEvent, { id: eventId })
-      );
-      const event = eventResult.data.getEvent;
-      const imagePath = `${event.flyerMiniEvent}`;
-      const imageUrl = `${cloudFrontUrl}/${imagePath}`;
-      event.imageUrl = imageUrl;
+    const fetchData = async () => {
+      const event = await fetchEventData(eventId);
       setEventData(event);
-      fetchTypeTickets();
-    } catch (error) {
-      console.error("Error fetching event:", error);
-      setLoading(false);
-    }
-  };
-
-  const fetchTypeTickets = async () => {
-    try {
-      const typeTicketsData = await API.graphql(graphqlOperation(listTypeTickets, {
-        filter: { eventID: { eq: eventId } }
-      }));
-      const typeTicketsList = typeTicketsData.data.listTypeTickets.items;
-      setTypeTickets(typeTicketsList);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching type tickets:", error);
-      setLoading(false);
-    }
-  };
+      try {
+        const tickets = await fetchTypeTickets(eventId);
+        setTypeTickets(tickets);
+      } catch (error) {
+        console.error("Error fetching type tickets:", error);
+      }
+    };
+    fetchData();
+  }, [eventId]);
 
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => (
@@ -95,18 +71,18 @@ const Event = () => {
   }
 
   const handleEditEvent = () => {
-    navigate(`/edit-event/${eventId}`);
+    navigate(`/editar-evento/${eventId}`);
   };
 
   const redirectRRPP = () => {
-    navigate(`/events/${eventId}/rrpp`);
+    navigate(`/mi-evento/${eventId}/rrpp`);
   };
 
-  if (loading) {
-    return <div className="circular-progress">
-      <CircularProgress />
-    </div>
-  }
+  // if (loading) {
+  //   return <div className="circular-progress">
+  //     <CircularProgress />
+  //   </div>
+  // }
 
   return (
     <div className="eventClass">

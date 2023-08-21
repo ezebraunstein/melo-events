@@ -6,7 +6,7 @@ const ButtonCreateEvent = () => {
   const navigate = useNavigate();
 
   function onclick() {
-    navigate(`/create-event`);
+    navigate(`/crear-evento`);
   };
 
   return (
@@ -17,7 +17,6 @@ const ButtonCreateEvent = () => {
     </div>
   );
 };
-
 
 export default ButtonCreateEvent;
 
