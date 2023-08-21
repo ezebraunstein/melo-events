@@ -8,7 +8,7 @@ import CreateUser from "./components/CreateUser";
 import OwnerEvents from "./components/OwnerEvents";
 import Event from "./components/Event";
 import EditEvent from "./components/EditEvent";
-import Login from "./functions/login";
+import Login from "./functions/Login";
 import BuyEvent from './components/BuyEvent';
 import Layout from "./components/Layout";
 import Charts from './components/Charts'

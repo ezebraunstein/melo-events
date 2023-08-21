@@ -47,8 +47,8 @@ async function handleCheckoutStripe(cart, data, eventData) {
     try {
         const response = await axios.post('https://okosjzzcwklkr22nb5wc3ksmlm0fjcey.lambda-url.us-east-1.on.aws/', {
             line_items: lineItems,
-            success_url: `${baseUrl}/checkout/success`,
-            cancel_url: `${baseUrl}/checkout/failure`,
+            success_url: `${baseUrl}/compra-exitosa`,
+            cancel_url: `${baseUrl}/compra-fallida`,
             email: data.email1,
             payment_id: paymentId,
             expires_at: expiresAt,

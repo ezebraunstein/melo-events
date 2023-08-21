@@ -118,7 +118,7 @@ const Charts = () => {
     try {
       const eventsData = await API.graphql(graphqlOperation(listEvents));
       const eventsList = eventsData.data.listEvents.items;
-      const filterEventsList = eventsList.filter((event) => event.userID === user.username);
+      const filterEventsList = eventsList.filter((event) => event.userID === user.sub);
 
       // Fetch payments data for the user's events
       const allPaymentsData = await API.graphql(graphqlOperation(listPayments));
