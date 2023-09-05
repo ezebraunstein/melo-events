@@ -122,14 +122,11 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                     </div>
                 </div>
                 <br />
-                <br />
                 <div>
                     <div className="col-sm-12 text-center">
                         <button type="submit" className="btnMain"> Agregar Ticket </button>
                     </div>
                 </div>
-                <br />
-                <br />
             </form>
         </div>
     );

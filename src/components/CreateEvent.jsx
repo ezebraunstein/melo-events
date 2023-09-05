@@ -121,7 +121,6 @@ function AddEvent() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsSubmitting(true);
-
         const createEventInput = {
             id: uuid(),
             nameEvent: eventData.nameEvent,

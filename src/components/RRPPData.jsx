@@ -128,7 +128,13 @@ const RRPPData = () => {
           ) : (
             rrpps.map((rrpp) => (
               <div >
-                <h1 className="eventBoxTitle">Mis Públicas</h1>
+                <h1 className="eventBoxTitle">Públicas</h1>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <button className="btnMain" onClick={copyEventIdToClipboard} >
+                    Copiar Código Públicas
+                  </button>
+                </div>
+                <br />
                 <div key={rrpp.id}>
                   <h3 className='nameRRPP'>{rrpp.nameRRPP} {rrpp.surnameRRPP}</h3>
                   {renderTypeTickets(rrpp.id)}
