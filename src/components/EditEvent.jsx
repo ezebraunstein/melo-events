@@ -141,6 +141,8 @@ const EditEvent = () => {
       };
       await s3Client.send(new PutObjectCommand(uploadParams));
       editedEventData.flyerMiniEvent = flyerKey;
+    } else {
+      editedEventData.flyerMiniEvent = eventData.flyerMiniEvent; // Use the old flyer value if no new image is selected
     }
 
     try {
@@ -236,7 +238,7 @@ const EditEvent = () => {
       event.target.style.height = (event.target.scrollHeight) + "px";
     }
   };
-  
+
   return (
     <div className="eventClass">
       <br />

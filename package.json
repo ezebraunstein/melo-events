@@ -23,6 +23,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "amazon-cognito-identity-js": "^6.1.2",
+    "animate.css": "^4.1.1",
     "aws": "^0.0.3-2",
     "aws-amplify": "^5.0.20",
     "aws-amplify-react-native": "^7.0.2",

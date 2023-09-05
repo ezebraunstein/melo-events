@@ -32,69 +32,59 @@ header {
 
 /*SLIDER*/
 
-.slider {
-    width: 100%;
-    background-color: #f28d46;
-}
-
-.slider-frame {
-    width: 100%;
-    height: 400px;
-    margin: 0 auto;
-    overflow: hidden;
-}
-
-.slider-frame ul {
-    display: flex;
-    padding: 0;
-    width: 400%;
-    animation: slide 20s infinite alternate ease-in-out;
-}
-
-.slider-frame li {
-    width: 25%;
-    list-style: none;
-}
-
-.slider-frame img {
-    width: 100%;
+.sliderImg {
+    width: 400px;
     height: 400px;
     object-fit: cover;
+    border-radius: 10px;
 }
 
-@keyframes slide {
-    0% {
-        margin-left: 0;
-    }
-
-    20% {
-        margin-left: 0;
-    }
-
-    25% {
-        margin-left: -100%;
-    }
-
-    45% {
-        margin-left: -100%;
-    }
-
-    50% {
-        margin-left: -200%;
-    }
-
-    70% {
-        margin-left: -200%;
-    }
-
-    75% {
-        margin-left: -300%;
-    }
-
-    100% {
-        margin-left: -300%;
-    }
+.slick-slider {
+    width: 100%;
+    height: 450px;
+    background-color: #f28d46;
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.slick-track {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.slick-slide {
+    flex: 0 0 33.33%;
+    opacity: 0.5;
+    z-index: 1;
+    transform: scale(0.9);
+    filter: blur(2px);
+    /* transition: all 1000ms ease; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center {
+    opacity: 1;
+    z-index: 2;
+    transform: scale(1);
+    filter: blur(0);
+}
+
+.slick-slider,
+.slick-track,
+.slick-slide,
+.slick-slide img {
+    margin: 0;
+    padding: 0;
+}
+
 
 /* SEARCHBAR */
 
@@ -1533,11 +1523,13 @@ header {
 }
 
 .editInput {
-    resize: none; /* Prevent user from manually resizing */
-    overflow: hidden; /* Hide scrollbar */
+    resize: none;
+    /* Prevent user from manually resizing */
+    overflow: hidden;
+    /* Hide scrollbar */
     /* Other styles ... */
-  }
-  
+}
+
 /* MESSAGE */
 
 .titleMessage {
