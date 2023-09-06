@@ -1,6 +1,27 @@
 @media (max-width: 768px),
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {}
 
+@font-face {
+    font-family: 'Helvetica Display Black';
+    src: url('./fonts/3-Helvetica Now Display/HelveticaNowDisplay-Black.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Helvetica Display ExtraBlack';
+    src: url('./fonts/3-Helvetica Now Display/HelveticaNowDisplay-ExtBlk.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Helvetica Display ExtraBold';
+    src: url('./fonts/3-Helvetica Now Display/HelveticaNowDisplay-ExtraBold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Helvetica Display Bold';
+    src: url('./fonts/3-Helvetica Now Display/HelveticaNowDisplay-Bold.otf') format('opentype');
+}
+
+
 /* NO TOCAR  */
 .layout {
     display: flex;
@@ -20,7 +41,7 @@
 /* HEADER */
 
 header {
-    background: #B1CD4A;
+    background: #FF5714;
     color: white;
     padding: 20px;
     display: flex;
@@ -39,7 +60,7 @@ header {
 .slick-slider {
     width: 100%;
     height: 450px;
-    background-color: #f28d46;
+    background-color: #252323;
     position: relative;
     margin: 0 auto;
     display: flex;
@@ -94,7 +115,7 @@ header {
     .slick-slider {
         width: 100%;
         height: 450px;
-        background-color: #f28d46;
+        background-color: #252323;
         position: relative;
         margin: 0 auto;
         display: flex;
@@ -148,7 +169,7 @@ header {
 }
 
 .searchBar {
-    background-color: #B1CD4A;
+    background-color: #E4FF1A;
     width: 80%;
     height: 44px;
     border-radius: 10px;
@@ -162,15 +183,15 @@ header {
     all: unset;
     font-family: 'Bebas Neue', sans-serif;
     font-size: 30px;
-    color: #fff;
+    color: #252323;
     height: 100%;
     width: 100%;
     padding: 6px 10px;
 }
 
 ::placeholder {
-    color: #fff;
-    opacity: 0.7;
+    color: #252323;
+    opacity: 0.8;
 }
 
 @media (max-width: 768px),
@@ -214,7 +235,7 @@ header {
 
 .footerClass {
     font-family: 'Bebas Neue', sans-serif;
-    background: #B1CD4A;
+    background: #FF5714;
     color: #fff;
     width: 100%;
     padding: 1em;
@@ -374,9 +395,10 @@ header {
 .eventBoxTitle {
     padding-top: 20px;
     text-align: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 150px;
-    color: #f28d46;
+    font-family: 'Helvetica Display Black', sans-serif;
+    font-size: 100px;
+    color: #7D53DE;
+    text-transform: uppercase;
 }
 
 #boxes .eventBoxContainer {
@@ -411,7 +433,7 @@ header {
 }
 
 .nameEventBox {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Bold', sans-serif;
     font-size: 30px;
     padding: 10px;
     flex: 1 1 auto;
@@ -420,29 +442,31 @@ header {
     border-left: 3px solid;
     border-right: 3px solid;
     overflow: hidden;
+    text-transform: uppercase;
 }
 
 .eventBoxBtnBuy {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 35px;
+    font-family: 'Helvetica Display ExtraBold', sans-serif;
+    font-size: 25px;
     text-align: center;
-    background: #f28d46;
+    background: #E4FF1A;
     display: block;
     padding: 10px;
     width: auto;
-    color: #ffffff;
+    color: #252323;
     transition: 0.3s;
     cursor: pointer;
     border: 3px solid;
     border-color: black;
     border-radius: 0 0 10px 10px;
     border-top: 0;
+    text-transform: uppercase;
 }
 
 .eventBoxBtnBuy:hover {
     letter-spacing: 2px;
-    color: white;
-    background-color: #B1CD4A;
+    color: #7D53DE;
+    background-color: #E8EBF7;
 }
 
 @media (max-width: 768px),
@@ -1096,10 +1120,10 @@ header {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 30px;
     text-align: center;
-    background: #f28d46;
+    background: #E4FF1A;
     padding: 10px 15px;
     width: auto;
-    color: #ffffff;
+    color: #252323;
     transition: 0.3s;
     cursor: pointer;
     width: auto;
@@ -1111,8 +1135,8 @@ header {
 
 .btnMain:hover {
     letter-spacing: 2px;
-    color: white;
-    background-color: #B1CD4A;
+    color: #7D53DE;
+    background-color: #E8EBF7;
 }
 
 .btnMain:hover::before {
@@ -1175,10 +1199,10 @@ header {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 30px;
     text-align: center;
-    background: #f28d46;
+    background: #E4FF1A;
     padding: 10px 15px;
     width: auto;
-    color: #ffffff;
+    color: #252323;
     transition: 0.3s;
     cursor: pointer;
     width: auto;
