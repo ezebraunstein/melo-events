@@ -1,24 +1,21 @@
-/* NO TOCAR  */
-/* NO TOCAR  */
-/* NO TOCAR  */
-/* NO TOCAR  */
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {}
+
 /* NO TOCAR  */
 .layout {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-
 }
 
 /* NO TOCAR  */
-/* NO TOCAR  */
-/* NO TOCAR  */
+
 /* NO TOCAR  */
 .content {
     flex: 1;
-
 }
 
+/* NO TOCAR  */
 
 /* HEADER */
 
@@ -85,6 +82,61 @@ header {
     padding: 0;
 }
 
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+    .sliderImg {
+        width: 400px;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .slick-slider {
+        width: 100%;
+        height: 450px;
+        background-color: #f28d46;
+        position: relative;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .slick-track {
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .slick-slide {
+        flex: 0 0 33.33%;
+        opacity: 0.5;
+        z-index: 1;
+        transform: scale(0.9);
+        filter: blur(2px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .center {
+        opacity: 1;
+        z-index: 2;
+        transform: scale(1);
+        filter: blur(0);
+    }
+
+    .slick-slider,
+    .slick-track,
+    .slick-slide,
+    .slick-slide img {
+        margin: 0;
+        padding: 0;
+    }
+}
 
 /* SEARCHBAR */
 
@@ -97,7 +149,7 @@ header {
 
 .searchBar {
     background-color: #B1CD4A;
-    width: 70%;
+    width: 80%;
     height: 44px;
     border-radius: 10px;
     display: flex;
@@ -255,10 +307,9 @@ header {
     max-width: 100%;
     margin: 0 auto;
     position: relative;
-    top: 10px;
     flex: 1;
     box-sizing: border-box;
-    max-width: 80%;
+    max-width: 90%;
 }
 
 .imgEvent {
@@ -338,8 +389,7 @@ header {
 }
 
 .eventBox {
-    max-width: 400px;
-    min-width: 400px;
+    width: 350px;
     margin: 10px;
     display: flex;
     flex-direction: column;
@@ -350,12 +400,14 @@ header {
 
 .imgEventBox {
     width: 100%;
-    max-height: 400px;
-    min-height: 400px;
+    height: 350px;
     object-fit: cover;
     display: block;
     margin: 0;
-    border-radius: 5px 5px 0px 0px;
+    border-top: 3px solid;
+    border-left: 3px solid;
+    border-right: 3px solid;
+    border-radius: 10px 10px 0 0;
 }
 
 .nameEventBox {
@@ -423,7 +475,7 @@ header {
         object-fit: cover;
         display: block;
         margin: 0;
-        border-radius: 20px 20px 0px 0px;
+        border-radius: 30px 30px 0px 0px;
     }
 
     .nameEventBox {
