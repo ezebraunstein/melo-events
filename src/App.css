@@ -1,34 +1,26 @@
-@media (max-width: 768px),
-(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {}
-
-
-body {
-    background-color: blue;
-}
-
 @font-face {
     font-family: 'Helvetica Display Black';
-    src: url('/fonts/3-Helvetica Now Display/HelveticaNowDisplay-Black.otf') format('opentype');
+    src: url('/public/fonts/3-Helvetica Now Display/HelveticaNowDisplay-Black.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'Helvetica Display ExtraBlack';
-    src: url('/fonts/3-Helvetica Now Display/HelveticaNowDisplay-ExtBlk.otf') format('opentype');
+    src: url('/public/fonts/3-Helvetica Now Display/HelveticaNowDisplay-ExtBlk.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'Helvetica Display ExtraBold';
-    src: url('/fonts/3-Helvetica Now Display/HelveticaNowDisplay-ExtraBold.otf') format('opentype');
+    src: url('/public/fonts/3-Helvetica Now Display/HelveticaNowDisplay-ExtraBold.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'Helvetica Display Bold';
-    src: url('/fonts/3-Helvetica Now Display/HelveticaNowDisplay-Bold.otf') format('opentype');
+    src: url('/public/fonts/3-Helvetica Now Display/HelveticaNowDisplay-Bold.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'Helvetica Display Medium';
-    src: url('/fonts/3-Helvetica Now Display/HelveticaNowDisplay-Medium.otf') format('opentype');
+    src: url('/public/fonts/3-Helvetica Now Display/HelveticaNowDisplay-Medium.otf') format('opentype');
 }
 
 
