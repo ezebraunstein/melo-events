@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
@@ -33,6 +33,7 @@ function AddEvent() {
     const [flyerMiniFile, setFlyerMiniFile] = useState(null);
     const [showYourComponent, setShowYourComponent] = useState(false);
     const [flyerMiniUrl, setFlyerMiniUrl] = useState(null);
+    const hiddenFileInput = useRef(null);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -50,6 +51,10 @@ function AddEvent() {
     const [mapRef, setMapRef] = useState(null);
     const googleMapsLibraries = ["places"];
     const [locationName, setLocationName] = useState("");
+
+    const handleImageClick = () => {
+        hiddenFileInput.current.click();
+    };
 
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
@@ -173,6 +178,13 @@ function AddEvent() {
         }
     };
 
+    const autoGrowTextArea = (event) => {
+        if (event.target) {
+            event.target.style.height = "5px";
+            event.target.style.height = (event.target.scrollHeight) + "px";
+        }
+    };
+
     if (isSubmitting) {
         return <div className="circular-progress">
             <CircularProgress />
@@ -188,18 +200,38 @@ function AddEvent() {
                         googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
                         libraries={googleMapsLibraries}
                         onLoad={() => setMapsApiLoaded(true)}>
-                        <div className="create-event-container">
+                        <div className="event-container">
                             <div className="input-container" >
-                                <label className="labelEvent">
+                                <div>
                                     <input
                                         className="inputEvent"
                                         type="text"
                                         name="nameEvent"
                                         value={eventData.nameEvent}
                                         onChange={handleInputChange}
-                                        placeholder={!eventData.nameEvent ? "Nombre*" : ""}
+                                        placeholder={!eventData.nameEvent ? "NOMBRE*" : ""}
                                     />
-                                </label>
+                                </div>
+                                <div>
+                                    <input className="inputEvent"
+                                        type="date"
+                                        name="startDateE"
+                                        value={eventData.startDateE}
+                                        onChange={handleInputChange}
+
+                                    ></input>
+                                </div>
+                                <div>
+                                    <textarea
+                                        className="inputEvent"
+                                        value={eventData.descriptionEvent}
+                                        onChange={handleInputChange}
+                                        name="descriptionEvent"
+                                        rows="1"
+                                        onInput={autoGrowTextArea}
+                                        placeholder={!eventData.descriptionEvent ? "DESCRIPCIÓN (OPCIONAL)" : ""}
+                                    />
+                                </div>
                                 <label className="labelEvent">
                                     <StandaloneSearchBox
                                         onLoad={(ref) => setMapRef(ref)}
@@ -216,34 +248,13 @@ function AddEvent() {
                                     >
                                         <input
                                             type="text"
-                                            placeholder="ubicación (opcional)"
+                                            placeholder="UBICACIÓN (OPCIONAL)"
                                             className="inputEvent"
                                             style={{ width: "100%" }}
                                         />
                                     </StandaloneSearchBox>
                                 </label>
-                                <label className="labelEvent">
-                                    <input className="inputEvent"
-                                        type="text"
-                                        name="descriptionEvent"
-                                        value={eventData.descriptionEvent}
-                                        onChange={handleInputChange}
-                                        placeholder={!eventData.descriptionEvent ? "Descripción (opcional)" : ""}
-                                    />
-                                </label>
-                                <div>
-                                    <label className='labelEvent'>
-                                        Fecha Inicio:
-                                    </label>
-                                    <input className='inputEvent'
-                                        type="date"
-                                        name="startDateE"
-                                        value={eventData.startDateE}
-                                        onChange={handleInputChange}
-                                        placeholder={!eventData.nameEvent ? "Campo obligatorio" : ""}
-                                    ></input>
-                                </div>
-                                <div >
+                                {/* <div >
                                     <label className='labelEvent'>
                                         Flyer (formato 1:1)*
                                         <input className='inputEvent'
@@ -253,7 +264,7 @@ function AddEvent() {
                                             onChange={handleFlyerMiniChange}
                                         />
                                     </label>
-                                </div>
+                                </div> */}
                                 {/* <div className="date-flyer-container">
                                         <div className="date-container">
                                             <label className='labelEvent'>
@@ -288,12 +299,25 @@ function AddEvent() {
 
                             </div>
                             <div className="image-container">
-                                {flyerMiniUrl ? (
-                                    <img src={flyerMiniUrl} alt="Flyer Mini Preview" className="image-style" />
-                                ) : (
-                                    <img src={placeholderImage} alt="Flyer Mini Preview" className="placeholder-style" />
-                                )}
+                                <img
+                                    className={flyerMiniUrl ? "image-style" : "placeholder-style"}
+                                    src={flyerMiniUrl ? flyerMiniUrl : placeholderImage}
+                                    alt="Event Image"
+                                    onClick={handleImageClick}
+                                    style={{ cursor: "pointer" }}
+                                />
+                                <div className="image-overlay" onClick={handleImageClick}>
+                                    <span>AGREGAR IMAGEN (FORMATO 1:1)</span>
+                                </div>
+                                <input
+                                    type="file"
+                                    accept=".jpg,.jpeg,.png"
+                                    onChange={handleFlyerMiniChange}
+                                    style={{ display: "none" }}
+                                    ref={hiddenFileInput}
+                                />
                             </div>
+
                             <div className="map-container" >
                                 <GoogleMap
                                     mapContainerStyle={{

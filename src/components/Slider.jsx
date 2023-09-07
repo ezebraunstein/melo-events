@@ -21,7 +21,7 @@ const Slider = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCenterIndex(prevIndex => (prevIndex + 1) % events.length);
-    }, 7000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [events]);
 

@@ -171,7 +171,7 @@ const EditEvent = () => {
 
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => (
-      <div key={typeTicket.id} style={typeTicket.activeTT ? {} : { opacity: 0.5, filter: 'grayscale(90%)' }}>
+      <div key={typeTicket.id} style={typeTicket.activeTT ? {} : { opacity: 0.8, filter: 'grayscale(50%)' }}>
         <div class="create-ticket-container">
           <div class="ticket-column">
             <h2 class="ticket-text">{typeTicket.nameTT}</h2>
@@ -234,7 +234,7 @@ const EditEvent = () => {
 
   const autoGrowTextArea = (event) => {
     if (event.target) {
-      event.target.style.height = "5px"; // Reset the height
+      event.target.style.height = "5px";
       event.target.style.height = (event.target.scrollHeight) + "px";
     }
   };
@@ -242,7 +242,7 @@ const EditEvent = () => {
   return (
     <div className="eventClass">
       <br />
-      <div className="test">
+      <div>
         {mapsApiLoaded && (
           <LoadScriptNext
             googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
@@ -259,21 +259,16 @@ const EditEvent = () => {
                     name="nameEvent"
                   />
                 </div>
-                <input
-                  className="editInput"
-                  type="date"
-                  name="startDateE"
-                  value={editedEventData.startDateE instanceof Date ? editedEventData.startDateE.toISOString().split('T')[0] : ""}
-                  onChange={handleInputChange}
-                />
                 <div>
-                  {/* <input
+                  <input
                     className="editInput"
-                    type="text"
-                    value={editedEventData.descriptionEvent}
+                    type="date"
+                    name="startDateE"
+                    value={editedEventData.startDateE instanceof Date ? editedEventData.startDateE.toISOString().split('T')[0] : ""}
                     onChange={handleInputChange}
-                    name="descriptionEvent"
-                  /> */}
+                  />
+                </div>
+                <div>
                   <textarea
                     className="editInput"
                     value={editedEventData.descriptionEvent}
@@ -300,6 +295,7 @@ const EditEvent = () => {
                     <input
                       type="text"
                       value={locationName}
+                      placeholder="SECRET LOCATION"
                       onChange={e => setLocationName(e.target.value)}
                       className="editInput"
                       style={{ width: "100%" }} />
@@ -315,7 +311,7 @@ const EditEvent = () => {
                   style={{ cursor: "pointer" }}
                 />
                 <div className="image-overlay" onClick={handleImageClick}>
-                  <span>Cambiar imagen</span>
+                  <span>CAMBIAR IMAGEN</span>
                 </div>
                 <input
                   type="file"
@@ -352,17 +348,22 @@ const EditEvent = () => {
       <button className='btnMain' onClick={handleSaveChanges}>Guardar Cambios</button>
       <br />
       <br />
+      <br />
       {typeTickets.length > 0 ? (
         <>
           <div>
             <p className="textMessage1">TICKETS</p>
           </div>
+          <br />
           {renderTypeTickets()}
         </>
       ) : null}
+      <br />
+      <br />
       <div>
         <p className='textMessage1'>NUEVO TIPO DE TICKET</p>
       </div>
+      <br />
       <CreateTypeTicket eventId={eventId} onTypeTicketCreated={handleTypeTicketCreated} />
       <br />
       <br />

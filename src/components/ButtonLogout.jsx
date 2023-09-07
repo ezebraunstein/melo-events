@@ -3,7 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 
 const ButtonLogout = ({ onSignOut }) => {
-  
+
   const { logout } = useAuth0();
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ const ButtonLogout = ({ onSignOut }) => {
   };
 
   return (
-    <div className="box-1">
+    <div className="box-1" style={{ paddingRight: '50px' }}>
       <button className="btnLogout" onClick={handleSignOut}>
         <span>Cerrar Sesión</span>
       </button>

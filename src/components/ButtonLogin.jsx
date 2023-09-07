@@ -6,7 +6,7 @@ const ButtonLogin = () => {
   const { loginWithRedirect } = useAuth0();
 
   return (
-    <div className="box-1">
+    <div className="box-1" style={{ paddingRight: '50px'}}>
       <button className="btnHeader" onClick={() => loginWithRedirect()}>
         <span>Iniciar Sesión</span>
       </button>

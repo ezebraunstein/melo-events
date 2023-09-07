@@ -84,7 +84,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                         <input
                             type="text"
                             name="nameTT"
-                            className="form-control"
+                            className="inputEvent"
                             id="nameTT"
                             value={typeTicketData.nameTT}
                             placeholder="NOMBRE*"
@@ -97,7 +97,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                         <input
                             type="int"
                             name="priceTT"
-                            className="form-control"
+                            className="inputEvent"
                             id="priceTT"
                             value={typeTicketData.priceTT}
                             placeholder="MONTO*"
@@ -111,7 +111,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                         <input
                             type="int"
                             name="quantityTT"
-                            className="form-control"
+                            className="inputEvent"
                             id="quantityTT"
                             value={typeTicketData.quantityTT}
                             placeholder="CANTIDAD*"
@@ -122,8 +122,9 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                     </div>
                 </div>
                 <br />
+                <br />
                 <div>
-                    <div className="col-sm-12 text-center">
+                    <div>
                         <button type="submit" className="btnMain"> Agregar Ticket </button>
                     </div>
                 </div>

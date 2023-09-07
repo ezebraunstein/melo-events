@@ -27,7 +27,7 @@ const OwnerEvents = () => {
     })();
   }, [user.sub]);
 
-  function handleButtonClick(event) {
+  function goToMyEvent(event) {
     navigate(`/mi-evento/${event.id}`);
   }
 
@@ -48,10 +48,16 @@ const OwnerEvents = () => {
           <h1 className="eventBoxTitle">Mis Eventos</h1>
           <div className="eventBoxContainer">
             {events.map((event) => (
-              <div key={event.id} className="eventBox">
-                <img className="imgEventBox" src={event.imageUrl} alt={event.nameEvent} />
+              <div key={event.id} className="eventBox" onClick={() => goToMyEvent(event)} style={{ cursor: 'pointer' }}>
+                <img src={event.imageUrl} alt={event.nameEvent} className="imgEventBox" />
                 <h3 className="nameEventBox">{event.nameEvent}</h3>
-                <button onClick={() => handleButtonClick(event)} className="eventBoxBtnBuy">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goToMyEvent(event);
+                  }}
+                  className="eventBoxBtnBuy"
+                >
                   Acceder
                 </button>
               </div>

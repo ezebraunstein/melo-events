@@ -1,6 +1,11 @@
 @media (max-width: 768px),
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {}
 
+
+body {
+    background-color: blue;
+}
+
 @font-face {
     font-family: 'Helvetica Display Black';
     src: url('./fonts/3-Helvetica Now Display/HelveticaNowDisplay-Black.otf') format('opentype');
@@ -19,6 +24,11 @@
 @font-face {
     font-family: 'Helvetica Display Bold';
     src: url('./fonts/3-Helvetica Now Display/HelveticaNowDisplay-Bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Helvetica Display Medium';
+    src: url('./fonts/3-Helvetica Now Display/HelveticaNowDisplay-Medium.otf') format('opentype');
 }
 
 
@@ -41,7 +51,8 @@
 /* HEADER */
 
 header {
-    background: #FF5714;
+    /* background: #FF5714; */
+    /* background: #F06449; */
     color: white;
     padding: 20px;
     display: flex;
@@ -60,7 +71,7 @@ header {
 .slick-slider {
     width: 100%;
     height: 450px;
-    background-color: #252323;
+    background-color: #272727;
     position: relative;
     margin: 0 auto;
     display: flex;
@@ -80,9 +91,9 @@ header {
     flex: 0 0 33.33%;
     opacity: 0.5;
     z-index: 1;
-    transform: scale(0.9);
+    transform: scale(0.8);
     filter: blur(2px);
-    /* transition: all 1000ms ease; */
+    transition: all 1000ms ease;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -176,12 +187,12 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Bold', sans-serif;
 }
 
 .searchInput {
     all: unset;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Bold', sans-serif;
     font-size: 30px;
     color: #252323;
     height: 100%;
@@ -190,8 +201,8 @@ header {
 }
 
 ::placeholder {
-    color: #252323;
-    opacity: 0.8;
+    color: #272727;
+    opacity: 0.7;
 }
 
 @media (max-width: 768px),
@@ -234,9 +245,9 @@ header {
 /* FOOTER */
 
 .footerClass {
-    font-family: 'Bebas Neue', sans-serif;
-    background: #FF5714;
-    color: #fff;
+    font-family: 'Helvetica Display Bold', sans-serif;
+    /* background: #FF5714; */
+    color: #E4FF1A;
     width: 100%;
     padding: 1em;
     text-align: right;
@@ -245,10 +256,11 @@ header {
     align-items: center;
     position: relative;
     flex-shrink: 0;
+    text-transform: uppercase;
 }
 
 .footerText {
-    font-size: 40px;
+    font-size: 20px;
     margin-top: 5px;
     margin-right: 5px;
 }
@@ -293,39 +305,39 @@ header {
 
 .eventName {
     display: inline-block;
-    color: rgb(0, 0, 0);
+    color: #E8EBF7;
     font-size: 80px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Black', sans-serif;
+    text-transform: uppercase;
 }
 
 .eventDate {
     display: inline-block;
-    color: rgb(0, 0, 0);
+    color: #E8EBF7;
     font-size: 60px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Bold', sans-serif;
 }
 
 .eventDescription {
     display: inline-block;
-    color: rgb(0, 0, 0);
+    color: #E8EBF7;
     font-size: 40px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Medium', sans-serif;
+    text-transform: uppercase;
 }
 
 .eventLocation {
     display: inline-block;
-    color: rgb(0, 0, 0);
+    color: #E8EBF7;
     font-size: 30px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Bold', sans-serif;
+    text-transform: uppercase;
 }
 
 .eventClass {
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Bold', sans-serif;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
-    max-width: 100%;
     margin: 0 auto;
     position: relative;
     flex: 1;
@@ -393,7 +405,7 @@ header {
 /* EVENT BOX */
 
 .eventBoxTitle {
-    padding-top: 20px;
+    /* padding-top: 20px; */
     text-align: center;
     font-family: 'Helvetica Display Black', sans-serif;
     font-size: 100px;
@@ -412,12 +424,13 @@ header {
 
 .eventBox {
     width: 350px;
-    margin: 10px;
+    margin: 15px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     border-radius: 10px;
     overflow: hidden;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
 .imgEventBox {
@@ -426,9 +439,6 @@ header {
     object-fit: cover;
     display: block;
     margin: 0;
-    border-top: 3px solid;
-    border-left: 3px solid;
-    border-right: 3px solid;
     border-radius: 10px 10px 0 0;
 }
 
@@ -439,10 +449,9 @@ header {
     flex: 1 1 auto;
     text-align: center;
     margin: 0;
-    border-left: 3px solid;
-    border-right: 3px solid;
     overflow: hidden;
     text-transform: uppercase;
+    background-color: #E8EBF7;
 }
 
 .eventBoxBtnBuy {
@@ -456,17 +465,22 @@ header {
     color: #252323;
     transition: 0.3s;
     cursor: pointer;
-    border: 3px solid;
     border-color: black;
     border-radius: 0 0 10px 10px;
-    border-top: 0;
+    border: 0;
     text-transform: uppercase;
 }
 
-.eventBoxBtnBuy:hover {
+.eventBox:hover .eventBoxBtnBuy {
     letter-spacing: 2px;
-    color: #7D53DE;
-    background-color: #E8EBF7;
+    color: #E8EBF7;
+    background-color: #7D53DE;
+}
+
+
+.eventBox:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 5px 5px #E4FF1A;
 }
 
 @media (max-width: 768px),
@@ -533,35 +547,18 @@ header {
 
 /* CREATE EVENT */
 
-.labelEvent,
 .inputEvent {
-    font-family: 'Bebas Neue', sans-serif;
-    color: #000000;
-    font-size: 25px;
+    font-family: 'Helvetica Display Bold', sans-serif;
+    color: #E8EBF7;
+    background-color: #272727;
+    border: 0;
+    font-size: 35px;
     width: 100%;
 }
 
-.labelEvent {
-    display: block;
-    text-align: left;
-}
-
-.inputEvent {
-    background-color: #fff;
-    border: 1px solid #000000;
-    padding: 10px;
-    border-radius: 10px;
-}
-
 .inputEvent::placeholder {
-    color: #999;
-    opacity: 1;
-}
-
-.create-event-container {
-    display: flex;
-    height: 500px;
-    gap: 10px;
+    color: #E8EBF7;
+    opacity: 0.5;
 }
 
 .image-style {
@@ -598,6 +595,7 @@ header {
 
 .image-overlay {
     position: absolute;
+    font-family: 'Helvetica Display ExtraBold', sans-serif;
     top: 0;
     bottom: 0;
     left: 0;
@@ -610,7 +608,7 @@ header {
     opacity: 0;
     transition: opacity 0.5s ease;
     border-radius: 10px;
-    font-size: 50px;
+    font-size: 30px;
 }
 
 .image-container:hover .image-overlay {
@@ -725,24 +723,23 @@ header {
     flex-wrap: wrap;
 }
 
-.col-form-label {
-    display: flex;
-    align-items: center;
-}
-
 .col {
     flex: 1;
     margin: 0 5px;
+    background-color: #272727;
+    border: 0;
 
 }
 
-.create-type-ticket-form,
+/* .create-type-ticket-form,
 .create-type-ticket-form .form-control,
 .create-type-ticket-form .col-form-label,
 .create-type-ticket-form .form-check-input {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Bold', sans-serif;
     font-size: 25px;
-}
+    background-color: #272727;
+    border: 0;
+} */
 
 
 @media (max-width: 768px),
@@ -770,40 +767,39 @@ header {
 /* TICKET */
 
 .ticket-text {
-    font-size: 30px;
+    font-size: 25px;
     margin: 0;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display ExtraBold', sans-serif;
+    text-transform: uppercase;
 }
 
 .nameRRPP {
     font-size: 50px;
     margin: 0;
     text-align: left;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Bold', sans-serif;
 }
 
 .create-ticket-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    border: 1px solid #ccc;
     margin-bottom: 1rem;
     width: 100%;
     text-align: center;
     padding: 10px;
     border-radius: 10px;
-    background-color: #B1CD4A;
+    background-color: #E4FF1A;
 }
 
 .ticket-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    border: 1px solid #ccc;
     margin-bottom: 1rem;
     width: 100%;
     text-align: center;
     padding: 10px;
     border-radius: 10px;
-    background-color: #B1CD4A;
+    background-color: #E4FF1A;
 }
 
 .ticket-containerRRPP {
@@ -840,7 +836,7 @@ header {
     width: 100px;
     height: 40px;
     line-height: 20px;
-    color: #fdfdfd;
+    color: #E8EBF7;
     transition: 0.3s;
     cursor: pointer;
     border: 0;
@@ -850,21 +846,21 @@ header {
 }
 
 .btn-Remove {
-    background: #ee593c;
+    background: #7D53DE;
 }
 
 .btn-Remove:hover {
-    color: #ee593c;
+    color: #272727;
     background-color: white;
 }
 
 .btn-Add {
-    background: #8fac24;
+    background: #7D53DE;
 }
 
 .btn-Add:hover {
-    color: #8fac24;
-    background-color: white;
+    color: #272727;
+    background-color: #E8EBF7;
 }
 
 @media (max-width: 768px),
@@ -959,35 +955,30 @@ header {
 /* MODAL */
 
 .custom-modal {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Bold', sans-serif;
     position: relative;
-    background-color: #ffffff;
+    background-color: #272727;
     border-radius: 10px;
     padding: 20px;
     max-width: 50%;
     max-height: 100%;
     margin: 5% auto;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-
 }
 
 .custom-modal form {
     display: grid;
-    gap: 30px;
+    gap: 25px;
 }
 
 .custom-modal input {
     width: 100%;
     padding: 3px;
     font-size: 30px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
+    border: 0;
+    background-color: #272727;
+    text-transform: uppercase;
 }
 
-.custom-modal input:focus {
-    border-color: #8fac24;
-    outline: none;
-}
 
 .btn-container {
     display: flex;
@@ -997,40 +988,40 @@ header {
 
 .btn-Modal-Buy,
 .btn-Modal-Back {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 30px;
+    font-family: 'Helvetica Display ExtraBold', sans-serif;
+    font-size: 25px;
     text-align: center;
-    background: #f28d46;
     padding: 10px 15px;
     width: auto;
-    color: #ffffff;
     transition: 0.3s;
     cursor: pointer;
     width: auto;
     border: 0;
     max-width: 100%;
-    border-radius: 10px;
+    border-radius: 20px;
     display: inline-block;
+    text-transform: uppercase;
 }
 
 .btn-Modal-Buy {
-    background: #8fac24;
+    background: #E4FF1A;
+    color: #272727;
 }
 
 .btn-Modal-Buy:hover {
     letter-spacing: 2px;
-    color: white;
-    background-color: #B1CD4A;
+    color: #E8EBF7;
+    background-color: #7D53DE;
 }
 
 .btn-Modal-Back {
-    background: #ee593c;
+    background: #FF5714;
 }
 
 .btn-Modal-Back:hover {
     letter-spacing: 2px;
-    color: white;
-    background-color: #f07b54;
+    color: #E8EBF7;
+    background-color: #7D53DE;
 }
 
 
@@ -1079,7 +1070,7 @@ header {
 
     .btn-Modal-Buy,
     .btn-Modal-Back {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Helvetica Display Bold', sans-serif;
         font-size: 55px;
         text-align: center;
         background: #f28d46;
@@ -1117,26 +1108,27 @@ header {
 /* BUTTON MAIN */
 
 .btnMain {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 30px;
+    font-family: 'Helvetica Display ExtraBold', sans-serif;
+    font-size: 25px;
     text-align: center;
     background: #E4FF1A;
     padding: 10px 15px;
     width: auto;
     color: #252323;
-    transition: 0.3s;
+    transition: 0.2s;
     cursor: pointer;
     width: auto;
     border: 0;
     max-width: 100%;
     border-radius: 20px;
     display: inline-block;
+    text-transform: uppercase;
 }
 
 .btnMain:hover {
     letter-spacing: 2px;
-    color: #7D53DE;
-    background-color: #E8EBF7;
+    color: #E8EBF7;
+    background-color: #7D53DE;
 }
 
 .btnMain:hover::before {
@@ -1150,7 +1142,7 @@ header {
     bottom: 0;
     left: 0;
     z-index: 1;
-    transition: all 0.3s;
+    transition: all 0.2s;
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 5px;
 }
@@ -1196,24 +1188,25 @@ header {
 }
 
 .btnHeader {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 30px;
+    font-family: 'Helvetica Display ExtraBold', sans-serif;
+    font-size: 25px;
     text-align: center;
     background: #E4FF1A;
     padding: 10px 15px;
     width: auto;
     color: #252323;
-    transition: 0.3s;
+    transition: 0.1s;
     cursor: pointer;
     width: auto;
     border: 0;
     max-width: 100%;
     border-radius: 20px;
     display: inline-block;
+    text-transform: uppercase;
 }
 
 .btnHeader span {
-    transition: all 0.3s;
+    transition: all 0.1s;
 }
 
 .btnHeader::before {
@@ -1221,10 +1214,9 @@ header {
     position: absolute;
     bottom: 0;
     left: 0;
-
     z-index: 1;
     opacity: 0.5;
-    transition: all 0.3s;
+    transition: all 0.2s;
     border-top-width: 1px;
     border-bottom-width: 1px;
     border-right-width: 1px;
@@ -1243,7 +1235,8 @@ header {
 
 .btnHeader:hover {
     letter-spacing: 2px;
-    color: white;
+    color: #E8EBF7;
+    background-color: #7D53DE;
 }
 
 .btnHeader:hover::before {
@@ -1257,7 +1250,7 @@ header {
     bottom: 0;
     left: 0;
     z-index: 1;
-    transition: all 0.3s;
+    transition: all 0.2s;
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 5px;
 }
@@ -1350,26 +1343,27 @@ header {
 /* BUTTON LOGOUT */
 
 .btnLogout {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 30px;
+    font-family: 'Helvetica Display ExtraBold', sans-serif;
+    font-size: 25px;
     text-align: center;
-    background: #f90000;
+    background: #E4FF1A;
     padding: 10px 15px;
     width: 100%;
-    color: #ffffff;
-    transition: 0.3s;
+    color: #252323;
+    transition: 0.1s;
     cursor: pointer;
     width: auto;
     border: 0;
     max-width: 100%;
     border-radius: 20px;
     display: inline-block;
+    text-transform: uppercase;
 }
 
 .btnLogout span {
     position: relative;
     z-index: 3;
-    transition: all 0.3s;
+    transition: all 0.1s;
 }
 
 .btnLogout::before {
@@ -1379,14 +1373,16 @@ header {
     left: 0;
     z-index: 1;
     opacity: 0;
-    transition: all 0.3s;
+    transition: all 0.1s;
     border: 1px solid rgba(158, 12, 12, 1);
     transform: scale(0.1, 1);
     border-radius: 5px;
 }
 
-.btnLogout:hover span {
+.btnLogout:hover {
     letter-spacing: 2px;
+    color: #E8EBF7;
+    background-color: #f90000;
 }
 
 .btnLogout:hover::before {
@@ -1399,9 +1395,8 @@ header {
     position: absolute;
     bottom: 0;
     left: 0;
-
     z-index: 2;
-    transition: all 0.3s;
+    transition: all 0.2s;
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 5px;
     background: linear-gradient(rgba(241, 28, 28, .5), rgba(241, 28, 28, .5), rgba(241, 28, 28, .5));
@@ -1548,7 +1543,7 @@ header {
 
 .circular-progress {
     display: flex;
-    color: #f28d46;
+    color: #7D53DE;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -1557,7 +1552,7 @@ header {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 1);
+    background: #272727;
     z-index: 999;
 }
 
@@ -1591,35 +1586,33 @@ header {
 }
 
 .editInput {
-    font-family: 'Bebas Neue', sans-serif;
-    color: #000000;
-    font-size: 40px;
+    font-family: 'Helvetica Display Bold', sans-serif;
+    color: #E8EBF7;
+    background-color: #272727;
+    border: 0;
+    font-size: 35px;
     width: 100%;
-    border-radius: 10px;
 }
 
 .editInput {
     resize: none;
-    /* Prevent user from manually resizing */
     overflow: hidden;
-    /* Hide scrollbar */
-    /* Other styles ... */
 }
 
 /* MESSAGE */
 
 .titleMessage {
     display: inline-block;
-    color: rgb(0, 0, 0);
+    color: #E8EBF7;
     font-size: 100px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Bold', sans-serif;
 }
 
 .textMessage1 {
     display: inline-block;
-    color: rgb(0, 0, 0);
+    color: #E8EBF7;
     font-size: 50px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Bold', sans-serif;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -1627,9 +1620,9 @@ header {
 
 .textMessage2 {
     display: inline-block;
-    color: rgb(0, 0, 0);
+    color: #E8EBF7;
     font-size: 30px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Bold', sans-serif;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -1637,9 +1630,9 @@ header {
 
 .textMessage3 {
     display: inline-block;
-    color: rgb(0, 0, 0);
+    color: #E8EBF7;
     font-size: 20px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display Bold', sans-serif;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -1701,4 +1694,16 @@ header {
         width: 100vw;
         flex-direction: column;
     }
+}
+
+/* LOGO */
+
+.logo {
+    transition: opacity 0.3s, transform 0.3s;
+    padding-left: 50px;
+}
+
+.logo:hover {
+    opacity: 0.7;
+    transform: translate(-5px, -5px);
 }

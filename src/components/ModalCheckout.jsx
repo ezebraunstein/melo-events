@@ -34,7 +34,6 @@ const InputModal = ({ handleModalSubmit, cart }) => {
                 onRequestClose={() => setModalIsOpen(false)}
                 contentLabel="Input Modal"
             >
-
                 <form onSubmit={handleSubmit}>
                     <div>
                         <input

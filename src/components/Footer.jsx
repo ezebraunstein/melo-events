@@ -7,7 +7,7 @@ export const Footer = () => {
         <span className="footerText">
           &copy; Melo - 2023
         </span>
-        <img className="logo" src={meloLoguito} alt='' width="60px" />
+        {/* <img className="logo" src={meloLoguito} alt='' width="60px" /> */}
       </div>
     </footer>
   );

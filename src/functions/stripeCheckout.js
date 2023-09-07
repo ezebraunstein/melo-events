@@ -51,6 +51,7 @@ async function handleCheckoutStripe(cart, data, eventData) {
             cancel_url: `${baseUrl}/compra-fallida`,
             email: data.email1,
             payment_id: paymentId,
+            event_id: eventId,
             expires_at: expiresAt,
             locale: 'es',
         });

@@ -6,7 +6,7 @@ import HomeEvents from "./components/HomeEvents";
 import CreateEvent from "./components/CreateEvent";
 import CreateUser from "./components/CreateUser";
 import OwnerEvents from "./components/OwnerEvents";
-import Event from "./components/Event";
+import Event from "./components/MyEvent";
 import EditEvent from "./components/EditEvent";
 import Login from "./functions/login";
 import BuyEvent from './components/BuyEvent';
@@ -19,7 +19,7 @@ import ProtectedRoute from "./functions/protectedRoute";
 
 function App() {
   return (
-    <div>
+    <div style={{ backgroundColor: '#272727' }}>
       <Routes>
         <Route path="/" element={
           <Layout>

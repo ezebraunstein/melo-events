@@ -114,11 +114,13 @@ const RRPPData = () => {
           {rrpps.length === 0 ? (
             <div className='containerMessage'>
               <div>
-                <h1 className='titleMessage'>No hay públicas vinculados a este evento</h1>
+                <h1 className='titleMessage'>NO HAY PÚBLICAS VINCULADOS</h1>
               </div>
+              <br />
               <div>
-                <h1 className='textMessage1'>Copiá el código y compartíselos</h1>
+                <h1 className='textMessage1'>COMPARTILES EL CÓDIGO</h1>
               </div>
+              <br />
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <button className="btnMain" onClick={copyEventIdToClipboard} >
                   Copiar Código Públicas

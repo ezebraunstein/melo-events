@@ -18,14 +18,14 @@ const Header = () => {
       {/* Si estoy en /create-user, el logo NO puede redireccionarme a la homepage */}
       {url === '/crear-usuario' && (
         <a>
-          <img className="logo" src={meloLogo} alt="LA PALA" width="400px" />
+          <img className="logo" src={meloLogo} alt="LA PALA" width="300px" />
         </a>
       )}
 
       {/* Caso contrario, si */}
       {url !== '/crear-usuario' && (
         <a href='/'>
-          <img className="logo" src={meloLogo} alt="LA PALA" width="400px" />
+          <img className="logo" src={meloLogo} alt="LA PALA" width="300px" />
         </a>
       )}
 
