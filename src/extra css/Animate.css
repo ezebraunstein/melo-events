@@ -1290,14 +1290,14 @@
     }
 }
 
-.animate__bounceIn {
+/* .animate__bounceIn {
     -webkit-animation-duration: .75s;
     animation-duration: .75s;
     -webkit-animation-duration: calc(var(--animate-duration)*0.75);
     animation-duration: calc(var(--animate-duration)*0.75);
     -webkit-animation-name: bounceIn;
     animation-name: bounceIn
-}
+} */
 
 @-webkit-keyframes bounceInDown {
     0%,60%,75%,90%,to {
