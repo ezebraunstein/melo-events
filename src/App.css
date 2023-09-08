@@ -1,28 +1,38 @@
 @font-face {
     font-family: 'Helvetica Display Black';
-    src: url('./fonts/3-Helvetica Now Display/HelveticaNowDisplay-Black.otf') format('opentype');
+    src: url('./fonts/Helvetica Now Display/helveticanowdisplay-black.woff2') format('woff2'),
+        url('./fonts/Helvetica Now Display/helveticanowdisplay-black.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Helvetica Display ExtraBlack';
-    src: url('./fonts/3-Helvetica Now Display/HelveticaNowDisplay-ExtBlk.otf') format('opentype');
-}
-
-@font-face {
-    font-family: 'Helvetica Display ExtraBold';
-    src: url('./fonts/3-Helvetica Now Display/HelveticaNowDisplay-ExtraBold.otf') format('opentype');
+    src: url('./fonts/Helvetica Now Display/helveticanowdisplay-extblk.woff2') format('woff2'),
+        url('./fonts/Helvetica Now Display/helveticanowdisplay-extblk.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Helvetica Display Bold';
-    src: url('./fonts/3-Helvetica Now Display/HelveticaNowDisplay-Bold.otf') format('opentype');
+    src: url('./fonts/Helvetica Now Display/helveticanowdisplay-bold.woff2') format('woff2'),
+        url('./fonts/Helvetica Now Display/helveticanowdisplay-bold.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Helvetica Display ExtraBold';
+    src: url('./fonts/Helvetica Now Display/helveticanowdisplay-extrabold.woff2') format('woff2'),
+        url('./fonts/Helvetica Now Display/helveticanowdisplay-extrabold.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Helvetica Display Medium';
-    src: url('./fonts/3-Helvetica Now Display/HelveticaNowDisplay-Medium.otf') format('opentype');
+    src: url('./fonts/Helvetica Now Display/helveticanowdisplay-medium.woff2') format('woff2'),
+        url('./fonts/Helvetica Now Display/helveticanowdisplay-medium.woff') format('woff');
 }
 
+@font-face {
+    font-family: 'Helvetica Display Regular';
+    src: url('./fonts/Helvetica Now Display/helveticanowdisplay-regular.woff2') format('woff2'),
+        url('./fonts/Helvetica Now Display/helveticanowdisplay-regular.woff') format('woff');
+}
 
 /* NO TOCAR  */
 .layout {
@@ -193,8 +203,8 @@ header {
 }
 
 ::placeholder {
-    color: #272727;
-    opacity: 0.7;
+    color: #E8EBF7;
+    opacity: 0.5;
 }
 
 @media (max-width: 768px),

@@ -272,6 +272,7 @@ const EditEvent = () => {
                   <textarea
                     className="editInput"
                     value={editedEventData.descriptionEvent}
+                    placeholder="(DESCRIPCIÓN)"
                     onChange={handleInputChange}
                     name="descriptionEvent"
                     rows="1"
@@ -295,7 +296,7 @@ const EditEvent = () => {
                     <input
                       type="text"
                       value={locationName}
-                      placeholder="SECRET LOCATION"
+                      placeholder="(SECRET LOCATION)"
                       onChange={e => setLocationName(e.target.value)}
                       className="editInput"
                       style={{ width: "100%" }} />
