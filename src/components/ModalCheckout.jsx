@@ -74,7 +74,7 @@ const InputModal = ({ handleModalSubmit, cart }) => {
                     <div>
                         <input
                             class="form-control"
-                            style={{ color: formData.email1 === formData.email2 ? 'black' : 'red' }}
+                            style={{ color: formData.email1 === formData.email2 ? '#E8EBF7' : 'red' }}
                             type="email"
                             id="email"
                             name="email2"
