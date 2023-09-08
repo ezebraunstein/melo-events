@@ -10,7 +10,7 @@ Amplify.configure(awsExports);
 function App() {
 
   const [userData, setUsersData] = useState({});
-  const [typeUser, setTypeUser] = useState('producer');
+  const [typeUser, setTypeUser] = useState("");
   const navigate = useNavigate();
   const [isFormValid, setIsFormValid] = useState(false);
   const { user } = useAuth0();
@@ -26,17 +26,25 @@ function App() {
   const getInputData = () => {
     const baseData = {
       id: user.sub,
-      nameUser: userData.nameUser,
-      surnameUser: userData.surnameUser,
-      dniUser: userData.dniUser,
-      emailUser: user.email
     };
-    return (typeUser === 'rrpp') ? {
-      ...baseData,
-      nameRRPP: userData.nameUser,
-      surnameRRPP: userData.surnameUser,
-      dniRRPP: userData.dniUser
-    } : baseData;
+
+    if (typeUser === 'rrpp') {
+      return {
+        ...baseData,
+        nameRRPP: userData.nameUser,
+        surnameRRPP: userData.surnameUser,
+        dniRRPP: userData.dniUser,
+        emailRRPP: user.email
+      };
+    } else {
+      return {
+        ...baseData,
+        nameUser: userData.nameUser,
+        surnameUser: userData.surnameUser,
+        dniUser: userData.dniUser,
+        emailUser: user.email
+      };
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -60,12 +68,12 @@ function App() {
   };
 
   const handleInputChange = (event) => {
-      const { name, value } = event.target;
+    const { name, value } = event.target;
 
-      if (name === 'dniUser' && !/^[0-9]*$/.test(value) && value !== "") {
-        return;
-      }
-      setUsersData({ ...userData, [name]: value.toUpperCase() });
+    if (name === 'dniUser' && !/^[0-9]*$/.test(value) && value !== "") {
+      return;
+    }
+    setUsersData({ ...userData, [name]: value.toUpperCase() });
   };
 
   const handleTypeUserChange = (event) => {
@@ -74,48 +82,41 @@ function App() {
 
   return (
     <div className="eventClass">
-      <form className="eventForm" onSubmit={handleSubmit}>
-        <label className="labelCreateUser">Nombre/s:
-          <input className="inputCreateUser"
-            placeholder="Nombre"
-            name="nameUser"
-            value={userData.nameUser}
-            required
-            onChange={handleInputChange}
-          ></input>
-        </label>
-        <label className="labelCreateUser">Apellido/s:
-          <input className="inputCreateUser"
-            placeholder="Apellido"
-            name="surnameUser"
-            value={userData.surnameUser}
-            required
-            onChange={handleInputChange}
-          ></input>
-        </label>
-        <label className="labelCreateUser">DNI:
-          <input className="inputCreateUser"
-            placeholder="DNI"
-            name="dniUser"
-            value={userData.dniUser}
-            required
-            pattern="\d{8}"
-            maxLength="8"
-            minLength="8"
-            inputMode="numeric"
-            onChange={handleInputChange}
-          ></input>
-        </label>
-        <label className="labelCreateUser">Tipo de usuario:
-          <select className="inputCreateUser"
-            name="typeUser"
-            value={typeUser}
-            onChange={handleTypeUserChange}
-          >
-            <option value="producer">Productor</option>
-            <option value="rrpp">RRPP</option>
-          </select>
-        </label>
+      <form onSubmit={handleSubmit}>
+        <input className="inputEvent"
+          placeholder="Nombre*"
+          name="nameUser"
+          value={userData.nameUser}
+          required
+          onChange={handleInputChange}
+        ></input>
+        <input className="inputEvent"
+          placeholder="Apellido*"
+          name="surnameUser"
+          value={userData.surnameUser}
+          required
+          onChange={handleInputChange}
+        ></input>
+        <input className="inputEvent"
+          placeholder="DNI*"
+          name="dniUser"
+          value={userData.dniUser}
+          required
+          pattern="\d{8}"
+          maxLength="8"
+          minLength="8"
+          inputMode="numeric"
+          onChange={handleInputChange}
+        ></input>
+        <select className="inputEvent"
+          name="typeUser"
+          value={typeUser}
+          onChange={handleTypeUserChange}
+        >
+          <option value="" disabled selected hidden>Tipo de usuario*</option>
+          <option value="producer">Productor</option>
+          <option value="rrpp">RRPP</option>
+        </select>
         <br />
         <div style={{ textAlign: 'centered' }}>
           <button className='btnMain' type="submit" disabled={!isFormValid}>

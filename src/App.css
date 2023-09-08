@@ -202,9 +202,9 @@ header {
     padding: 6px 10px;
 }
 
-::placeholder {
-    color: #E8EBF7;
-    opacity: 0.5;
+.searchInput::placeholder {
+    color: #272727;
+    opacity: 0.7;
 }
 
 @media (max-width: 768px),
@@ -553,10 +553,13 @@ header {
 .inputEvent {
     font-family: 'Helvetica Display Bold', sans-serif;
     color: #E8EBF7;
-    background-color: #272727;
+    background-color: #313131;
     border: 0;
     font-size: 35px;
     width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px;
 }
 
 .inputEvent::placeholder {
@@ -1478,33 +1481,33 @@ header {
 
 .labelCreateUser,
 .inputCreateUser {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Helvetica Display ExtraBold', sans-serif;
 }
 
 .labelCreateUser {
-    color: #000000;
+    color: #E8EBF7;
     width: 100%;
     display: block;
     margin-bottom: 10px;
     font-size: 25px;
     text-align: left;
+    text-transform: uppercase;
 
 }
 
 .inputCreateUser {
     width: 100%;
-    background-color: #fff;
-    color: #000000;
-    border: 1px solid #000000;
+    background-color: #272727;
+    color: #E8EBF7;
     padding: 10px;
-    border-radius: 10px;
     margin-bottom: 10px;
     font-size: 25px;
+    text-transform: uppercase;
 }
 
 .inputCreateUser::placeholder {
-    color: #999;
-    opacity: 1;
+    color: #E8EBF7;
+    opacity: 0.5;
 }
 
 @media (max-width: 768px),
@@ -1600,6 +1603,11 @@ header {
 .editInput {
     resize: none;
     overflow: hidden;
+}
+
+.editInput::placeholder {
+    color: #E8EBF7;
+    opacity: 0.5;
 }
 
 /* MESSAGE */
