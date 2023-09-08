@@ -16,6 +16,7 @@ import RRPPEvents from "./components/RRPPEvents";
 import RRPPEvent from "./components/RRPPEvent";
 import RRPPData from "./components/RRPPData";
 import ProtectedRoute from "./functions/protectedRoute";
+import Logo from "./components/Logo";
 
 function App() {
   return (
@@ -115,6 +116,11 @@ function App() {
               <h1 className="titleMessage">Hubo un error al procesar tu compra!</h1>
               <p1 className="textMessage1">Por favor volvé a intentarlo</p1>
             </div>
+          </Layout>
+        } />
+        <Route path="/logo" element={
+          <Layout>
+            <Logo />
           </Layout>
         } />
       </Routes>
