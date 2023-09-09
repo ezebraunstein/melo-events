@@ -42,7 +42,7 @@ const OwnerEvents = () => {
   }
 
   return (
-    <div className="eventClass">
+    <div className="event-class">
       {events.length > 0 ? (
         <div id="boxes">
           <h1 className="eventBoxTitle">Mis Eventos</h1>
@@ -62,6 +62,11 @@ const OwnerEvents = () => {
                 </button>
               </div>
             ))}
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <button className="btnMain" onClick={onclick}>
+              Crear nuevo Evento
+            </button>
           </div>
         </div>
       ) : (

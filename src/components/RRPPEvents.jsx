@@ -62,35 +62,41 @@ const RRPPEvents = () => {
     }
 
     return (
-        <div className="eventClass">
+        <div className="event-class">
             {rrppEvents.length > 0 ? (
                 <div id="boxes">
                     <h1 className="eventBoxTitle">Mis Eventos</h1>
+                    <br />
+                    <br />
                     <div className="eventBoxContainer">
                         {rrppEvents.map((rrppEvent) => (
-                            <div>
-                                <div key={rrppEvent.id} className="eventBox">
-                                    <img src={rrppEvent.Event.imageUrl} />
-                                    <h3 className="nameEventBox">{rrppEvent.Event.nameEvent}</h3>
-                                    <button onClick={() => handleButtonClick(rrppEvent.id)} className="eventBoxBtnBuy">
-                                        <i className="icon-ticket"></i>Acceder
-                                    </button>
-                                </div>
-                                <div>
-                                    <ModalRRPPEvent onEventLinked={handleEventLinked} user={user} />
-                                </div>
+                            <div key={rrppEvent.id} className="eventBox" onClick={() => handleButtonClick(rrppEvent.id)} style={{ cursor: 'pointer' }}>
+                                <img src={rrppEvent.Event.imageUrl} className="imgEventBox" />
+                                <h3 className="nameEventBox">{rrppEvent.Event.nameEvent}</h3>
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleButtonClick(rrppEvent.id);
+                                    }}
+                                    className="eventBoxBtnBuy"
+                                >
+                                    ACCEDER
+                                </button>
                             </div>
                         ))}
                     </div>
+                    <div>
+                        <ModalRRPPEvent onEventLinked={handleEventLinked} user={user} />
+                    </div>
+                    <br />
+                    <br />
                 </div>
             ) : (
                 <div className="message-container">
                     <div>
                         <h1 className='titleMessage'>No hay eventos vinculados</h1>
                     </div>
-                    <div>
-                        <h1 className='textMessage1'>Ingresá el código de evento</h1>
-                    </div>
+                    <br />
                     <div>
                         <ModalRRPPEvent onEventLinked={handleEventLinked} user={user} />
                     </div>

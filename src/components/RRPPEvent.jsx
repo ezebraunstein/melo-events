@@ -3,11 +3,13 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { listTickets, getRRPPEvent } from '../graphql/queries';
 import { useState, useEffect } from 'react';
 import { Snackbar } from '@mui/material';
-import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
+import { LoadScriptNext } from "@react-google-maps/api";
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
 import fetchEventData from '../functions/fetchEventData';
 import fetchTypeTickets from '../functions/fetchTypeTickets';
+import EventDetail from './EventDetail';
+const GOOGLE_MAPS_LIBRARIES = ["places"];
 
 const RRPPEvent = () => {
 
@@ -70,13 +72,13 @@ const RRPPEvent = () => {
 
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => (
-      <div className="eventClass">
+      <div>
         <div key={typeTicket.id} class="ticket-containerRRPP">
           <div class="ticket-column">
             <h2 class="ticket-text">{typeTicket.nameTT}</h2>
           </div>
           <div class="ticket-column">
-            <h2 class="ticket-text">Vendidos: {typeTicket.count}</h2>
+            <h2 class="ticket-text">{typeTicket.count}</h2>
           </div>
         </div>
       </div>
@@ -111,56 +113,28 @@ const RRPPEvent = () => {
   }
 
   return (
-    <div className="eventClass">
+    <div className="event-class">
       <br />
       <div className="test">
         {mapsApiLoaded && (
           <LoadScriptNext
             googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
-            libraries={["places"]}
+            libraries={GOOGLE_MAPS_LIBRARIES}
             onLoad={() => setMapsApiLoaded(true)}>
-            <div className="edit-event-container">
-              <div className="data-container">
-                <div>
-                  <h4 className="eventName"> {eventData.nameEvent}</h4>
-                </div>
-                <div>
-                  <h4 className="eventDate"> {(eventData.startDateE).slice(0, 10)}</h4>
-                </div>
-                {eventData.descriptionEvent && (
-                  <div>
-                    <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
-                  </div>
-                )}
-              </div>
-              <div className="image-container">
-                <img className="image-style" src={eventData.imageUrl} alt="" />
-              </div>
-              <div className="map-container">
-                <GoogleMap
-                  mapContainerStyle={{
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: "10px"
-                  }}
-                  zoom={15}
-                  center={selectedLocation || { lat: -34.397, lng: 150.644 }}
-                >
-                  {selectedLocation && (
-                    <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
-                  )}
-                </GoogleMap>
-              </div>
-            </div>
+            <EventDetail eventData={eventData} selectedLocation={selectedLocation} />
           </LoadScriptNext>
         )}
+      </div>
+      <br />
+      <div>
+        <p className='textMessage1'>MIS VENTAS</p>
       </div>
       <br />
       {renderTypeTickets()}
       <br />
       <div>
         <button type="button" class="btnMain" onClick={copyEventLinkToClipboard}>
-          Copiar Mi Link
+          Copiar Link
         </button>
       </div>
       <br />

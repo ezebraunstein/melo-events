@@ -54,7 +54,7 @@ const HomeEvents = () => {
     }
 
     return (
-        <div className="eventClass">
+        <div className="event-class">
             <div id="boxes">
                 <h1 className="eventBoxTitle">Eventos Destacados</h1>
                 <br />

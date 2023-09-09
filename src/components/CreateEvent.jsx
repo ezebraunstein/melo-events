@@ -192,7 +192,7 @@ function AddEvent() {
     }
 
     return (
-        <div className="eventClass">
+        <div className="event-class">
             <br />
             <form onSubmit={handleSubmit}>
                 {mapsApiLoaded && (
@@ -204,7 +204,7 @@ function AddEvent() {
                             <div className="input-container" >
                                 <div>
                                     <input
-                                        className="inputEvent"
+                                        className="event-input"
                                         type="text"
                                         name="nameEvent"
                                         value={eventData.nameEvent}
@@ -213,7 +213,7 @@ function AddEvent() {
                                     />
                                 </div>
                                 <div>
-                                    <input className="inputEvent"
+                                    <input className="event-input"
                                         type="date"
                                         name="startDateE"
                                         value={eventData.startDateE}
@@ -223,7 +223,7 @@ function AddEvent() {
                                 </div>
                                 <div>
                                     <textarea
-                                        className="inputEvent"
+                                        className="event-input"
                                         value={eventData.descriptionEvent}
                                         onChange={handleInputChange}
                                         name="descriptionEvent"
@@ -232,7 +232,7 @@ function AddEvent() {
                                         placeholder={!eventData.descriptionEvent ? "DESCRIPCIÓN (OPCIONAL)" : ""}
                                     />
                                 </div>
-                                <label className="labelEvent">
+                                <label className="label-input">
                                     <StandaloneSearchBox
                                         onLoad={(ref) => setMapRef(ref)}
                                         onPlacesChanged={() => {
@@ -249,15 +249,15 @@ function AddEvent() {
                                         <input
                                             type="text"
                                             placeholder="UBICACIÓN (OPCIONAL)"
-                                            className="inputEvent"
+                                            className="event-input"
                                             style={{ width: "100%" }}
                                         />
                                     </StandaloneSearchBox>
                                 </label>
                                 {/* <div >
-                                    <label className='labelEvent'>
+                                    <label className='label-input'>
                                         Flyer (formato 1:1)*
-                                        <input className='inputEvent'
+                                        <input className='event-input'
                                             type="file"
                                             accept=".jpg,.jpeg,.png"
                                             name="flyerMiniEvent"
@@ -267,7 +267,7 @@ function AddEvent() {
                                 </div> */}
                                 {/* <div className="date-flyer-container">
                                         <div className="date-container">
-                                            <label className='labelEvent'>
+                                            <label className='label-input'>
                                                 Fecha Inicio:
                                                 {isMobile ? (
                                                     <MobileDatePicker
@@ -285,9 +285,9 @@ function AddEvent() {
                                             </label>
                                         </div>
                                         <div className="flyer-container">
-                                            <label className='labelEvent'>
+                                            <label className='label-input'>
                                                 Flyer (formato 1:1)*
-                                                <input className='inputEvent'
+                                                <input className='event-input'
                                                     type="file"
                                                     accept=".jpg,.jpeg,.png"
                                                     name="flyerMiniEvent"

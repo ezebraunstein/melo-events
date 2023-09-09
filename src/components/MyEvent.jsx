@@ -83,7 +83,7 @@ const Event = () => {
   // }
 
   return (
-    <div className="eventClass">
+    <div className="event-class">
       <br />
       <div>
         {mapsApiLoaded && (
@@ -107,10 +107,10 @@ const Event = () => {
       <br />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <button className="btnMain" onClick={handleEditEvent} style={{ marginRight: '50px' }}>
-          Editar Evento
+          Editar
         </button>
         <button className="btnMain" onClick={redirectRRPP}>
-          Ver Públicas
+          Públicas
         </button>
       </div>
       <br />

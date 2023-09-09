@@ -1,0 +1,215 @@
+/* TICKET */
+
+.create-ticket-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 1rem;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #E4FF1A;
+}
+
+.ticket-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 1rem;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #E4FF1A;
+}
+
+.ticket-containerRRPP {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 1rem;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #B1CD4A;
+}
+
+.ticket-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ticket-text {
+    font-size: 25px;
+    margin: 0;
+    font-family: 'Helvetica Display ExtraBold', sans-serif;
+    text-transform: uppercase;
+}
+
+.nameRRPP {
+    font-size: 35px;
+    margin: 0;
+    text-align: left;
+    color: #E8EBF7;
+    font-family: 'Helvetica Display Bold', sans-serif;
+}
+
+.btn-Remove,
+.btn-Add {
+    font-family: 'Helvetica Display Black', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px 15px;
+    display: inline-block;
+    color: #E8EBF7;
+    transition: 0.3s;
+    cursor: pointer;
+    border: 0;
+    margin: 0 10%;
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.btn-Remove {
+    background: #7D53DE;
+}
+
+.btn-Remove:hover {
+    color: #272727;
+    background-color: #E8EBF7;
+}
+
+.btn-Add {
+    background: #7D53DE;
+}
+
+.btn-Add:hover {
+    color: #272727;
+    background-color: #E8EBF7;
+}
+
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+
+    .ticket-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin-bottom: 1rem;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        border-radius: 30px;
+    }
+
+    .ticket-containerRRPP {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin-bottom: 1rem;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        border-radius: 30px;
+    }
+
+    .ticket-column {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+    }
+
+    .quantity-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .ticket-text {
+        font-size: 60px;
+        margin: 0;
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
+    }
+
+    .nameRRPP {
+        font-size: 50px;
+        margin: 0;
+        text-align: left;
+        font-family: 'Helvetica Display Bold', sans-serif;
+    }
+
+    .btn-Remove,
+    .btn-Add {
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
+        font-size: 60px;
+        text-align: center;
+        padding: 0px 15px;
+        display: inline-block;
+        color: #E8EBF7;
+        transition: 0.3s;
+        cursor: pointer;
+        border: 0;
+        margin: 0 3%;
+        max-width: 100%;
+        border-radius: 20px;
+    }
+
+    .btn-Remove {
+        background: #7D53DE;
+    }
+
+    .btn-Remove:hover {
+        color: #272727;
+        background-color: #E8EBF7;
+    }
+
+    .btn-Add {
+        background: #7D53DE;
+    }
+
+    .btn-Add:hover {
+        color: #272727;
+        background-color: #E8EBF7;
+    }
+
+}
+
+/* CREATE TYPE TICKET */
+
+.type-ticket-form .type-ticket-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+
+    .type-ticket-form .type-ticket-input {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        height: 100%;
+    }
+
+    .event-input.nameTT {
+        order: 1;
+    }
+
+    .event-input.priceTT {
+        order: 2;
+    }
+
+    .event-input.quantityTT {
+        order: 3;
+    }
+
+}

@@ -25,12 +25,11 @@ const RRPPData = () => {
       const filteredRRPPEvents = rrppEventData.data.listRRPPEvents.items.filter(
         item => item.Event.id === eventId
       );
-
       const rrppIDs = filteredRRPPEvents.map(item => item.rrppID);
       const rrppPromises = rrppIDs.map(rrppID => API.graphql(graphqlOperation(getRRPP, { id: rrppID })));
       const rrppData = await Promise.all(rrppPromises);
+
       setRrpps(rrppData.map(res => res.data.getRRPP));
-      debugger;
       const typeTicketsData = {};
       for (const rrppEvent of filteredRRPPEvents) {
         typeTicketsData[rrppEvent.rrppID] = await fetchTicketsAndCountByType(rrppEvent.id, eventId);
@@ -78,7 +77,7 @@ const RRPPData = () => {
             <h2 className="ticket-text">{typeTicket.nameTT}</h2>
           </div>
           <div className="ticket-column">
-            <h2 className="ticket-text">Vendidos {typeTicket.count}</h2>
+            <h2 className="ticket-text">{typeTicket.count}</h2>
           </div>
         </div>
       </div>
@@ -109,21 +108,17 @@ const RRPPData = () => {
 
   return (
     <main>
-      <div className="eventClass">
+      <div className="event-class">
         <div>
           {rrpps.length === 0 ? (
-            <div className='containerMessage'>
+            <div className='message-container'>
               <div>
                 <h1 className='titleMessage'>NO HAY PÚBLICAS VINCULADOS</h1>
               </div>
               <br />
               <div>
-                <h1 className='textMessage1'>COMPARTILES EL CÓDIGO</h1>
-              </div>
-              <br />
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <button className="btnMain" onClick={copyEventIdToClipboard} >
-                  Copiar Código Públicas
+                  Copiar Código
                 </button>
               </div>
             </div>
@@ -131,9 +126,10 @@ const RRPPData = () => {
             rrpps.map((rrpp) => (
               <div >
                 <h1 className="eventBoxTitle">Públicas</h1>
+                <br />
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <button className="btnMain" onClick={copyEventIdToClipboard} >
-                    Copiar Código Públicas
+                    Copiar Código
                   </button>
                 </div>
                 <br />

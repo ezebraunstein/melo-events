@@ -186,7 +186,7 @@ const BuyEvent = () => {
   }
 
   return (
-    <div className="eventClass">
+    <div className="event-class">
       <br />
       <div>
         {mapsApiLoaded && (

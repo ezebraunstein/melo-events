@@ -75,8 +75,8 @@ const LinkEventModal = ({ onEventLinked }) => {
                     </div>
                     <br />
                     <div class="btn-container">
-                        <button type="button" class="btn-Modal-Back" onClick={() => setModalIsOpen(false)}>Cancelar</button>
-                        <button className="btn-Modal-Buy" type="submit" disabled={!eventId}>Unirme a Evento</button>
+                        <button type="button" class="btn-Modal-Back" onClick={() => setModalIsOpen(false)}>Volver</button>
+                        <button className="btn-Modal-Buy" type="submit" disabled={!eventId}>Unirme</button>
                     </div>
                 </form>
             </Modal>

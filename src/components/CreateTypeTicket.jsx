@@ -78,13 +78,13 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
 
     return (
         <div>
-            <form onSubmit={handleSubmit} className="create-type-ticket-form">
-                <div className="inputs-container">
-                    <div className="col">
+            <form onSubmit={handleSubmit} className="type-ticket-form">
+                <div className="type-ticket-input">
+                    <div>
                         <input
                             type="text"
                             name="nameTT"
-                            className="inputEvent"
+                            className="event-input"
                             id="nameTT"
                             value={typeTicketData.nameTT}
                             placeholder="NOMBRE*"
@@ -92,12 +92,11 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                             onChange={handleInputChange}
                         />
                     </div>
-                    <br />
-                    <div className="col">
+                    <div>
                         <input
                             type="int"
                             name="priceTT"
-                            className="inputEvent"
+                            className="event-input"
                             id="priceTT"
                             value={typeTicketData.priceTT}
                             placeholder="MONTO*"
@@ -106,12 +105,11 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                             onChange={handleInputChange}
                         />
                     </div>
-                    <br />
-                    <div className="col">
+                    <div>
                         <input
                             type="int"
                             name="quantityTT"
-                            className="inputEvent"
+                            className="event-input"
                             id="quantityTT"
                             value={typeTicketData.quantityTT}
                             placeholder="CANTIDAD*"

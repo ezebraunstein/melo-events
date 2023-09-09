@@ -81,51 +81,54 @@ function App() {
   };
 
   return (
-    <div className="eventClass">
-      <form onSubmit={handleSubmit}>
-        <input className="inputEvent"
-          placeholder="Nombre*"
-          name="nameUser"
-          value={userData.nameUser}
-          required
-          onChange={handleInputChange}
-        ></input>
-        <input className="inputEvent"
-          placeholder="Apellido*"
-          name="surnameUser"
-          value={userData.surnameUser}
-          required
-          onChange={handleInputChange}
-        ></input>
-        <input className="inputEvent"
-          placeholder="DNI*"
-          name="dniUser"
-          value={userData.dniUser}
-          required
-          pattern="\d{8}"
-          maxLength="8"
-          minLength="8"
-          inputMode="numeric"
-          onChange={handleInputChange}
-        ></input>
-        <select className="inputEvent"
-          name="typeUser"
-          value={typeUser}
-          onChange={handleTypeUserChange}
-        >
-          <option value="" disabled selected hidden>Tipo de usuario*</option>
-          <option value="producer">Productor</option>
-          <option value="rrpp">RRPP</option>
-        </select>
-        <br />
-        <div style={{ textAlign: 'centered' }}>
-          <button className='btnMain' type="submit" disabled={!isFormValid}>
-            Agregar Usuario
-          </button>
-        </div>
-        <br />
-        <br />
-      </form>
+    <div className="event-class">
+      <div className="create-user-container">
+        <form onSubmit={handleSubmit}>
+          <input className="event-input"
+            placeholder="NOMBRE*"
+            name="nameUser"
+            value={userData.nameUser}
+            required
+            onChange={handleInputChange}
+          ></input>
+          <input className="event-input"
+            placeholder="APELLIDO*"
+            name="surnameUser"
+            value={userData.surnameUser}
+            required
+            onChange={handleInputChange}
+          ></input>
+          <input className="event-input"
+            placeholder="DNI*"
+            name="dniUser"
+            value={userData.dniUser}
+            required
+            pattern="\d{8}"
+            maxLength="8"
+            minLength="8"
+            inputMode="numeric"
+            onChange={handleInputChange}
+          ></input>
+          <select className="event-input"
+            name="typeUser"
+            value={typeUser}
+            onChange={handleTypeUserChange}
+          >
+            <option value="" disabled selected hidden>TIPO USUARIO*</option>
+            <option value="producer">PRODUCTOR</option>
+            <option value="rrpp">RRPP</option>
+          </select>
+          <br />
+          <br />
+          <div style={{ textAlign: 'centered' }}>
+            <button className='btnMain' type="submit" disabled={!isFormValid}>
+              Agregar Usuario
+            </button>
+          </div>
+          <br />
+          <br />
+        </form>
+      </div>
     </div>
   );
 }

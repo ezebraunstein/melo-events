@@ -240,7 +240,7 @@ const EditEvent = () => {
   };
 
   return (
-    <div className="eventClass">
+    <div className="event-class">
       <br />
       <div>
         {mapsApiLoaded && (
@@ -252,7 +252,7 @@ const EditEvent = () => {
               <div className="input-container">
                 <div>
                   <input
-                    className="editInput"
+                    className="event-input"
                     type="text"
                     value={editedEventData.nameEvent}
                     onChange={handleInputChange}
@@ -261,7 +261,7 @@ const EditEvent = () => {
                 </div>
                 <div>
                   <input
-                    className="editInput"
+                    className="event-input"
                     type="date"
                     name="startDateE"
                     value={editedEventData.startDateE instanceof Date ? editedEventData.startDateE.toISOString().split('T')[0] : ""}
@@ -270,7 +270,7 @@ const EditEvent = () => {
                 </div>
                 <div>
                   <textarea
-                    className="editInput"
+                    className="event-input"
                     value={editedEventData.descriptionEvent}
                     placeholder="(DESCRIPCIÓN)"
                     onChange={handleInputChange}
@@ -279,7 +279,7 @@ const EditEvent = () => {
                     onInput={autoGrowTextArea}
                   />
                 </div>
-                <label className="labelEvent">
+                <label className="label-input">
                   <StandaloneSearchBox
                     onLoad={(ref) => setMapRef(ref)}
                     onPlacesChanged={() => {
@@ -298,7 +298,7 @@ const EditEvent = () => {
                       value={locationName}
                       placeholder="(SECRET LOCATION)"
                       onChange={e => setLocationName(e.target.value)}
-                      className="editInput"
+                      className="event-input"
                       style={{ width: "100%" }} />
                   </StandaloneSearchBox>
                 </label>
@@ -362,7 +362,7 @@ const EditEvent = () => {
       <br />
       <br />
       <div>
-        <p className='textMessage1'>NUEVO TIPO DE TICKET</p>
+        <p className='textMessage1'>NUEVO TICKET</p>
       </div>
       <br />
       <CreateTypeTicket eventId={eventId} onTypeTicketCreated={handleTypeTicketCreated} />

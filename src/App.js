@@ -1,6 +1,5 @@
 import './App.css';
 import React from "react";
-import { Route, Routes } from 'react-router-dom';
 import Slider from "./components/Slider";
 import HomeEvents from "./components/HomeEvents";
 import CreateEvent from "./components/CreateEvent";
@@ -17,6 +16,13 @@ import RRPPEvent from "./components/RRPPEvent";
 import RRPPData from "./components/RRPPData";
 import ProtectedRoute from "./functions/protectedRoute";
 import Logo from "./components/Logo";
+import { Route, Routes } from 'react-router-dom';
+import './CSS/Buttons.css'
+import './CSS/Event.css'
+import './CSS/EventBox.css'
+import './CSS/Layout.css'
+import './CSS/Modal.css'
+import './CSS/Ticket.css'
 
 function App() {
   return (

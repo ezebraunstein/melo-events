@@ -1,0 +1,184 @@
+/* BUTTON MAIN */
+
+.btnMain {
+    font-family: 'Helvetica Display ExtraBold', sans-serif;
+    font-size: 25px;
+    text-align: center;
+    background: #E4FF1A;
+    padding: 10px 15px;
+    width: auto;
+    color: #272727;
+    transition: 0.2s;
+    cursor: pointer;
+    width: auto;
+    border: 0;
+    max-width: 100%;
+    border-radius: 10px;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.btnMain:hover {
+    letter-spacing: 2px;
+    color: #E8EBF7;
+    background-color: #7D53DE;
+}
+
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+    .btnMain {
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
+        font-size: 70px;
+        text-align: center;
+        background: #E4FF1A;
+        padding: 10px 15px;
+        width: auto;
+        color: #272727;
+        transition: 0.3s;
+        cursor: pointer;
+        width: auto;
+        border: 0;
+        max-width: 100%;
+        border-radius: 30px;
+        display: inline-block;
+    }
+
+    .btnMain:hover {
+        color: #E8EBF7;
+        background-color: #7D53DE;
+    }
+}
+
+/* BUTTON HEADER */
+
+.box-1 {
+    display: flex;
+    outline: 2px;
+    margin-left: auto;
+    margin-right: 0;
+    padding-left: 1em;
+}
+
+.btnHeader {
+    font-family: 'Helvetica Display ExtraBold', sans-serif;
+    font-size: 25px;
+    text-align: center;
+    background: #E4FF1A;
+    padding: 10px 15px;
+    width: auto;
+    color: #272727;
+    transition: 0.1s;
+    cursor: pointer;
+    width: auto;
+    border: 0;
+    max-width: 100%;
+    border-radius: 10px;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.btnHeader span {
+    transition: all 0.1s;
+}
+
+.btnHeader:hover {
+    letter-spacing: 2px;
+    color: #E8EBF7;
+    background-color: #7D53DE;
+}
+
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+    .box-1 {
+        display: flex;
+        outline: 2px;
+        margin-left: auto;
+        margin-right: 0;
+        overflow: hidden;
+    }
+
+    .btnHeader {
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
+        font-size: 40px;
+        text-align: center;
+        background: #E4FF1A;
+        width: auto;
+        color: #272727;
+        transition: 0.1s;
+        cursor: pointer;
+        width: auto;
+        max-width: 100%;
+        border-radius: 30px;
+        display: block;
+    }
+
+    .btnHeader span {
+        transition: all 0.1s;
+    }
+
+    .btnHeader:hover {
+        letter-spacing: 2px;
+        color: #E8EBF7;
+        background-color: #7D53DE;
+    }
+}
+
+/* BUTTON LOGOUT */
+
+.btnLogout {
+    font-family: 'Helvetica Display ExtraBold', sans-serif;
+    font-size: 25px;
+    text-align: center;
+    background: #E4FF1A;
+    padding: 10px 15px;
+    width: 100%;
+    color: #272727;
+    transition: 0.1s;
+    cursor: pointer;
+    width: auto;
+    border: 0;
+    max-width: 100%;
+    border-radius: 10px;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.btnLogout span {
+    position: relative;
+    z-index: 3;
+    transition: all 0.1s;
+}
+
+.btnLogout:hover {
+    letter-spacing: 2px;
+    color: #E8EBF7;
+    background-color: #f90000;
+}
+
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+    .btnLogout {
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
+        font-size: 40px;
+        text-align: center;
+        background: #E4FF1A;
+        width: 100%;
+        color: #272727;
+        transition: 0.1s;
+        cursor: pointer;
+        width: auto;
+        max-width: 100%;
+        border-radius: 20px;
+        display: inline-block;
+    }
+
+    .btnLogout span {
+        position: relative;
+        z-index: 3;
+        transition: all 0.1s;
+    }
+
+    .btnLogout:hover span {
+        letter-spacing: 2px;
+    }
+}
