@@ -105,9 +105,8 @@ const InputModal = ({ handleModalSubmit, cart }) => {
                             inputMode="numeric"
                         />
                     </div>
-                    <br />
                     <div class="btn-container">
-                        <button type="button" class="btn-Modal-Back" onClick={() => setModalIsOpen(false)}>Volver Atrás</button>
+                        <button class="btn-Modal-Back" type="button"  onClick={() => setModalIsOpen(false)}>Volver Atrás</button>
                         <button class="btn-Modal-Buy" type="submit" disabled={!formData.email1 || !formData.email2 || formData.email1 !== formData.email2 || !formData.dni || !formData.name || !formData.surname}>Continuar con el pago</button>
                     </div>
                 </form>

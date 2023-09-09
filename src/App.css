@@ -53,9 +53,6 @@
 /* HEADER */
 
 header {
-    /* background: #FF5714; */
-    /* background: #F06449; */
-    color: white;
     padding: 20px;
     display: flex;
     align-items: center;
@@ -196,14 +193,14 @@ header {
     all: unset;
     font-family: 'Helvetica Display Bold', sans-serif;
     font-size: 30px;
-    color: #272727;
+    color: black;
     height: 100%;
     width: 100%;
     padding: 6px 10px;
 }
 
 .searchInput::placeholder {
-    color: #272727;
+    color: black;
     opacity: 0.7;
 }
 
@@ -214,7 +211,7 @@ header {
         background-color: #E4FF1A;
         width: 85%;
         height: 100px;
-        border-radius: 5px;
+        border-radius: 30px;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -225,14 +222,14 @@ header {
         all: unset;
         font-family: 'Helvetica Display Bold', sans-serif;
         font-size: 50px;
-        color: #272727;
+        color: black;
         height: 100%;
         width: 100%;
         padding: 6px 10px;
     }
 
     .searchInput::placeholder {
-        color: #272727;
+        color: black;
         opacity: 0.7;
     }
 
@@ -246,28 +243,17 @@ header {
 
 /* FOOTER */
 
-.footerClass {
-    font-family: 'Helvetica Display Bold', sans-serif;
-    background-color: #E4FF1A;
-    width: 100%;
-    padding: 1em;
-    text-align: right;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    position: relative;
-    flex-shrink: 0;
-    text-transform: uppercase;
-}
-
 .footerText {
     font-size: 20px;
-    margin-top: 5px;
-    margin-right: 5px;
     color: #272727;
 }
 
 .footerContainer {
+    font-family: 'Helvetica Display Bold', sans-serif;
+    background-color: #E4FF1A;
+    width: 100%;
+    padding: 1em;
+    text-transform: uppercase;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -275,28 +261,19 @@ header {
 
 @media (max-width: 768px),
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
-    .footerClass {
-        font-family: 'Helvetica Display Bold', sans-serif;
-        background-color: #E4FF1A;
-        width: 100%;
-        height: 100px;
-        padding: 1em;
-        text-align: right;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        position: relative;
-        flex-shrink: 0;
-    }
+
 
     .footerText {
         font-size: 40px;
-        margin-top: 5px;
-        margin-right: 5px;
         color: #272727;
     }
 
     .footerContainer {
+        font-family: 'Helvetica Display Bold', sans-serif;
+        background-color: #E4FF1A;
+        width: 100%;
+        padding: 1em;
+        text-transform: uppercase;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -304,6 +281,17 @@ header {
 }
 
 /* EVENT */
+
+.eventClass {
+    text-align: center;
+    font-family: 'Helvetica Display Bold', sans-serif;
+    border-radius: 10px;
+    margin: 0 auto;
+    position: relative;
+    flex: 1;
+    box-sizing: border-box;
+    max-width: 90%;
+}
 
 .eventName {
     display: inline-block;
@@ -336,17 +324,6 @@ header {
     text-transform: uppercase;
 }
 
-.eventClass {
-    text-align: center;
-    font-family: 'Helvetica Display Bold', sans-serif;
-    border-radius: 10px;
-    margin: 0 auto;
-    position: relative;
-    flex: 1;
-    box-sizing: border-box;
-    max-width: 90%;
-}
-
 .imgEvent {
     border-radius: 10px;
     width: 60%;
@@ -357,14 +334,10 @@ header {
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
     .eventClass {
         text-align: center;
-        background-color: rgba(255, 255, 255, 0.8);
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Helvetica Display Bold', sans-serif;
         border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
-        max-width: 100%;
         margin: 0 auto;
         position: relative;
-        top: 10px;
         flex: 1;
         box-sizing: border-box;
         max-width: 95%;
@@ -372,32 +345,34 @@ header {
 
     .eventName {
         display: inline-block;
-        color: rgb(0, 0, 0);
-        font-size: 150px;
-        font-family: 'Bebas Neue', sans-serif;
+        color: #E8EBF7;
+        font-size: 180px;
+        font-family: 'Helvetica Display Black', sans-serif;
     }
 
     .eventDate {
         display: inline-block;
-        color: rgb(0, 0, 0);
-        font-size: 90px;
-        font-family: 'Bebas Neue', sans-serif;
+        color: #E8EBF7;
+        font-size: 100px;
+        font-family: 'Helvetica Display Bold', sans-serif;
     }
 
     .eventDescription {
         display: inline-block;
-        color: rgb(0, 0, 0);
-        font-size: 50px;
-        font-family: 'Bebas Neue', sans-serif;
+        color: #E8EBF7;
+        font-size: 70px;
+        font-family: 'Helvetica Display Medium', sans-serif;
     }
 
-    .imgEvent {
-        border-radius: 10px;
-        width: 60%;
-        height: 400px;
+    .eventLocation {
+        display: inline-block;
+        color: #E8EBF7;
+        font-size: 40px;
+        font-family: 'Helvetica Display Bold', sans-serif;
     }
 
     .nombrePublica {
+        font-family: 'Helvetica Display Medium', sans-serif;
         text-align: left;
         padding-left: 3%;
         font-size: 80px;
@@ -407,7 +382,6 @@ header {
 /* EVENT BOX */
 
 .eventBoxTitle {
-    /* padding-top: 20px; */
     text-align: center;
     font-family: 'Helvetica Display Black', sans-serif;
     font-size: 100px;
@@ -415,13 +389,13 @@ header {
     text-transform: uppercase;
 }
 
-#boxes .eventBoxContainer {
+.eventBoxContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     max-width: 90%;
     margin: 0 auto;
-    padding-bottom: 10%;
+    padding-bottom: 20px;
 }
 
 .eventBox {
@@ -440,8 +414,6 @@ header {
     height: 350px;
     object-fit: cover;
     display: block;
-    margin: 0;
-    border-radius: 10px 10px 0 0;
 }
 
 .nameEventBox {
@@ -453,6 +425,7 @@ header {
     margin: 0;
     overflow: hidden;
     text-transform: uppercase;
+    color: black;
     background-color: #E8EBF7;
 }
 
@@ -464,11 +437,9 @@ header {
     display: block;
     padding: 10px;
     width: auto;
-    color: #252323;
+    color: black;
     transition: 0.3s;
     cursor: pointer;
-    border-color: black;
-    border-radius: 0 0 10px 10px;
     border: 0;
     text-transform: uppercase;
 }
@@ -491,14 +462,13 @@ header {
     .eventBoxTitle {
         padding-top: 40px;
         text-align: center;
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 118px;
-        color: #f28d46;
-        ;
+        font-family: 'Helvetica Display Black', sans-serif;
+        font-size: 100px;
+        color: #7D53DE;
     }
 
-    #boxes .eventBoxContainer {
-        max-width: 90%;
+    .eventBoxContainer {
+        max-width: 85%;
         flex-direction: column;
         align-items: center;
     }
@@ -507,6 +477,8 @@ header {
         width: 100%;
         max-width: none;
         border-radius: 30px;
+        margin: auto;
+        margin-bottom: 50px;
     }
 
     .imgEventBox {
@@ -514,35 +486,28 @@ header {
         min-height: 800px;
         object-fit: cover;
         display: block;
-        margin: 0;
-        border-radius: 30px 30px 0px 0px;
     }
 
     .nameEventBox {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Helvetica Display Bold', sans-serif;
         font-size: 60px;
         text-align: center;
         display: block;
         width: auto;
-        border-left: 3px solid;
-        border-right: 3px solid;
         overflow: hidden;
     }
 
     .eventBoxBtnBuy {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 70px;
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
+        font-size: 65px;
         text-align: center;
-        background: #f28d46;
+        background: #E4FF1A;
         display: block;
         padding: 10px;
         width: auto;
-        color: #ffffff;
+        color: black;
         transition: 0.3s;
         cursor: pointer;
-        border: 3px solid;
-        border-color: black;
-        border-radius: 0 0 30px 30px;
         border-top: 0;
     }
 }
@@ -619,9 +584,6 @@ header {
 .image-container:hover .image-overlay {
     opacity: 1;
 }
-
-
-
 
 @media (max-width: 768px),
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
@@ -736,16 +698,6 @@ header {
 
 }
 
-/* .create-type-ticket-form,
-.create-type-ticket-form .form-control,
-.create-type-ticket-form .col-form-label,
-.create-type-ticket-form .form-check-input {
-    font-family: 'Helvetica Display Bold', sans-serif;
-    font-size: 25px;
-    background-color: #272727;
-    border: 0;
-} */
-
 
 @media (max-width: 768px),
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
@@ -834,13 +786,11 @@ header {
 
 .btn-Remove,
 .btn-Add {
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
+    font-family: 'Helvetica Display Black', sans-serif;
     font-size: 20px;
     text-align: center;
-    width: 100px;
-    height: 40px;
-    line-height: 20px;
+    padding: 10px 15px;
+    display: inline-block;
     color: #E8EBF7;
     transition: 0.3s;
     cursor: pointer;
@@ -856,7 +806,7 @@ header {
 
 .btn-Remove:hover {
     color: #272727;
-    background-color: white;
+    background-color: #E8EBF7;
 }
 
 .btn-Add {
@@ -872,31 +822,29 @@ header {
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
 
     .ticket-text {
-        font-size: 65px;
+        font-size: 60px;
         margin: 0;
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
     }
 
     .ticket-container {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        border: 1px solid #ccc;
         margin-bottom: 1rem;
         width: 100%;
         text-align: center;
         padding: 10px;
-        border-radius: 10px;
+        border-radius: 30px;
     }
 
     .ticket-containerRRPP {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        border: 1px solid #ccc;
         margin-bottom: 1rem;
         width: 100%;
         text-align: center;
         padding: 10px;
-        border-radius: 10px;
+        border-radius: 30px;
     }
 
     .ticket-column {
@@ -914,38 +862,36 @@ header {
 
     .btn-Remove,
     .btn-Add {
-        font-family: 'Inter', sans-serif;
-        font-weight: 700;
-        font-size: 30px;
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
+        font-size: 60px;
         text-align: center;
-        width: 100px;
-        height: 70px;
-        line-height: 25px;
-        color: #fdfdfd;
+        padding: 0px 15px;
+        display: inline-block;
+        color: #E8EBF7;
         transition: 0.3s;
         cursor: pointer;
         border: 0;
         margin: 0 3%;
         max-width: 100%;
-        border-radius: 10px;
+        border-radius: 20px;
     }
 
     .btn-Remove {
-        background: #ee593c;
+        background: #7D53DE;
     }
 
     .btn-Remove:hover {
-        color: #ee593c;
-        background-color: white;
+        color: #272727;
+        background-color: #E8EBF7;
     }
 
     .btn-Add {
-        background: #8fac24;
+        background: #7D53DE;
     }
 
     .btn-Add:hover {
-        color: #8fac24;
-        background-color: white;
+        color: #272727;
+        background-color: #E8EBF7;
     }
 
     .nameRRPP {
@@ -961,13 +907,15 @@ header {
 
 .custom-modal {
     font-family: 'Helvetica Display Bold', sans-serif;
-    position: relative;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: #272727;
     border-radius: 10px;
     padding: 20px;
-    max-width: 50%;
+    width: 50%;
     max-height: 100%;
-    margin: 5% auto;
 }
 
 .custom-modal form {
@@ -985,6 +933,12 @@ header {
     text-transform: uppercase;
 }
 
+.custom-modal input:focus {
+    background-color: #272727;
+    outline: none;
+    color: #E8EBF7;
+    box-shadow: none;
+}
 
 .btn-container {
     display: flex;
@@ -1034,80 +988,86 @@ header {
 @media (max-width: 768px),
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
     .custom-modal {
-        font-family: 'Bebas Neue', sans-serif;
-        position: relative;
-        background-color: #ffffff;
+        font-family: 'Helvetica Display Bold', sans-serif;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #272727;
         border-radius: 30px;
         padding: 20px;
-        max-width: 90%;
-        max-height: 100%;
-        margin: 5% auto;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-        top: 50%;
-        left: 45%;
-        right: auto;
-        bottom: auto;
-        transform: translate(-50%, -50%);
+        width: 90%;
+        height: 57%;
     }
 
     .custom-modal form {
         display: grid;
-        gap: 30px;
+        gap: 70px;
     }
 
     .custom-modal input {
         width: 100%;
         padding: 3px;
-        font-size: 80px;
-        border-radius: 10px;
-        border: 1px solid #ccc;
+        font-size: 70px;
+        border: 0;
+        color: #E8EBF7;
+        background-color: #272727;
+        text-transform: uppercase;
     }
 
     .custom-modal input:focus {
-        border-color: #8fac24;
+        background-color: #272727;
         outline: none;
+        color: #E8EBF7;
+        box-shadow: none;
     }
 
     .btn-container {
         display: flex;
-        justify-content: center;
-        gap: 10%;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
     }
 
     .btn-Modal-Buy,
     .btn-Modal-Back {
-        font-family: 'Helvetica Display Bold', sans-serif;
-        font-size: 55px;
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
+        font-size: 60px;
         text-align: center;
-        background: #f28d46;
         padding: 10px 15px;
         width: auto;
-        color: #ffffff;
         transition: 0.3s;
         cursor: pointer;
         width: auto;
         border: 0;
         max-width: 100%;
-        border-radius: 10px;
+        border-radius: 30px;
         display: inline-block;
+        text-transform: uppercase;
     }
 
     .btn-Modal-Buy {
-        background: #8fac24;
+        order: 1;
+        background: #E4FF1A;
+        color: #272727;
     }
 
     .btn-Modal-Buy:hover {
-        color: white;
-        background-color: #B1CD4A;
+        letter-spacing: 2px;
+        color: #E8EBF7;
+        background-color: #7D53DE;
     }
 
     .btn-Modal-Back {
-        background: #ee593c;
+        order: 2;
+        background: #FF5714;
+        color: #272727;
     }
 
     .btn-Modal-Back:hover {
-        color: white;
-        background-color: #f07b54;
+        letter-spacing: 2px;
+        color: #E8EBF7;
+        background-color: #7D53DE;
     }
 }
 
@@ -1120,7 +1080,7 @@ header {
     background: #E4FF1A;
     padding: 10px 15px;
     width: auto;
-    color: #252323;
+    color: #272727;
     transition: 0.2s;
     cursor: pointer;
     width: auto;
@@ -1137,49 +1097,28 @@ header {
     background-color: #7D53DE;
 }
 
-.btnMain:hover::before {
-    opacity: 1;
-    transform: scale(1, 1);
-}
-
-.btnMain::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    transition: all 0.2s;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-}
-
-.btnMain:hover::after {
-    opacity: 0;
-    transform: scale(0.1, 1);
-}
-
 @media (max-width: 768px),
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
     .btnMain {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 80px;
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
+        font-size: 70px;
         text-align: center;
-        background: #f28d46;
+        background: #E4FF1A;
         padding: 10px 15px;
         width: auto;
-        color: #ffffff;
+        color: #272727;
         transition: 0.3s;
         cursor: pointer;
         width: auto;
         border: 0;
         max-width: 100%;
-        border-radius: 20px;
+        border-radius: 30px;
         display: inline-block;
     }
 
     .btnMain:hover {
-        color: white;
-        background-color: #B1CD4A;
+        color: #E8EBF7;
+        background-color: #7D53DE;
     }
 }
 
@@ -1200,7 +1139,7 @@ header {
     background: #E4FF1A;
     padding: 10px 15px;
     width: auto;
-    color: #252323;
+    color: #272727;
     transition: 0.1s;
     cursor: pointer;
     width: auto;
@@ -1215,55 +1154,10 @@ header {
     transition: all 0.1s;
 }
 
-.btnHeader::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    opacity: 0.5;
-    transition: all 0.2s;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    border-right-width: 1px;
-    border-left-width: 1px;
-    border-left-style: solid;
-    border-right-style: solid;
-    border-top-style: solid;
-    border-bottom-style: solid;
-    border-top-color: rgba(255, 255, 255, 0.5);
-    border-bottom-color: rgba(255, 255, 255, 0.5);
-    border-right-color: rgba(255, 255, 255, 0.5);
-    border-left-color: rgba(255, 255, 255, 0.5);
-    transform: scale(0.1, 1);
-    border-radius: 5px;
-}
-
 .btnHeader:hover {
     letter-spacing: 2px;
     color: #E8EBF7;
     background-color: #7D53DE;
-}
-
-.btnHeader:hover::before {
-    opacity: 1;
-    transform: scale(1, 1);
-}
-
-.btnHeader::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    transition: all 0.2s;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-}
-
-.btnHeader:hover::after {
-    opacity: 0;
-    transform: scale(0.1, 1);
 }
 
 @media (max-width: 768px),
@@ -1273,76 +1167,32 @@ header {
         outline: 2px;
         margin-left: auto;
         margin-right: 0;
+        overflow: hidden;
     }
 
     .btnHeader {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
         font-size: 40px;
         text-align: center;
-        background: #f28d46;
+        background: #E4FF1A;
         width: auto;
-        color: #ffffff;
-        transition: 0.3s;
+        color: #272727;
+        transition: 0.1s;
         cursor: pointer;
         width: auto;
         max-width: 100%;
-        border-radius: 20px;
+        border-radius: 30px;
         display: block;
     }
 
     .btnHeader span {
-        transition: all 0.3s;
-    }
-
-    .btnHeader::before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-
-        z-index: 1;
-        opacity: 0.5;
-        transition: all 0.3s;
-        border-top-width: 1px;
-        border-bottom-width: 1px;
-        border-right-width: 1px;
-        border-left-width: 1px;
-        border-left-style: solid;
-        border-right-style: solid;
-        border-top-style: solid;
-        border-bottom-style: solid;
-        border-top-color: rgba(255, 255, 255, 0.5);
-        border-bottom-color: rgba(255, 255, 255, 0.5);
-        border-right-color: rgba(255, 255, 255, 0.5);
-        border-left-color: rgba(255, 255, 255, 0.5);
-        transform: scale(0.1, 1);
-        border-radius: 5px;
+        transition: all 0.1s;
     }
 
     .btnHeader:hover {
         letter-spacing: 2px;
-        color: white;
-    }
-
-    .btnHeader:hover::before {
-        opacity: 1;
-        transform: scale(1, 1);
-    }
-
-    .btnHeader::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        z-index: 1;
-        transition: all 0.3s;
-        background-color: rgba(255, 255, 255, 0.3);
-        border-radius: 5px;
-    }
-
-    .btnHeader:hover::after {
-        opacity: 0;
-        transform: scale(0.1, 1);
+        color: #E8EBF7;
+        background-color: #7D53DE;
     }
 }
 
@@ -1355,7 +1205,7 @@ header {
     background: #E4FF1A;
     padding: 10px 15px;
     width: 100%;
-    color: #252323;
+    color: #272727;
     transition: 0.1s;
     cursor: pointer;
     width: auto;
@@ -1372,57 +1222,22 @@ header {
     transition: all 0.1s;
 }
 
-.btnLogout::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    opacity: 0;
-    transition: all 0.1s;
-    border: 1px solid rgba(158, 12, 12, 1);
-    transform: scale(0.1, 1);
-    border-radius: 5px;
-}
-
 .btnLogout:hover {
     letter-spacing: 2px;
     color: #E8EBF7;
     background-color: #f90000;
 }
 
-.btnLogout:hover::before {
-    opacity: 1;
-    transform: scale(1, 1);
-}
-
-.btnLogout::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 2;
-    transition: all 0.2s;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 5px;
-    background: linear-gradient(rgba(241, 28, 28, .5), rgba(241, 28, 28, .5), rgba(241, 28, 28, .5));
-}
-
-.btnLogout:hover::after {
-    opacity: 0;
-    transform: scale(0.1, 1);
-}
-
 @media (max-width: 768px),
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
     .btnLogout {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
         font-size: 40px;
         text-align: center;
-        background: #f90000;
+        background: #E4FF1A;
         width: 100%;
-        color: #ffffff;
-        transition: 0.3s;
+        color: #272727;
+        transition: 0.1s;
         cursor: pointer;
         width: auto;
         max-width: 100%;
@@ -1433,47 +1248,11 @@ header {
     .btnLogout span {
         position: relative;
         z-index: 3;
-        transition: all 0.3s;
-    }
-
-    .btnLogout::before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        z-index: 1;
-        opacity: 0;
-        transition: all 0.3s;
-        border: 1px solid rgba(158, 12, 12, 1);
-        transform: scale(0.1, 1);
-        border-radius: 5px;
+        transition: all 0.1s;
     }
 
     .btnLogout:hover span {
         letter-spacing: 2px;
-    }
-
-    .btnLogout:hover::before {
-        opacity: 1;
-        transform: scale(1, 1);
-    }
-
-    .btnLogout::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-
-        z-index: 2;
-        transition: all 0.3s;
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 5px;
-        background: linear-gradient(rgba(241, 28, 28, .5), rgba(241, 28, 28, .5), rgba(241, 28, 28, .5));
-    }
-
-    .btnLogout:hover::after {
-        opacity: 0;
-        transform: scale(0.1, 1);
     }
 }
 
@@ -1515,11 +1294,11 @@ header {
 
     .labelCreateUser,
     .inputCreateUser {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
     }
 
     .labelCreateUser {
-        color: #000000;
+        color: #E8EBF7;
         width: 100%;
         display: block;
         margin-bottom: 10px;
@@ -1530,18 +1309,16 @@ header {
 
     .inputCreateUser {
         width: 100%;
-        background-color: #fff;
-        color: #000000;
-        border: 1px solid #000000;
+        background-color: #272727;
+        color: #E8EBF7;
         padding: 10px;
-        border-radius: 10px;
         margin-bottom: 10px;
         font-size: 80px;
     }
 
     .inputCreateUser::placeholder {
-        color: #999;
-        opacity: 1;
+        color: #E8EBF7;
+        opacity: 0.5;
     }
 }
 
@@ -1563,6 +1340,35 @@ header {
 }
 
 /*EDIT EVENT*/
+
+.editInput {
+    font-family: 'Helvetica Display Bold', sans-serif;
+    color: #E8EBF7;
+    background-color: #272727;
+    border: 0;
+    font-size: 35px;
+    width: 100%;
+}
+
+.editInput {
+    resize: none;
+    overflow: hidden;
+}
+
+.editInput::placeholder {
+    color: #E8EBF7;
+    opacity: 0.5;
+}
+
+.editInput::focus {
+    background-color: #272727;
+    color: #E8EBF7;
+    outline: none;
+    box-shadow: none;
+}
+
+/* EVENT INFO */
+
 .event-container {
     display: flex;
     height: 500px;
@@ -1591,23 +1397,29 @@ header {
     align-items: center;
 }
 
-.editInput {
-    font-family: 'Helvetica Display Bold', sans-serif;
-    color: #E8EBF7;
-    background-color: #272727;
-    border: 0;
-    font-size: 35px;
-    width: 100%;
-}
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
 
-.editInput {
-    resize: none;
-    overflow: hidden;
-}
+    .event-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        height: 100%;
+    }
 
-.editInput::placeholder {
-    color: #E8EBF7;
-    opacity: 0.5;
+    .data-container {
+        order: 2;
+    }
+
+    .image-container {
+        order: 1;
+        border-radius: 30px;
+    }
+
+    .map-container {
+        order: 3;
+    }
 }
 
 /* MESSAGE */
@@ -1662,16 +1474,16 @@ header {
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
     .titleMessage {
         display: inline-block;
-        color: rgb(0, 0, 0);
+        color: #E8EBF7;
         font-size: 100px;
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Helvetica Display Bold', sans-serif;
     }
 
     .textMessage1 {
         display: inline-block;
-        color: rgb(0, 0, 0);
+        color: #E8EBF7;
         font-size: 80px;
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Helvetica Display Bold', sans-serif;
         justify-content: center;
         align-items: center;
         display: flex;
@@ -1679,9 +1491,9 @@ header {
 
     .textMessage2 {
         display: inline-block;
-        color: rgb(0, 0, 0);
+        color: #E8EBF7;
         font-size: 30px;
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Helvetica Display Bold', sans-serif;
         justify-content: center;
         align-items: center;
         display: flex;
@@ -1689,9 +1501,9 @@ header {
 
     .textMessage3 {
         display: inline-block;
-        color: rgb(0, 0, 0);
+        color: #E8EBF7;
         font-size: 20px;
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Helvetica Display Bold', sans-serif;
         justify-content: center;
         align-items: center;
         display: flex;
