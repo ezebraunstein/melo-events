@@ -1,3 +1,8 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
+
 @font-face {
     font-family: 'Helvetica Display Black';
     src: url('./fonts/Helvetica Now Display/helveticanowdisplay-black.woff2') format('woff2'),
@@ -341,6 +346,7 @@ header {
         flex: 1;
         box-sizing: border-box;
         max-width: 90%;
+        touch-action: manipulation;
     }
 
     .eventName {
@@ -472,6 +478,7 @@ header {
     flex-direction: column;
     justify-content: space-between;
     overflow: auto;
+    width: 100%;
 }
 
 .data-container {
@@ -498,45 +505,15 @@ header {
     display: block;
 }
 
-
-@media (max-width: 768px),
-(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
-
-    .event-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        height: 100%;
-    }
-
-    .data-container {
-        order: 2;
-        max-width: 100%;
-    }
-
-    .image-container {
-        order: 1;
-        border-radius: 30px;
-        max-width: 100%;
-    }
-
-    .map-container {
-        order: 3;
-    }
-}
-
-/* CREATE EVENT */
-
 @media (max-width: 768px),
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
 
     .labelEvent,
     .inputEvent {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
         width: 100%;
-        color: #000000;
-        font-size: 50px;
+        color: #E8EBF7;
+        font-size: 70px;
     }
 
     .labelEvent {
@@ -545,39 +522,25 @@ header {
     }
 
     .inputEvent {
-        background-color: #fff;
-        border: 1px solid #000000;
+        background-color: #272727;
         padding: 10px;
-        border-radius: 10px;
         margin-bottom: 20px;
     }
 
     .inputEvent::placeholder {
-        color: #999;
-        opacity: 1;
+        color: #E8EBF7;
+        opacity: 0.7;
     }
 
-    .create-event-container {
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .image-container {
-        order: 1;
-        flex: none;
-        width: 100%;
-        height: 100%;
-    }
-
-    .map-container {
-        order: 2;
-        flex: none;
-        width: 100%;
-        height: 300px;
+    .inputEvent:focus {
+        /* background-color: #272727; */
+        color: #E8EBF7;
+        outline: none;
+        box-shadow: none;
     }
 
     .input-container {
-        order: 3;
+        order: 2;
         flex: none;
         width: 100%;
     }
@@ -609,9 +572,7 @@ header {
     .date-flyer-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        /* This creates two columns of equal width */
         gap: 4%;
-        /* This gives a space between the items */
     }
 
     .date-container input[type="date"] {
@@ -622,7 +583,57 @@ header {
     form>div[style*="text-align: center"] {
         margin-top: 53vh;
     }
+
+    .image-overlay {
+        position: absolute;
+        font-family: 'Helvetica Display ExtraBold', sans-serif;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        border-radius: 10px;
+        font-size: 60px;
+    }
 }
+
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+
+    .event-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        height: 100%;
+    }
+
+    .data-container {
+        order: 2;
+        max-width: 100%;
+    }
+
+    .image-container {
+        order: 1;
+        border-radius: 30px;
+        max-width: 100%;
+    }
+
+    .map-container {
+        order: 3;
+        border-radius: 30px;
+        flex: none;
+        width: 100%;
+        height: 300px;
+    }
+}
+
 
 /* EVENT BOX */
 
@@ -1454,7 +1465,7 @@ header {
     display: flex;
 }
 
-.containerMessage {
+.message-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1502,7 +1513,7 @@ header {
         display: flex;
     }
 
-    .containerMessage {
+    .message-container {
         display: flex;
         justify-content: center;
         align-items: center;

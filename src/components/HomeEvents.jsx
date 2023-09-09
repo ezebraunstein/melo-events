@@ -57,7 +57,9 @@ const HomeEvents = () => {
         <div className="eventClass">
             <div id="boxes">
                 <h1 className="eventBoxTitle">Eventos Destacados</h1>
+                <br />
                 <SearchBar onSearch={handleSearch} />
+                <br />
                 <div className="eventBoxContainer">
                     {filteredEvents.map((event) => (
                         <div key={event.id} className="eventBox" onClick={() => goToBuyEvent(event)} style={{ cursor: 'pointer' }}>

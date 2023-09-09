@@ -65,7 +65,7 @@ const OwnerEvents = () => {
           </div>
         </div>
       ) : (
-        <div className="containerMessage">
+        <div className="message-container">
           <div>
             <h1 className="titleMessage">Todavía no hay eventos creados</h1>
           </div>

@@ -103,7 +103,7 @@ function App() {
         } />
         <Route path="/compra-exitosa" element={
           <Layout>
-            <div className="containerMessage">
+            <div className="message-container">
               <h1 className="titleMessage">Gracias por tu compra!</h1>
               <p1 className="textMessage1">Enviamos los tickets a tu mail</p1>
               <p2 className="textMessage2">Por favor revisa la casilla de spam</p2>
@@ -112,7 +112,7 @@ function App() {
         } />
         <Route path="/compra-fallida" element={
           <Layout>
-            <div className="containerMessage">
+            <div className="message-container">
               <h1 className="titleMessage">Hubo un error al procesar tu compra!</h1>
               <p1 className="textMessage1">Por favor volvé a intentarlo</p1>
             </div>

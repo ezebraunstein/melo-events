@@ -194,7 +194,7 @@ function AddEvent() {
     return (
         <div className="eventClass">
             <br />
-            <form className="form-content" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 {mapsApiLoaded && (
                     <LoadScriptNext
                         googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}

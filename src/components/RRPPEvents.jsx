@@ -84,7 +84,7 @@ const RRPPEvents = () => {
                     </div>
                 </div>
             ) : (
-                <div className="containerMessage">
+                <div className="message-container">
                     <div>
                         <h1 className='titleMessage'>No hay eventos vinculados</h1>
                     </div>
