@@ -1083,8 +1083,9 @@ header {
         background-color: #272727;
         border-radius: 30px;
         padding: 20px;
-        width: 90%;
-        height: 65%;
+        width: 900px;
+        height: 1100px;
+        overflow: auto;
     }
 
     .custom-modal form {
@@ -1098,7 +1099,8 @@ header {
         font-size: 70px;
         border: 0;
         color: #E8EBF7;
-        background-color: #272727;
+        background-color: #303030;
+        border-radius: 30px;
         text-transform: uppercase;
     }
 
@@ -1107,13 +1109,14 @@ header {
         outline: none;
         color: #E8EBF7;
         box-shadow: none;
+
     }
 
     .btn-container {
         display: flex;
-        flex-direction: column;
         align-items: center;
         gap: 20px;
+        flex-wrap: wrap;
     }
 
     .btn-Modal-Buy,
@@ -1134,7 +1137,7 @@ header {
     }
 
     .btn-Modal-Buy {
-        order: 1;
+        order: 2;
         background: #E4FF1A;
         color: #272727;
     }
@@ -1146,7 +1149,7 @@ header {
     }
 
     .btn-Modal-Back {
-        order: 2;
+        order: 1;
         background: #FF5714;
         color: #272727;
     }
