@@ -1,5 +1,11 @@
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
 
+function formatDate(inputDate) {
+    const parts = inputDate.split('-');
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+}
+
+
 const EventDetail = ({ eventData, selectedLocation }) => (
     <div>
         {eventData && (
@@ -9,9 +15,8 @@ const EventDetail = ({ eventData, selectedLocation }) => (
                         <h4 className="eventName"> {eventData.nameEvent}</h4>
                     </div>
                     <div>
-                        <h4 className="eventDate"> {(eventData.startDateE).slice(0, 10)}</h4>
+                        <h4 className="eventDate">{formatDate(eventData.startDateE.slice(0, 10))}</h4>
                     </div>
-                    <br />
                     {eventData.descriptionEvent && (
                         <div>
                             <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>

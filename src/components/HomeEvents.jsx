@@ -75,6 +75,7 @@ const HomeEvents = () => {
                         </div>
                     ))}
                 </div>
+                <br />
             </div>
         </div>
     );
