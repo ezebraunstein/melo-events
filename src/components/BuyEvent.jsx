@@ -81,13 +81,58 @@ const BuyEvent = () => {
     }
   };
 
+  // const renderTypeTickets = () => {
+  //   return typeTickets.map((typeTicket) => {
+
+  //     const cartItem = cart.find((item) => item.id === typeTicket.id);
+  //     const quantity = cartItem ? cartItem.selectedQuantity : 0;
+  //     const isDisabledOrAgotado = !typeTicket.activeTT || typeTicket.quantityTT <= 0;
+  //     const ticketStyle = isDisabledOrAgotado ? { opacity: 0.5, filter: 'grayscale(30%)' } : {};
+
+  //     return (
+  //       <div key={typeTicket.id} style={ticketStyle}>
+  //         <br />
+  //         <div key={typeTicket.id} class="ticket-container">
+  //           <div class="ticket-column">
+  //             <h2 class="ticket-text">{typeTicket.nameTT}</h2>
+  //           </div>
+  //           <div class="ticket-column">
+  //             <h2 class="ticket-text">${typeTicket.priceTT}</h2>
+  //           </div>
+  //           <div class="ticket-column">
+  //             {typeTicket.activeTT && typeTicket.quantityTT > 0 ? (
+  //               <div class="quantity-container">
+  //                 <button type="button" class="btn-Remove" disabled={isDisabledOrAgotado} onClick={() => addToCart(typeTicket, -1)}><i class="fas fa-minus"></i></button>
+  //                 <span class="ticket-text">&nbsp;{quantity}&nbsp;</span>
+  //                 <button type="button" class="btn-Add" disabled={isDisabledOrAgotado} onClick={() => addToCart(typeTicket, 1)}><i class="fas fa-plus"></i></button>
+  //               </div>
+  //             ) : (
+  //               <div class="ticket-text">
+  //                 {typeTicket.quantityTT <= 0 ? 'AGOTADO' : 'NO DISPONIBLE'}
+  //               </div>
+  //             )}
+  //           </div>
+  //         </div>
+  //       </div>
+  //     );
+  //   });
+  // };
+
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => {
 
       const cartItem = cart.find((item) => item.id === typeTicket.id);
       const quantity = cartItem ? cartItem.selectedQuantity : 0;
-      const isDisabledOrAgotado = !typeTicket.activeTT || typeTicket.quantityTT <= 0;
-      const ticketStyle = isDisabledOrAgotado ? { opacity: 0.5, filter: 'grayscale(30%)' } : {};
+
+      const isAgotado = typeTicket.quantityTT <= 0;  // Check only for the "sold out" condition
+      const isDisabled = !typeTicket.activeTT;        // Check only for the "disabled" condition
+
+      // If the ticket type is disabled, we won't render it at all.
+      if (isDisabled) {
+        return null;
+      }
+
+      const ticketStyle = isAgotado ? { opacity: 0.5, filter: 'grayscale(30%)' } : {};
 
       return (
         <div key={typeTicket.id} style={ticketStyle}>
@@ -102,13 +147,13 @@ const BuyEvent = () => {
             <div class="ticket-column">
               {typeTicket.activeTT && typeTicket.quantityTT > 0 ? (
                 <div class="quantity-container">
-                  <button type="button" class="btn-Remove" disabled={isDisabledOrAgotado} onClick={() => addToCart(typeTicket, -1)}><i class="fas fa-minus"></i></button>
+                  <button type="button" class="btn-Remove" disabled={isAgotado} onClick={() => addToCart(typeTicket, -1)}><i class="fas fa-minus"></i></button>
                   <span class="ticket-text">&nbsp;{quantity}&nbsp;</span>
-                  <button type="button" class="btn-Add" disabled={isDisabledOrAgotado} onClick={() => addToCart(typeTicket, 1)}><i class="fas fa-plus"></i></button>
+                  <button type="button" class="btn-Add" disabled={isAgotado} onClick={() => addToCart(typeTicket, 1)}><i class="fas fa-plus"></i></button>
                 </div>
               ) : (
                 <div class="ticket-text">
-                  {typeTicket.quantityTT <= 0 ? 'AGOTADO' : 'NO DISPONIBLE'}
+                  'AGOTADO'
                 </div>
               )}
             </div>
@@ -117,6 +162,7 @@ const BuyEvent = () => {
       );
     });
   };
+
 
   const addToCart = (typeTicket, quantity) => {
     const existingItemIndex = cart.findIndex((item) => item.id === typeTicket.id);
@@ -132,6 +178,8 @@ const BuyEvent = () => {
       setCart([...cart, { ...typeTicket, selectedQuantity: quantity, rrppEventId: rrppEventId }]);
     }
   };
+
+  const isAnyTicketAvailable = typeTickets.some(typeTicket => typeTicket.activeTT && typeTicket.quantityTT > 0);
 
   if (!eventData) {
     return <div></div>;
@@ -157,7 +205,12 @@ const BuyEvent = () => {
         </>
       ) : null}
       <br />
-      <ModalCheckout handleModalSubmit={handleModalSubmit} cart={cart} />
+      {isAnyTicketAvailable ? (
+        <ModalCheckout handleModalSubmit={handleModalSubmit} cart={cart} />
+      ) : (
+        <button disabled className="btnMain">No hay tickets disponibles</button>
+      )}
+      <br />
       <br />
       {isSubmitting && (
         <div className="circularProgress">

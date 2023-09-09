@@ -15,16 +15,18 @@ const EventDetail = ({ eventData, selectedLocation }) => (
                     {eventData.descriptionEvent && (
                         <div>
                             <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
+                            <br />
                         </div>
                     )}
-                    <br />
                     {eventData.nameLocationEvent ? (
                         <div>
                             <h4 className="eventLocation">📍{eventData.nameLocationEvent}</h4>
+                            <br />
                         </div>
                     ) : (
                         <div>
                             <h4 className="eventLocation">📍Secret Location</h4>
+                            <br />
                         </div>
                     )}
                 </div>
