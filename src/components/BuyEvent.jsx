@@ -4,12 +4,15 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { getRRPP, getRRPPEvent } from '../graphql/queries';
 import ModalCheckout from './ModalCheckout';
 import stripeCheckout from '../functions/stripeCheckout';
+import { useNavigate } from 'react-router-dom';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 import { CircularProgress } from '@mui/material';
 import fetchEventData from '../functions/fetchEventData';
 import fetchTypeTickets from '../functions/fetchTypeTickets';
 
 const BuyEvent = () => {
+
+  const navigate = useNavigate();
 
   //PARAMS
   const { eventId, rrppEventId } = useParams();
@@ -50,9 +53,14 @@ const BuyEvent = () => {
     fetchData();
   }, [eventId]);
 
+  function onclick() {
+    navigate(`/compra-exitosa`);
+  };
+
   const handleModalSubmit = async (data) => {
     setIsSubmitting(true);
-    await stripeCheckout(cart, data, eventData);
+    onclick();
+    // await stripeCheckout(cart, data, eventData);
     //await mercadopagoCheckout(data, path, cart, eventData);
   };
 
