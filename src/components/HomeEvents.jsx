@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import SearchBar from "./SearchBar";
 import Fuse from "fuse.js";
 import fetchEvents from "../functions/fetchEvents";
+import Marquee from "./Marquee";
 import { CircularProgress } from "@mui/material";
 
 const HomeEvents = () => {
@@ -54,32 +55,36 @@ const HomeEvents = () => {
     }
 
     return (
-        <div className="event-class">
-            <div id="boxes">
-                <h1 className="eventBoxTitle">Eventos Destacados</h1>
-                <br />
-                <SearchBar onSearch={handleSearch} />
-                <br />
-                <div className="eventBoxContainer">
-                    {filteredEvents.map((event) => (
-                        <div key={event.id} className="eventBox" onClick={() => goToBuyEvent(event)} style={{ cursor: 'pointer' }}>
-                            <img src={event.imageUrl} alt={event.nameEvent} className="imgEventBox" />
-                            <h3 className="nameEventBox">{event.nameEvent}</h3>
-                            <button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    goToBuyEvent(event);
-                                }}
-                                className="eventBoxBtnBuy"
-                            >
-                                Comprar Tickets
-                            </button>
-                        </div>
-                    ))}
+        <>
+            <br />
+            <br />
+            <Marquee text="EVENTOS " />
+            <br />
+            <br />
+            <div className="event-class">
+                <div id="boxes">
+                    <SearchBar onSearch={handleSearch} />
+                    <div className="eventBoxContainer">
+                        {filteredEvents.map((event) => (
+                            <div key={event.id} className="eventBox" onClick={() => goToBuyEvent(event)} style={{ cursor: 'pointer' }}>
+                                <img src={event.imageUrl} alt={event.nameEvent} className="imgEventBox" />
+                                <h3 className="nameEventBox">{event.nameEvent}</h3>
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        goToBuyEvent(event);
+                                    }}
+                                    className="eventBoxBtnBuy"
+                                >
+                                    Comprar Tickets
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                    <br />
                 </div>
-                <br />
             </div>
-        </div>
+        </>
     );
 
 };

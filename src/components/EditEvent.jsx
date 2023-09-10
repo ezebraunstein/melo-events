@@ -11,6 +11,8 @@ import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
 import fetchEventData from '../functions/fetchEventData';
 import fetchTypeTickets from '../functions/fetchTypeTickets';
+import TicketIcon from './TicketIcon';
+import Marquee from './Marquee';
 const GOOGLE_MAPS_LIBRARIES = ["places"];
 
 const s3Client = new S3Client({
@@ -30,7 +32,8 @@ const EditEvent = () => {
   const [loading, setLoading] = useState(false);
   const [editedEventData, setEditedEventData] = useState({});
 
-  const [displayedImageUrl, setDisplayedImageUrl] = useState(null);
+  // const [displayedImageUrl, setDisplayedImageUrl] = useState(null);
+  const [displayedImageUrl, setDisplayedImageUrl] = useState(eventData ? eventData.imageUrl : null);
   const [newImageFile, setNewImageFile] = useState(null);
   const hiddenFileInput = useRef(null);
 
@@ -68,19 +71,9 @@ const EditEvent = () => {
     if (eventData) {
       const locationEvent = JSON.parse(eventData.locationEvent);
       setSelectedLocation(locationEvent);
-
-      let startDateObj = new Date();
-      if (typeof eventData.startDateE === 'string') {
-        startDateObj = new Date(eventData.startDateE);
-      } else if (eventData.startDateE instanceof Date) {
-        startDateObj = eventData.startDateE;
-      } else {
-        console.error('Unexpected startDateE format:', eventData.startDateE);
-      }
-
       setEditedEventData({
         nameEvent: eventData.nameEvent,
-        startDateE: startDateObj,
+        startDateE: formatDateToDisplay(eventData.startDateE),
         descriptionEvent: eventData.descriptionEvent,
         locationEvent: JSON.stringify(locationEvent),
         nameLocationEvent: eventData.nameLocationEvent,
@@ -113,10 +106,18 @@ const EditEvent = () => {
   };
 
   const handleInputChange = (e) => {
+
     const { name, value } = e.target;
     let formattedValue = value;
     if (name === "startDateE") {
-      formattedValue = new Date(value);
+      const numbersOnly = value.replace(/\D/g, "");
+      let newValue = numbersOnly;
+      if (numbersOnly.length > 4) {
+        newValue = numbersOnly.substring(0, 2) + "/" + numbersOnly.substring(2, 4) + "/" + numbersOnly.substring(4);
+      } else if (numbersOnly.length > 2) {
+        newValue = numbersOnly.substring(0, 2) + "/" + numbersOnly.substring(2);
+      }
+      formattedValue = newValue;
     } else {
       formattedValue = value.toUpperCase();
     }
@@ -126,9 +127,36 @@ const EditEvent = () => {
     }));
   };
 
+  const formatDateToDisplay = (date) => {
+    const d = new Date(date);
+    const day = ("0" + d.getDate()).slice(-2);
+    const month = ("0" + (d.getMonth() + 1)).slice(-2);
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  // const formatDateToDisplay = (dateStr) => {
+  //   const dateObj = new Date(dateStr);
+  //   const dd = String(dateObj.getDate()).padStart(2, '0');
+  //   const mm = String(dateObj.getMonth() + 1).padStart(2, '0'); // January is 0!
+  //   const yyyy = dateObj.getFullYear();
+  //   return `${dd}/${mm}/${yyyy}`;
+  // };
+
+
+  const formatDateToSave = (dateString) => {
+    const [day, month, year] = dateString.split('/');
+    return new Date(`${year}-${month}-${day}`);
+  };
+
   const handleSaveChanges = async () => {
 
     setIsSubmitting(true);
+
+    const updatedEventData = {
+      ...editedEventData,
+      startDateE: formatDateToSave(editedEventData.startDateE)
+    };
 
     if (newImageFile) {
       const timestamp = Date.now();
@@ -142,14 +170,14 @@ const EditEvent = () => {
       await s3Client.send(new PutObjectCommand(uploadParams));
       editedEventData.flyerMiniEvent = flyerKey;
     } else {
-      editedEventData.flyerMiniEvent = eventData.flyerMiniEvent; // Use the old flyer value if no new image is selected
+      editedEventData.flyerMiniEvent = eventData.flyerMiniEvent;
     }
 
     try {
       await API.graphql(graphqlOperation(updateEvent, {
         input: {
           id: eventId,
-          ...editedEventData,
+          ...updatedEventData,
         }
       }));
 
@@ -171,7 +199,7 @@ const EditEvent = () => {
 
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => (
-      <div key={typeTicket.id} style={typeTicket.activeTT ? {} : { opacity: 0.8, filter: 'grayscale(50%)' }}>
+      <div key={typeTicket.id} style={typeTicket.activeTT ? {} : { opacity: 0.5, filter: 'grayscale(90%)' }}>
         <div class="create-ticket-container">
           <div class="ticket-column">
             <h2 class="ticket-text">{typeTicket.nameTT}</h2>
@@ -180,7 +208,7 @@ const EditEvent = () => {
             <h2 class="ticket-text">${typeTicket.priceTT}</h2>
           </div>
           <div class="ticket-column">
-            <h2 class="ticket-text">Disponibles {typeTicket.quantityTT}</h2>
+            <h2 class="ticket-text"><TicketIcon /> {typeTicket.quantityTT}</h2>
           </div>
           <div class="ticket-column">
             <ButtonTypeTicket typeTicketId={typeTicket.id} isActive={typeTicket.activeTT} onTypeTicketToggled={handleTypeTicketToggle} />
@@ -240,140 +268,150 @@ const EditEvent = () => {
   };
 
   return (
-    <div className="event-class">
+    <>
       <br />
-      <div>
-        {mapsApiLoaded && (
-          <LoadScriptNext
-            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
-            libraries={GOOGLE_MAPS_LIBRARIES}
-            onLoad={() => setMapsApiLoaded(true)}>
-            <div className="event-container">
-              <div className="input-container">
-                <div>
-                  <input
-                    className="event-input"
-                    type="text"
-                    value={editedEventData.nameEvent}
-                    onChange={handleInputChange}
-                    name="nameEvent"
-                  />
-                </div>
-                <div>
-                  <input
-                    className="event-input"
-                    type="date"
-                    name="startDateE"
-                    value={editedEventData.startDateE instanceof Date ? editedEventData.startDateE.toISOString().split('T')[0] : ""}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div>
-                  <textarea
-                    className="event-input"
-                    value={editedEventData.descriptionEvent}
-                    placeholder="(DESCRIPCIÓN)"
-                    onChange={handleInputChange}
-                    name="descriptionEvent"
-                    rows="1"
-                    onInput={autoGrowTextArea}
-                  />
-                </div>
-                <label className="label-input">
-                  <StandaloneSearchBox
-                    onLoad={(ref) => setMapRef(ref)}
-                    onPlacesChanged={() => {
-                      const place = mapRef.getPlaces()[0];
-                      if (place) {
-                        setSelectedLocation({
-                          lat: place.geometry.location.lat(),
-                          lng: place.geometry.location.lng(),
-                        });
-                        setLocationName(place.name);
-                      }
-                    }}
-                  >
+      <br />
+      <Marquee text={eventData.nameEvent} />
+      <br />
+      <br />
+      <div className="event-class">
+        <br />
+        <div>
+          {mapsApiLoaded && (
+            <LoadScriptNext
+              googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
+              libraries={GOOGLE_MAPS_LIBRARIES}
+              onLoad={() => setMapsApiLoaded(true)}>
+              <div className="event-container">
+                <div className="input-container">
+                  <div>
                     <input
-                      type="text"
-                      value={locationName}
-                      placeholder="(SECRET LOCATION)"
-                      onChange={e => setLocationName(e.target.value)}
                       className="event-input"
-                      style={{ width: "100%" }} />
-                  </StandaloneSearchBox>
-                </label>
-              </div>
-              <div className="image-container">
-                <img
-                  className="image-style"
-                  src={displayedImageUrl || eventData.imageUrl}
-                  alt="Event Image"
-                  onClick={handleImageClick}
-                  style={{ cursor: "pointer" }}
-                />
-                <div className="image-overlay" onClick={handleImageClick}>
-                  <span>CAMBIAR IMAGEN</span>
+                      type="text"
+                      value={editedEventData.nameEvent}
+                      onChange={handleInputChange}
+                      name="nameEvent"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      className="event-input"
+                      type="text"
+                      name="startDateE"
+                      maxLength="10"
+                      value={editedEventData.startDateE}
+                      placeholder="dd/mm/yyyy"
+                      inputMode="numeric"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <textarea
+                      className="event-input"
+                      value={editedEventData.descriptionEvent}
+                      placeholder="(DESCRIPCIÓN)"
+                      onChange={handleInputChange}
+                      name="descriptionEvent"
+                      rows="1"
+                      onInput={autoGrowTextArea}
+                    />
+                  </div>
+                  <label className="label-input">
+                    <StandaloneSearchBox
+                      onLoad={(ref) => setMapRef(ref)}
+                      onPlacesChanged={() => {
+                        const place = mapRef.getPlaces()[0];
+                        if (place) {
+                          setSelectedLocation({
+                            lat: place.geometry.location.lat(),
+                            lng: place.geometry.location.lng(),
+                          });
+                          setLocationName(place.name);
+                        }
+                      }}
+                    >
+                      <input
+                        type="text"
+                        value={locationName}
+                        placeholder="(SECRET LOCATION)"
+                        onChange={e => setLocationName(e.target.value)}
+                        className="event-input"
+                        style={{ width: "100%" }} />
+                    </StandaloneSearchBox>
+                  </label>
                 </div>
-                <input
-                  type="file"
-                  accept=".jpg,.jpeg,.png"
-                  onChange={handleFileChange}
-                  style={{ display: "none" }}
-                  ref={hiddenFileInput}
-                />
+                <div className="image-container">
+                  <img
+                    className="image-style"
+                    src={displayedImageUrl || eventData.imageUrl}
+                    alt="Event Image"
+                    onClick={handleImageClick}
+                    style={{ cursor: "pointer" }}
+                  />
+                  <div className="image-overlay" onClick={handleImageClick}>
+                    <span>CAMBIAR IMAGEN</span>
+                  </div>
+                  <input
+                    type="file"
+                    accept=".jpg,.jpeg,.png"
+                    onChange={handleFileChange}
+                    style={{ display: "none" }}
+                    ref={hiddenFileInput}
+                  />
+                </div>
+                <div className="map-container" >
+                  <GoogleMap
+                    mapContainerStyle={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: '10px'
+                    }}
+                    zoom={15}
+                    center={selectedLocation || { lat: -34.397, lng: 150.644 }}
+                    onClick={(e) =>
+                      setSelectedLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })
+                    }
+                  >
+                    {selectedLocation && (
+                      <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
+                    )}
+                  </GoogleMap>
+                </div>
               </div>
-              <div className="map-container" >
-                <GoogleMap
-                  mapContainerStyle={{
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: '10px'
-                  }}
-                  zoom={15}
-                  center={selectedLocation || { lat: -34.397, lng: 150.644 }}
-                  onClick={(e) =>
-                    setSelectedLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })
-                  }
-                >
-                  {selectedLocation && (
-                    <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
-                  )}
-                </GoogleMap>
-              </div>
+            </LoadScriptNext>
+          )}
+        </div>
+        <br />
+        <br />
+        <button className='btnMain' onClick={handleSaveChanges}>Guardar Cambios</button>
+        <br />
+        {typeTickets.length > 0 ? (
+          <>
+            <br />
+            <br />
+            <div>
+              <p className="textMessage1">TICKETS</p>
             </div>
-          </LoadScriptNext>
-        )}
+            <br />
+            {renderTypeTickets()}
+          </>
+        ) : null}
+        <br />
+        <br />
+        <div>
+          <p className='textMessage1'>NUEVO TICKET</p>
+        </div>
+        <br />
+        <CreateTypeTicket eventId={eventId} onTypeTicketCreated={handleTypeTicketCreated} />
+        <br />
+        <br />
+        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={closeSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+          <Alert onClose={closeSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
+            {snackbarMessage}
+          </Alert>
+        </Snackbar>
       </div>
-      <br />
-      <br />
-      <button className='btnMain' onClick={handleSaveChanges}>Guardar Cambios</button>
-      <br />
-      <br />
-      <br />
-      {typeTickets.length > 0 ? (
-        <>
-          <div>
-            <p className="textMessage1">TICKETS</p>
-          </div>
-          <br />
-          {renderTypeTickets()}
-        </>
-      ) : null}
-      <br />
-      <br />
-      <div>
-        <p className='textMessage1'>NUEVO TICKET</p>
-      </div>
-      <br />
-      <CreateTypeTicket eventId={eventId} onTypeTicketCreated={handleTypeTicketCreated} />
-      <br />
-      <br />
-      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={closeSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-        <Alert onClose={closeSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
-    </div>
+    </>
   );
 };
 

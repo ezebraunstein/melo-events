@@ -5,6 +5,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import fetchEventData from '../functions/fetchEventData';
 import fetchTypeTickets from '../functions/fetchTypeTickets';
 import EventDetail from './EventDetail';
+import TicketIcon from './TicketIcon';
+import Marquee from './Marquee';
 const GOOGLE_MAPS_LIBRARIES = ["places"];
 const Event = () => {
 
@@ -57,7 +59,7 @@ const Event = () => {
             <h2 class="ticket-text">${typeTicket.priceTT}</h2>
           </div>
           <div class="ticket-column">
-            <h2 class="ticket-text">Disponibles {typeTicket.quantityTT}</h2>
+            <h2 class="ticket-text"><TicketIcon /> {typeTicket.quantityTT}</h2>
           </div>
         </div>
       </div>
@@ -83,39 +85,46 @@ const Event = () => {
   // }
 
   return (
-    <div className="event-class">
+    <>
       <br />
-      <div>
-        {mapsApiLoaded && (
-          <LoadScriptNext
-            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
-            libraries={GOOGLE_MAPS_LIBRARIES}
-            onLoad={() => setMapsApiLoaded(true)}>
-            <EventDetail eventData={eventData} selectedLocation={selectedLocation} />
-          </LoadScriptNext>
-        )}
+      <br />
+      <Marquee text={eventData.nameEvent} />
+      <br />
+      <br />
+      <div className="event-class">
+        <br />
+        <div>
+          {mapsApiLoaded && (
+            <LoadScriptNext
+              googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
+              libraries={GOOGLE_MAPS_LIBRARIES}
+              onLoad={() => setMapsApiLoaded(true)}>
+              <EventDetail eventData={eventData} selectedLocation={selectedLocation} />
+            </LoadScriptNext>
+          )}
+        </div>
+        <br />
+        {typeTickets.length > 0 ? (
+          <>
+            <div>
+              <p className="textMessage1">TICKETS</p>
+            </div>
+            {renderTypeTickets()}
+          </>
+        ) : null}
+        <br />
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <button className="btnMain" onClick={handleEditEvent} style={{ marginRight: '50px' }}>
+            Editar
+          </button>
+          <button className="btnMain" onClick={redirectRRPP}>
+            Públicas
+          </button>
+        </div>
+        <br />
+        <br />
       </div>
-      <br />
-      {typeTickets.length > 0 ? (
-        <>
-          <div>
-            <p className="textMessage1">TICKETS</p>
-          </div>
-          {renderTypeTickets()}
-        </>
-      ) : null}
-      <br />
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <button className="btnMain" onClick={handleEditEvent} style={{ marginRight: '50px' }}>
-          Editar
-        </button>
-        <button className="btnMain" onClick={redirectRRPP}>
-          Públicas
-        </button>
-      </div>
-      <br />
-      <br />
-    </div>
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { listRRPPEvents, getRRPP, listTickets, listTypeTickets } from '../graphql/queries';
 import { Snackbar } from '@mui/material';
 import Alert from '@mui/material/Alert';
+import Marquee from "./Marquee";
 import CircularProgress from '@mui/material/CircularProgress';
 
 const RRPPData = () => {
@@ -107,7 +108,12 @@ const RRPPData = () => {
   }
 
   return (
-    <main>
+    <>
+      <br />
+      <br />
+      <Marquee text="PÚBLICAS " />
+      <br />
+      <br />
       <div className="event-class">
         <div>
           {rrpps.length === 0 ? (
@@ -125,13 +131,12 @@ const RRPPData = () => {
           ) : (
             rrpps.map((rrpp) => (
               <div >
-                <h1 className="eventBoxTitle">Públicas</h1>
-                <br />
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <button className="btnMain" onClick={copyEventIdToClipboard} >
                     Copiar Código
                   </button>
                 </div>
+                <br />
                 <br />
                 <div key={rrpp.id}>
                   <h3 className='nameRRPP'>{rrpp.nameRRPP} {rrpp.surnameRRPP}</h3>
@@ -148,7 +153,7 @@ const RRPPData = () => {
           </Alert>
         </Snackbar>
       </div>
-    </main>
+    </>
   );
 };
 

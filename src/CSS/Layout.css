@@ -149,8 +149,13 @@ header {
 
 .searchInput::placeholder {
     color: black;
-    opacity: 0.7;
+    opacity: 0.5;
 }
+
+.searchInput:focus::placeholder {
+    color: transparent;
+}
+
 
 @media (max-width: 768px),
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
@@ -178,14 +183,11 @@ header {
 
     .searchInput::placeholder {
         color: black;
-        opacity: 0.7;
+        opacity: 0.5;
     }
 
-    .searchButton {
-        all: unset;
-        cursor: pointer;
-        width: 44px;
-        height: 44px;
+    .searchInput:focus::placeholder {
+        color: transparent;
     }
 }
 
@@ -246,7 +248,7 @@ header {
     display: inline-block;
     color: #E8EBF7;
     font-size: 100px;
-    font-family: 'Helvetica Display Bold', sans-serif;
+    font-family: 'Helvetica Display Black', sans-serif;
     text-transform: uppercase;
 }
 
@@ -362,3 +364,42 @@ header {
     background: #272727;
     z-index: 999;
 }
+
+/*MARQUEE*/
+
+.marquee-container {
+    background-color: #7D53DE;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.marquee {
+    display: inline-block;
+    font-family: 'Helvetica Display ExtraBlack', sans-serif;
+    font-size: 60px;
+    color: #E8EBF7;
+    animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(calc(-100% / 2));
+      
+    }
+}
+
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+    .marquee {
+        display: inline-block;
+        font-family: 'Helvetica Display ExtraBlack', sans-serif;
+        font-size: 100px;
+        color: #E8EBF7;
+        animation: marquee 20s linear infinite;
+    }
+}
+

@@ -129,4 +129,9 @@
         cursor: pointer;
         border-top: 0;
     }
+
+    .eventBox:hover {
+        transform: translate(-10px, -10px);
+        box-shadow: 10px 10px #E4FF1A;
+    }
 }

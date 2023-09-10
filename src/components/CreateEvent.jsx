@@ -34,9 +34,6 @@ function AddEvent() {
     const [showYourComponent, setShowYourComponent] = useState(false);
     const [flyerMiniUrl, setFlyerMiniUrl] = useState(null);
     const hiddenFileInput = useRef(null);
-
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
     const navigate = useNavigate();
 
     //MUI ALERT
@@ -82,17 +79,6 @@ function AddEvent() {
         setMapsApiLoaded(true);
     }, []);
 
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-        handleResize();
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
     const handleFlyerMiniChange = (event) => {
         const file = event.target.files[0];
         setFlyerMiniFile(file);
@@ -105,10 +91,28 @@ function AddEvent() {
     };
 
     const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setEventData((prevData) => ({
+        let { name, value } = event.target;
+
+        if (name === "startDateE") {
+
+            const numbersOnly = value.replace(/\D/g, "");
+
+            let newValue = numbersOnly;
+
+            if (numbersOnly.length > 4) {
+                newValue = numbersOnly.substring(0, 2) + "/" + numbersOnly.substring(2, 4) + "/" + numbersOnly.substring(4);
+            } else if (numbersOnly.length > 2) {
+                newValue = numbersOnly.substring(0, 2) + "/" + numbersOnly.substring(2);
+            }
+
+            value = newValue;
+        } else {
+            value = value.toUpperCase();
+        }
+
+        setEventData(prevData => ({
             ...prevData,
-            [name]: value.toUpperCase()
+            [name]: value
         }));
     };
 
@@ -116,14 +120,9 @@ function AddEvent() {
         setSnackbarOpen(false);
     };
 
-    const handleDateChange = (date) => {
-        setEventData((prevData) => ({
-            ...prevData,
-            startDateE: date,
-        }));
-    };
-
     const handleSubmit = async (event) => {
+        console.log(eventData.startDateE)
+        debugger;
         event.preventDefault();
         setIsSubmitting(true);
         const createEventInput = {
@@ -213,13 +212,17 @@ function AddEvent() {
                                     />
                                 </div>
                                 <div>
-                                    <input className="event-input"
-                                        type="date"
+                                    <input
+                                        className="event-input"
+                                        type="text"
                                         name="startDateE"
                                         value={eventData.startDateE}
                                         onChange={handleInputChange}
-
-                                    ></input>
+                                        placeholder="DD/MM/YYYY"
+                                        pattern="\d{2}/\d{2}/\d{4}"
+                                        maxLength="10"
+                                        inputMode="numeric"
+                                    />
                                 </div>
                                 <div>
                                     <textarea
@@ -232,7 +235,7 @@ function AddEvent() {
                                         placeholder={!eventData.descriptionEvent ? "DESCRIPCIÓN (OPCIONAL)" : ""}
                                     />
                                 </div>
-                                <label className="label-input">
+                                <div>
                                     <StandaloneSearchBox
                                         onLoad={(ref) => setMapRef(ref)}
                                         onPlacesChanged={() => {
@@ -253,50 +256,7 @@ function AddEvent() {
                                             style={{ width: "100%" }}
                                         />
                                     </StandaloneSearchBox>
-                                </label>
-                                {/* <div >
-                                    <label className='label-input'>
-                                        Flyer (formato 1:1)*
-                                        <input className='event-input'
-                                            type="file"
-                                            accept=".jpg,.jpeg,.png"
-                                            name="flyerMiniEvent"
-                                            onChange={handleFlyerMiniChange}
-                                        />
-                                    </label>
-                                </div> */}
-                                {/* <div className="date-flyer-container">
-                                        <div className="date-container">
-                                            <label className='label-input'>
-                                                Fecha Inicio:
-                                                {isMobile ? (
-                                                    <MobileDatePicker
-                                                        value={eventData.startDateE}
-                                                        onChange={(date) => handleDateChange(date)}
-                                                        renderInput={(params) => <TextField {...params} />}
-                                                    />
-                                                ) : (
-                                                    <DesktopDatePicker
-                                                        value={eventData.startDateE}
-                                                        onChange={(date) => handleDateChange(date)}
-                                                        renderInput={(params) => <TextField {...params} />}
-                                                    />
-                                                )}
-                                            </label>
-                                        </div>
-                                        <div className="flyer-container">
-                                            <label className='label-input'>
-                                                Flyer (formato 1:1)*
-                                                <input className='event-input'
-                                                    type="file"
-                                                    accept=".jpg,.jpeg,.png"
-                                                    name="flyerMiniEvent"
-                                                    onChange={handleFlyerMiniChange}
-                                                />
-                                            </label>
-                                        </div>
-                                    </div> */}
-
+                                </div>
                             </div>
                             <div className="image-container">
                                 <img
@@ -307,7 +267,7 @@ function AddEvent() {
                                     style={{ cursor: "pointer" }}
                                 />
                                 <div className="image-overlay" onClick={handleImageClick}>
-                                    <span>AGREGAR IMAGEN (FORMATO 1:1)</span>
+                                    <span>AGREGAR FLYER (FORMATO 1:1)</span>
                                 </div>
                                 <input
                                     type="file"

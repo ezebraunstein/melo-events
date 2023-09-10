@@ -104,6 +104,17 @@
     overflow-x: hidden;
 }
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.input-container>* {
+    max-width: 100%;
+}
+
+
 .input-container,
 .map-container {
     flex: 1;
@@ -204,6 +215,8 @@
     margin: 20px;
     resize: none;
     overflow: hidden;
+    margin: 0;
+
 }
 
 .event-input::placeholder {
@@ -211,10 +224,11 @@
     opacity: 0.5;
 }
 
-.event-input::focus {
+.event-input:focus {
     background-color: #303030;
     color: #E8EBF7;
     outline: none;
+    border: none;
     box-shadow: none;
 }
 
