@@ -9,15 +9,15 @@ header {
 /*SLIDER*/
 
 .sliderImg {
-    width: 400px;
-    height: 400px;
+    width: 550px;
+    height: 550px;
     object-fit: cover;
     border-radius: 10px;
 }
 
 .slick-slider {
     width: 100%;
-    height: 450px;
+    height: 600px;
     background-color: #272727;
     position: relative;
     margin: 0 auto;
@@ -388,7 +388,7 @@ header {
 
     to {
         transform: translateX(calc(-100% / 2));
-      
+
     }
 }
 
@@ -402,4 +402,3 @@ header {
         animation: marquee 20s linear infinite;
     }
 }
-
