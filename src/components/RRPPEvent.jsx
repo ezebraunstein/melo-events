@@ -133,9 +133,9 @@ const RRPPEvent = () => {
                   </div>
                 )}
               </div>
-              <div className="image-container">
+              {/* <div className="image-container">
                 <img className="image-style" src={eventData.imageUrl} alt="" />
-              </div>
+              </div> */}
               <div className="map-container">
                 <GoogleMap
                   mapContainerStyle={{

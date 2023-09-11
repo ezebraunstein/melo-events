@@ -50,7 +50,6 @@ const LinkEventModal = ({ onEventLinked }) => {
 
     return (
         <div>
-            <br />
             <div style={{ textAlign: 'center' }}>
                 <button type="button" class="btnMain" onClick={() => setModalIsOpen(true)}>Unirme a Evento</button>
             </div>

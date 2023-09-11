@@ -64,25 +64,29 @@ const RRPPEvents = () => {
     return (
         <div className="eventClass">
             {rrppEvents.length > 0 ? (
-                <div id="boxes">
-                    <h1 className="eventBoxTitle">Mis Eventos</h1>
-                    <div className="eventBoxContainer">
-                        {rrppEvents.map((rrppEvent) => (
-                            <div>
-                                <div key={rrppEvent.id} className="eventBox">
-                                    <img src={rrppEvent.Event.imageUrl} />
-                                    <h3 className="nameEventBox">{rrppEvent.Event.nameEvent}</h3>
-                                    <button onClick={() => handleButtonClick(rrppEvent.id)} className="eventBoxBtnBuy">
-                                        <i className="icon-ticket"></i>Acceder
-                                    </button>
-                                </div>
+                <>
+                    <div id="boxes">
+                        <h1 className="eventBoxTitle">Mis Eventos</h1>
+                        <div>
+                            <ModalRRPPEvent onEventLinked={handleEventLinked} user={user} />
+                        </div>
+                        <br />
+                        <div className="eventBoxContainer">
+                            {rrppEvents.map((rrppEvent) => (
                                 <div>
-                                    <ModalRRPPEvent onEventLinked={handleEventLinked} user={user} />
+                                    <div key={rrppEvent.id} className="eventBox">
+                                        <img src={rrppEvent.Event.imageUrl} />
+                                        <h3 className="nameEventBox">{rrppEvent.Event.nameEvent}</h3>
+                                        <button onClick={() => handleButtonClick(rrppEvent.id)} className="eventBoxBtnBuy">
+                                            <i className="icon-ticket"></i>Acceder
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                </div>
+
+                </>
             ) : (
                 <div className="containerMessage">
                     <div>
