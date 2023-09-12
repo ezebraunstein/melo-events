@@ -8,7 +8,7 @@ import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
 import fetchEventData from '../functions/fetchEventData';
 import fetchTypeTickets from '../functions/fetchTypeTickets';
-
+const GOOGLE_MAPS_LIBRARIES = ["places"];
 const RRPPEvent = () => {
 
   //PARAMS
@@ -115,44 +115,55 @@ const RRPPEvent = () => {
       <br />
       <div className="test">
         {mapsApiLoaded && (
-          <LoadScriptNext
-            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
-            libraries={["places"]}
-            onLoad={() => setMapsApiLoaded(true)}>
-            <div className="edit-event-container">
-              <div className="data-container">
-                <div>
-                  <h4 className="eventName"> {eventData.nameEvent}</h4>
-                </div>
-                <div>
-                  <h4 className="eventDate"> {(eventData.startDateE).slice(0, 10)}</h4>
-                </div>
-                {eventData.descriptionEvent && (
-                  <div>
-                    <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
-                  </div>
-                )}
-              </div>
-              {/* <div className="image-container">
-                <img className="image-style" src={eventData.imageUrl} alt="" />
-              </div> */}
-              <div className="map-container">
-                <GoogleMap
-                  mapContainerStyle={{
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: "10px"
-                  }}
-                  zoom={15}
-                  center={selectedLocation || { lat: -34.397, lng: 150.644 }}
-                >
-                  {selectedLocation && (
-                    <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
-                  )}
-                </GoogleMap>
-              </div>
-            </div>
-          </LoadScriptNext>
+                    <LoadScriptNext
+                    googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
+                    libraries={GOOGLE_MAPS_LIBRARIES}
+                    onLoad={() => setMapsApiLoaded(true)}>
+                    <div className="event-container">
+                      <div className="data-container">
+                        <div>
+                          <h4 className="eventName"> {eventData.nameEvent}</h4>
+                        </div>
+                        <div>
+                          <h4 className="eventDate"> {(eventData.startDateE).slice(0, 10)}</h4>
+                        </div>
+                        {eventData.descriptionEvent && (
+                          <div>
+                            <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
+                          </div>
+                        )}
+                        {eventData.nameLocationEvent ? (
+                          <div>
+                            <h4 className="eventLocation">📍{eventData.nameLocationEvent}</h4>
+                          </div>
+                        ) : (
+                          <div>
+                            <h4 className="eventLocation">📍Secret Location</h4>
+                          </div>
+                        )}
+                      </div>
+                      <div className="image-container">
+                        <img className="image-style" src={eventData.imageUrl} alt="" />
+                      </div>
+                      {eventData.nameLocationEvent && (
+                        <div className="map-container">
+                          <GoogleMap
+                            mapContainerStyle={{
+                              width: "100%",
+                              height: "100%",
+                              borderRadius: "10px"
+                            }}
+                            zoom={15}
+                            center={selectedLocation || { lat: -34.397, lng: 150.644 }}
+                          >
+                            {selectedLocation && (
+                              <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
+                            )}
+                          </GoogleMap>
+                        </div>
+                      )}
+                    </div>
+                  </LoadScriptNext>
         )}
       </div>
       <br />
