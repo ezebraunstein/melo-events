@@ -60,10 +60,31 @@ const Header = () => {
       )}
 
       <div className='box-1'>
-        {url !== '/crear-usuario' && (isAuthenticated ? (url === '/' ? <ButtonCreateEvent /> : <ButtonReturn />) : (<ButtonLogin />))}
-        {url !== '/crear-usuario' && isAuthenticated && <ButtonOwnerEvents />}
-        {isAuthenticated && <ButtonLogout />}
+        {isAuthenticated && (
+          <>
+            {url === '/' && <ButtonOwnerEvents />}
+
+            {(url === '/mis-eventos' || url.includes('/mis-eventos/')) && (
+              <>
+                <ButtonReturn />
+                {url === '/mis-eventos' && <ButtonCreateEvent />}
+              </>
+            )}
+
+            {(url === '/mi-evento' || url.includes('/mi-evento/')) && <ButtonReturn />}
+
+            {(url === '/editar-evento' || url.includes('/editar-evento/')) && <ButtonReturn />}
+
+            {(url === '/comprar-tickets' || url.includes('/comprar-tickets/')) && <ButtonReturn />}
+
+            {url === '/crear-evento' && <ButtonReturn />}
+
+            <ButtonLogout />
+          </>
+        )}
+        {url !== '/crear-usuario' && !isAuthenticated && <ButtonLogin />}
       </div>
+
     </header>
   );
 };
