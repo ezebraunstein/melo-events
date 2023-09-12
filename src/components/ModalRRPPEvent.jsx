@@ -55,7 +55,7 @@ const LinkEventModal = ({ onEventLinked }) => {
                 <button type="button" class="btnMain" onClick={() => setModalIsOpen(true)}>Unirme a Evento</button>
             </div>
             <Modal
-                className="custom-modal"
+                className="custom-modal-rrpp"
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
                 contentLabel="Input Modal"

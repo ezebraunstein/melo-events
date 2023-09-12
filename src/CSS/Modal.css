@@ -120,6 +120,47 @@
 
     }
 
+    .custom-modal-rrpp {
+        font-family: 'Helvetica Display Bold', sans-serif;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #272727;
+        border-radius: 30px;
+        padding: 20px;
+        width: 900px;
+        height: 350px;
+        overflow: auto;
+    }
+
+    .custom-modal-rrpp form {
+        display: grid;
+        gap: 10px;
+    }
+
+    .custom-modal-rrpp input {
+        width: 100%;
+        padding: 3px;
+        font-size: 70px;
+        border: 0;
+        color: #E8EBF7;
+        background-color: #303030;
+        border-radius: 30px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .custom-modal-rrpp input:focus {
+        background-color: #272727;
+        outline: none;
+        color: #E8EBF7;
+        box-shadow: none;
+
+    }
+
+
+
     .btn-container {
         display: flex;
         align-items: center;

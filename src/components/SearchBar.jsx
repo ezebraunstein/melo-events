@@ -11,7 +11,7 @@ const SearchBar = ({ onSearch }) => {
           type="search"
           id="query"
           name="q"
-          placeholder="BUSCAR EVENTOS..."
+          placeholder="BUSCAR..."
           aria-label="Search through site content"
           onChange={handleInputChange}
         />

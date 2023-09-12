@@ -31,14 +31,14 @@ const Header = () => {
     return (
       <header>
         {url === '/crear-usuario' ? (
-          <a><img className="logo" src={meloLogo} alt="LA PALA" width="400px" /></a>
+          <a><img className="logo" src={meloLogo} alt="melo-logo" width="400px" /></a>
         ) : (
-          <a href='/'><img className="logo" src={meloLogo} alt="LA PALA" width="400px" /></a>
+          <a href='/'><img className="logo" src={meloLogo} alt="melo-logo" width="400px" /></a>
         )}
 
         <div className='box-1'>
-          {isRRPPEventPage && <button className="btnHeader" onClick={() => window.location.href = '/'}>Volver</button>}
-          {!isRRPPEventPage && <button className="btnHeader" onClick={() => window.location.href = '/mi-evento-rrpp'}>Mis Eventos</button>}
+          {isRRPPEventPage && <div className='box-1'><button className="btnHeader" onClick={() => window.location.href = '/'}>Volver</button></div>}
+          {!isRRPPEventPage && <div className='box-1'><button className="btnHeader" onClick={() => window.location.href = '/mi-evento-rrpp'}>Mis Eventos</button></div>}
           {isAuthenticated && <ButtonLogout />}
         </div>
       </header>
@@ -49,13 +49,13 @@ const Header = () => {
     <header>
       {url === '/crear-usuario' && (
         <a>
-          <img className="logo" src={meloLogo} alt="LA PALA" width="300px" />
+          <img className="logo" src={meloLogo} alt="melo-logo" width="400px" />
         </a>
       )}
 
       {url !== '/crear-usuario' && (
         <a href='/'>
-          <img className="logo" src={meloLogo} alt="LA PALA" width="300px" />
+          <img className="logo" src={meloLogo} alt="melo-logo" width="400px" />
         </a>
       )}
 

@@ -8,7 +8,9 @@ import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
 import fetchEventData from '../functions/fetchEventData';
 import fetchTypeTickets from '../functions/fetchTypeTickets';
+import Marquee from './Marquee';
 import EventDetail from './EventDetail';
+import TicketIcon from './TicketIcon';
 const GOOGLE_MAPS_LIBRARIES = ["places"];
 
 const RRPPEvent = () => {
@@ -78,7 +80,7 @@ const RRPPEvent = () => {
             <h2 class="ticket-text">{typeTicket.nameTT}</h2>
           </div>
           <div class="ticket-column">
-            <h2 class="ticket-text">{typeTicket.count}</h2>
+            <h2 class="ticket-text"><TicketIcon /> {typeTicket.count}</h2>
           </div>
         </div>
       </div>
@@ -113,38 +115,45 @@ const RRPPEvent = () => {
   }
 
   return (
-    <div className="event-class">
+    <>
+     <br />
       <br />
-      <div className="test">
-        {mapsApiLoaded && (
-          <LoadScriptNext
-            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
-            libraries={GOOGLE_MAPS_LIBRARIES}
-            onLoad={() => setMapsApiLoaded(true)}>
-            <EventDetail eventData={eventData} selectedLocation={selectedLocation} />
-          </LoadScriptNext>
-        )}
+      <Marquee text={eventData.nameEvent} />
+      <br />
+      <br />
+      <div className="event-class">
+        <br />
+        <div className="test">
+          {mapsApiLoaded && (
+            <LoadScriptNext
+              googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
+              libraries={GOOGLE_MAPS_LIBRARIES}
+              onLoad={() => setMapsApiLoaded(true)}>
+              <EventDetail eventData={eventData} selectedLocation={selectedLocation} />
+            </LoadScriptNext>
+          )}
+        </div>
+        <br />
+        <div>
+          <p className='textMessage1'>MIS VENTAS</p>
+        </div>
+        <br />
+        {renderTypeTickets()}
+        <br />
+        <div>
+          <button type="button" class="btnMain" onClick={copyEventLinkToClipboard}>
+            Copiar Link
+          </button>
+        </div>
+        <br />
+        <br />
+        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+          <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+            Link copiado!
+          </Alert>
+        </Snackbar>
       </div>
-      <br />
-      <div>
-        <p className='textMessage1'>MIS VENTAS</p>
-      </div>
-      <br />
-      {renderTypeTickets()}
-      <br />
-      <div>
-        <button type="button" class="btnMain" onClick={copyEventLinkToClipboard}>
-          Copiar Link
-        </button>
-      </div>
-      <br />
-      <br />
-      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-          Link copiado!
-        </Alert>
-      </Snackbar>
-    </div>
+    </>
   );
 };
 

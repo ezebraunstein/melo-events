@@ -76,7 +76,7 @@ const HomeEvents = () => {
                                     }}
                                     className="eventBoxBtnBuy"
                                 >
-                                    Comprar Tickets
+                                    Comprar
                                 </button>
                             </div>
                         ))}

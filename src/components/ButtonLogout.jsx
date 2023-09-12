@@ -16,8 +16,9 @@ const ButtonLogout = ({ onSignOut }) => {
   };
 
   return (
-    <div className="box-1" style={{ paddingRight: '50px' }}>
-      <button className="btnLogout" onClick={handleSignOut}>
+    // <div className="box-1" style={{ paddingRight: '50px' }}>
+    <div className="box-1">
+      <button className="btnHeader" onClick={handleSignOut}>
         <span>Cerrar Sesión</span>
       </button>
     </div>

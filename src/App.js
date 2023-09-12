@@ -1,5 +1,5 @@
 import './App.css';
-import React from "react";
+import React, { useState } from 'react';
 import Slider from "./components/Slider";
 import HomeEvents from "./components/HomeEvents";
 import CreateEvent from "./components/CreateEvent";
@@ -23,9 +23,12 @@ import './CSS/EventBox.css'
 import './CSS/Layout.css'
 import './CSS/Modal.css'
 import './CSS/Ticket.css'
+import './CSS/Hamburguer.css'
 
 function App() {
+
   return (
+
     <div style={{ backgroundColor: '#272727' }}>
       <Routes>
         <Route path="/" element={
