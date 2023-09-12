@@ -98,6 +98,17 @@
 @media (max-width: 768px),
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
 
+    .create-ticket-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin-bottom: 1rem;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        border-radius: 30px;
+        background-color: #E4FF1A;
+    }
+
     .ticket-container {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
