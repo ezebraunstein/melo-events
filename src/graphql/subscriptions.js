@@ -13,33 +13,14 @@ export const onCreateRRPPEvent = /* GraphQL */ `
         locationEvent
         descriptionEvent
         flyerMiniEvent
-        flyerEvent
         startDateE
-        endDateE
         upDateE
         downDateE
         nameLocationEvent
-        TypeTickets {
-          nextToken
-        }
-        Payments {
-          nextToken
-        }
         userID
       }
-      totalSold
       rrppID
       Tickets {
-        items {
-          id
-          qrTicket
-          validTicket
-          dniTicket
-          emailTicket
-          eventID
-          typeticketID
-          rrppeventID
-        }
         nextToken
       }
       rRPPEventEventId
@@ -58,33 +39,14 @@ export const onUpdateRRPPEvent = /* GraphQL */ `
         locationEvent
         descriptionEvent
         flyerMiniEvent
-        flyerEvent
         startDateE
-        endDateE
         upDateE
         downDateE
         nameLocationEvent
-        TypeTickets {
-          nextToken
-        }
-        Payments {
-          nextToken
-        }
         userID
       }
-      totalSold
       rrppID
       Tickets {
-        items {
-          id
-          qrTicket
-          validTicket
-          dniTicket
-          emailTicket
-          eventID
-          typeticketID
-          rrppeventID
-        }
         nextToken
       }
       rRPPEventEventId
@@ -103,33 +65,14 @@ export const onDeleteRRPPEvent = /* GraphQL */ `
         locationEvent
         descriptionEvent
         flyerMiniEvent
-        flyerEvent
         startDateE
-        endDateE
         upDateE
         downDateE
         nameLocationEvent
-        TypeTickets {
-          nextToken
-        }
-        Payments {
-          nextToken
-        }
         userID
       }
-      totalSold
       rrppID
       Tickets {
-        items {
-          id
-          qrTicket
-          validTicket
-          dniTicket
-          emailTicket
-          eventID
-          typeticketID
-          rrppeventID
-        }
         nextToken
       }
       rRPPEventEventId
@@ -145,12 +88,6 @@ export const onCreateRRPP = /* GraphQL */ `
       dniRRPP
       emailRRPP
       RRPPEvents {
-        items {
-          id
-          totalSold
-          rrppID
-          rRPPEventEventId
-        }
         nextToken
       }
     }
@@ -165,12 +102,6 @@ export const onUpdateRRPP = /* GraphQL */ `
       dniRRPP
       emailRRPP
       RRPPEvents {
-        items {
-          id
-          totalSold
-          rrppID
-          rRPPEventEventId
-        }
         nextToken
       }
     }
@@ -185,12 +116,6 @@ export const onDeleteRRPP = /* GraphQL */ `
       dniRRPP
       emailRRPP
       RRPPEvents {
-        items {
-          id
-          totalSold
-          rrppID
-          rRPPEventEventId
-        }
         nextToken
       }
     }
@@ -303,16 +228,6 @@ export const onCreateTypeTicket = /* GraphQL */ `
       downDateTT
       eventID
       Tickets {
-        items {
-          id
-          qrTicket
-          validTicket
-          dniTicket
-          emailTicket
-          eventID
-          typeticketID
-          rrppeventID
-        }
         nextToken
       }
     }
@@ -335,16 +250,6 @@ export const onUpdateTypeTicket = /* GraphQL */ `
       downDateTT
       eventID
       Tickets {
-        items {
-          id
-          qrTicket
-          validTicket
-          dniTicket
-          emailTicket
-          eventID
-          typeticketID
-          rrppeventID
-        }
         nextToken
       }
     }
@@ -367,16 +272,6 @@ export const onDeleteTypeTicket = /* GraphQL */ `
       downDateTT
       eventID
       Tickets {
-        items {
-          id
-          qrTicket
-          validTicket
-          dniTicket
-          emailTicket
-          eventID
-          typeticketID
-          rrppeventID
-        }
         nextToken
       }
     }
@@ -390,41 +285,14 @@ export const onCreateEvent = /* GraphQL */ `
       locationEvent
       descriptionEvent
       flyerMiniEvent
-      flyerEvent
       startDateE
-      endDateE
       upDateE
       downDateE
       nameLocationEvent
       TypeTickets {
-        items {
-          id
-          nameTT
-          priceTT
-          quantityTT
-          descriptionTT
-          activeTT
-          startDateTT
-          endDateTT
-          upDateTT
-          downDateTT
-          eventID
-        }
         nextToken
       }
       Payments {
-        items {
-          id
-          cart
-          paymentStatus
-          emailBuyer
-          dniBuyer
-          amount
-          eventName
-          createdDate
-          updatedDate
-          eventID
-        }
         nextToken
       }
       userID
@@ -439,41 +307,14 @@ export const onUpdateEvent = /* GraphQL */ `
       locationEvent
       descriptionEvent
       flyerMiniEvent
-      flyerEvent
       startDateE
-      endDateE
       upDateE
       downDateE
       nameLocationEvent
       TypeTickets {
-        items {
-          id
-          nameTT
-          priceTT
-          quantityTT
-          descriptionTT
-          activeTT
-          startDateTT
-          endDateTT
-          upDateTT
-          downDateTT
-          eventID
-        }
         nextToken
       }
       Payments {
-        items {
-          id
-          cart
-          paymentStatus
-          emailBuyer
-          dniBuyer
-          amount
-          eventName
-          createdDate
-          updatedDate
-          eventID
-        }
         nextToken
       }
       userID
@@ -488,41 +329,14 @@ export const onDeleteEvent = /* GraphQL */ `
       locationEvent
       descriptionEvent
       flyerMiniEvent
-      flyerEvent
       startDateE
-      endDateE
       upDateE
       downDateE
       nameLocationEvent
       TypeTickets {
-        items {
-          id
-          nameTT
-          priceTT
-          quantityTT
-          descriptionTT
-          activeTT
-          startDateTT
-          endDateTT
-          upDateTT
-          downDateTT
-          eventID
-        }
         nextToken
       }
       Payments {
-        items {
-          id
-          cart
-          paymentStatus
-          emailBuyer
-          dniBuyer
-          amount
-          eventName
-          createdDate
-          updatedDate
-          eventID
-        }
         nextToken
       }
       userID
@@ -538,20 +352,6 @@ export const onCreateUser = /* GraphQL */ `
       dniUser
       emailUser
       Events {
-        items {
-          id
-          nameEvent
-          locationEvent
-          descriptionEvent
-          flyerMiniEvent
-          flyerEvent
-          startDateE
-          endDateE
-          upDateE
-          downDateE
-          nameLocationEvent
-          userID
-        }
         nextToken
       }
     }
@@ -566,20 +366,6 @@ export const onUpdateUser = /* GraphQL */ `
       dniUser
       emailUser
       Events {
-        items {
-          id
-          nameEvent
-          locationEvent
-          descriptionEvent
-          flyerMiniEvent
-          flyerEvent
-          startDateE
-          endDateE
-          upDateE
-          downDateE
-          nameLocationEvent
-          userID
-        }
         nextToken
       }
     }
@@ -594,20 +380,6 @@ export const onDeleteUser = /* GraphQL */ `
       dniUser
       emailUser
       Events {
-        items {
-          id
-          nameEvent
-          locationEvent
-          descriptionEvent
-          flyerMiniEvent
-          flyerEvent
-          startDateE
-          endDateE
-          upDateE
-          downDateE
-          nameLocationEvent
-          userID
-        }
         nextToken
       }
     }
