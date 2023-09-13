@@ -11,33 +11,14 @@ export const getRRPPEvent = /* GraphQL */ `
         locationEvent
         descriptionEvent
         flyerMiniEvent
-        flyerEvent
         startDateE
-        endDateE
         upDateE
         downDateE
         nameLocationEvent
-        TypeTickets {
-          nextToken
-        }
-        Payments {
-          nextToken
-        }
         userID
       }
-      totalSold
       rrppID
       Tickets {
-        items {
-          id
-          qrTicket
-          validTicket
-          dniTicket
-          emailTicket
-          eventID
-          typeticketID
-          rrppeventID
-        }
         nextToken
       }
       rRPPEventEventId
@@ -53,25 +34,7 @@ export const listRRPPEvents = /* GraphQL */ `
     listRRPPEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        Event {
-          id
-          nameEvent
-          locationEvent
-          descriptionEvent
-          flyerMiniEvent
-          flyerEvent
-          startDateE
-          endDateE
-          upDateE
-          downDateE
-          nameLocationEvent
-          userID
-        }
-        totalSold
         rrppID
-        Tickets {
-          nextToken
-        }
         rRPPEventEventId
       }
       nextToken
@@ -95,25 +58,7 @@ export const rRPPEventsByRrppID = /* GraphQL */ `
     ) {
       items {
         id
-        Event {
-          id
-          nameEvent
-          locationEvent
-          descriptionEvent
-          flyerMiniEvent
-          flyerEvent
-          startDateE
-          endDateE
-          upDateE
-          downDateE
-          nameLocationEvent
-          userID
-        }
-        totalSold
         rrppID
-        Tickets {
-          nextToken
-        }
         rRPPEventEventId
       }
       nextToken
@@ -129,12 +74,6 @@ export const getRRPP = /* GraphQL */ `
       dniRRPP
       emailRRPP
       RRPPEvents {
-        items {
-          id
-          totalSold
-          rrppID
-          rRPPEventEventId
-        }
         nextToken
       }
     }
@@ -153,9 +92,6 @@ export const listRRPPS = /* GraphQL */ `
         surnameRRPP
         dniRRPP
         emailRRPP
-        RRPPEvents {
-          nextToken
-        }
       }
       nextToken
     }
@@ -339,16 +275,6 @@ export const getTypeTicket = /* GraphQL */ `
       downDateTT
       eventID
       Tickets {
-        items {
-          id
-          qrTicket
-          validTicket
-          dniTicket
-          emailTicket
-          eventID
-          typeticketID
-          rrppeventID
-        }
         nextToken
       }
     }
@@ -373,9 +299,6 @@ export const listTypeTickets = /* GraphQL */ `
         upDateTT
         downDateTT
         eventID
-        Tickets {
-          nextToken
-        }
       }
       nextToken
     }
@@ -408,9 +331,6 @@ export const typeTicketsByEventID = /* GraphQL */ `
         upDateTT
         downDateTT
         eventID
-        Tickets {
-          nextToken
-        }
       }
       nextToken
     }
@@ -424,41 +344,14 @@ export const getEvent = /* GraphQL */ `
       locationEvent
       descriptionEvent
       flyerMiniEvent
-      flyerEvent
       startDateE
-      endDateE
       upDateE
       downDateE
       nameLocationEvent
       TypeTickets {
-        items {
-          id
-          nameTT
-          priceTT
-          quantityTT
-          descriptionTT
-          activeTT
-          startDateTT
-          endDateTT
-          upDateTT
-          downDateTT
-          eventID
-        }
         nextToken
       }
       Payments {
-        items {
-          id
-          cart
-          paymentStatus
-          emailBuyer
-          dniBuyer
-          amount
-          eventName
-          createdDate
-          updatedDate
-          eventID
-        }
         nextToken
       }
       userID
@@ -478,18 +371,10 @@ export const listEvents = /* GraphQL */ `
         locationEvent
         descriptionEvent
         flyerMiniEvent
-        flyerEvent
         startDateE
-        endDateE
         upDateE
         downDateE
         nameLocationEvent
-        TypeTickets {
-          nextToken
-        }
-        Payments {
-          nextToken
-        }
         userID
       }
       nextToken
@@ -517,18 +402,10 @@ export const eventsByUserID = /* GraphQL */ `
         locationEvent
         descriptionEvent
         flyerMiniEvent
-        flyerEvent
         startDateE
-        endDateE
         upDateE
         downDateE
         nameLocationEvent
-        TypeTickets {
-          nextToken
-        }
-        Payments {
-          nextToken
-        }
         userID
       }
       nextToken
@@ -544,20 +421,6 @@ export const getUser = /* GraphQL */ `
       dniUser
       emailUser
       Events {
-        items {
-          id
-          nameEvent
-          locationEvent
-          descriptionEvent
-          flyerMiniEvent
-          flyerEvent
-          startDateE
-          endDateE
-          upDateE
-          downDateE
-          nameLocationEvent
-          userID
-        }
         nextToken
       }
     }
@@ -576,9 +439,6 @@ export const listUsers = /* GraphQL */ `
         surnameUser
         dniUser
         emailUser
-        Events {
-          nextToken
-        }
       }
       nextToken
     }
