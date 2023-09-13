@@ -6,7 +6,7 @@ const ButtonReturn = () => {
   const navigate = useNavigate();
 
   function onclick() {
-    navigate(`/`);
+    navigate(-1);
   };
 
   return (

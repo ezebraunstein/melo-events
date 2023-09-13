@@ -24,7 +24,8 @@ const Header = () => {
 
       {/* Caso contrario, si */}
       {url !== '/crear-usuario' && (
-        <a href='/'>
+        // <a href='/'>
+        <a>
           <img className="logo" src={meloLogo} alt="LA PALA" width="400px" />
         </a>
       )}
