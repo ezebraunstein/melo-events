@@ -96,7 +96,7 @@ function App() {
             <BuyEvent />
           </Layout>
         } />
-        <Route path="/mi-evento-rrpp" element={
+        <Route path="/mis-eventos-rrpp" element={
           <ProtectedRoute>
             <Layout>
               <RRPPEvents />

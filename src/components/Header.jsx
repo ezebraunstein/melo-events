@@ -6,6 +6,7 @@ import ButtonReturn from './ButtonReturn';
 import ButtonLogin from './ButtonLogin';
 import ButtonLogout from './ButtonLogout';
 import ButtonOwnerEvents from './ButtonOwnerEvents';
+import ButtonRRPPEvents from './ButtonRRPPEvents';
 import checkRRPP from '../functions/checkRRPP';
 import '@aws-amplify/ui-react/styles.css';
 
@@ -25,11 +26,10 @@ const Header = () => {
     }
   }, [isAuthenticated, user]);
 
-  const isRRPPEventPage = url === '/mi-evento-rrpp';
-
   if (isRRPP) {
     return (
       <header>
+
         {url === '/crear-usuario' ? (
           <a><img className="logo" src={meloLogo} alt="melo-logo" width="400px" /></a>
         ) : (
@@ -37,9 +37,15 @@ const Header = () => {
         )}
 
         <div className='box-1'>
-          {isRRPPEventPage && <div className='box-1'><button className="btnHeader" onClick={() => window.location.href = '/'}>Volver</button></div>}
-          {!isRRPPEventPage && <div className='box-1'><button className="btnHeader" onClick={() => window.location.href = '/mi-evento-rrpp'}>Mis Eventos</button></div>}
-          {isAuthenticated && <ButtonLogout />}
+          {isAuthenticated && isRRPP && (
+            <>
+              {url === '/' && <ButtonRRPPEvents />}
+              {url === '/mis-eventos-rrpp' && <ButtonReturn />}
+              {(url === '/mi-evento-rrpp' || url.includes('/mi-evento-rrpp/')) && <ButtonReturn />}
+              <ButtonLogout />
+            </>
+          )}
+          {url !== '/crear-usuario' && !isAuthenticated && <ButtonLogin />}
         </div>
       </header>
     );
@@ -47,16 +53,11 @@ const Header = () => {
 
   return (
     <header>
-      {url === '/crear-usuario' && (
-        <a>
-          <img className="logo" src={meloLogo} alt="melo-logo" width="400px" />
-        </a>
-      )}
 
-      {url !== '/crear-usuario' && (
-        <a href='/'>
-          <img className="logo" src={meloLogo} alt="melo-logo" width="400px" />
-        </a>
+      {url === '/crear-usuario' ? (
+        <a><img className="logo" src={meloLogo} alt="melo-logo" width="400px" /></a>
+      ) : (
+        <a href='/'><img className="logo" src={meloLogo} alt="melo-logo" width="400px" /></a>
       )}
 
       <div className='box-1'>

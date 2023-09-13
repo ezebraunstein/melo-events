@@ -7,6 +7,7 @@ import ButtonReturn from './ButtonReturn';
 import ButtonLogin from './ButtonLogin';
 import ButtonLogout from './ButtonLogout';
 import ButtonOwnerEvents from './ButtonOwnerEvents';
+import ButtonRRPPEvents from './ButtonRRPPEvents';
 import checkRRPP from '../functions/checkRRPP';
 import Hamburger from './Hamburguer';
 import '@aws-amplify/ui-react/styles.css';
@@ -28,21 +29,28 @@ const HeaderMobile = () => {
     }
   }, [isAuthenticated, user]);
 
-  const isRRPPEventPage = url === '/mi-evento-rrpp';
-
   const renderMenuItems = () => {
     if (isRRPP) {
       return (
         <>
-          {/* {isRRPPEventPage && <div className='box-1'><button className="btnHeader" onClick={() => window.location.href = '/'}>Volver</button></div>} */}
-          {!isRRPPEventPage && <div className='box-1'><button className="btnHeader" onClick={() => window.location.href = '/mi-evento-rrpp'}>Mis Eventos</button></div>}
-          {isAuthenticated && <ButtonLogout />}
+          {isAuthenticated && isRRPP && (
+            <>
+              {url === '/' && <ButtonRRPPEvents />}
+
+              {url === '/mis-eventos-rrpp' && <ButtonReturn />}
+
+              {(url === '/mi-evento-rrpp' || url.includes('/mi-evento-rrpp/')) && <ButtonReturn />}
+
+              <ButtonLogout />
+            </>
+          )}
+          {url !== '/crear-usuario' && !isAuthenticated && <ButtonLogin />}
         </>
       );
     }
     return (
       <>
-         {isAuthenticated && (
+        {isAuthenticated && (
           <>
             {url === '/' && <ButtonOwnerEvents />}
 
@@ -77,16 +85,7 @@ const HeaderMobile = () => {
             <img className="logo" src={meloLogo} alt="melo-logo" width="400px" />
           </a>
         )}
-        {isAuthenticated && isRRPP && (
-          <>
-            {url === '/crear-usuario' ? (
-              <a><img className="logo" src={meloLogo} alt="melo-logo" width="400px" /></a>
-            ) : (
-              <a href='/mi-evento-rrpp'><img className="logo" src={meloLogo} alt="melo-logo" width="400px" /></a>
-            )}
-          </>
-        )}
-        {isAuthenticated && !isRRPP && (
+        {isAuthenticated && (
           <>
             {url === '/crear-usuario' && (
               <a>

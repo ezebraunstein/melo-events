@@ -146,7 +146,18 @@
     max-width: 33.33%;
 }
 
+.create-user-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    width: 100%;
+}
 
+.create-user-container .event-input {
+    margin-bottom: 50px;
+}
 
 @media (max-width: 768px),
 (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
@@ -197,6 +208,21 @@
     .map-container {
         flex: none;
         width: 100%;
+    }
+
+
+    .create-user-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        width: 100%;
+    }
+
+    .create-user-container .event-input {
+        margin-top: 50px;
+        margin-bottom: 50px;
     }
 }
 
@@ -350,19 +376,6 @@
         font-size: 60px;
     }
 
-    .create-user-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 80vh;
-        width: 100%;
-    }
-
-    .create-user-container .event-input {
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
 
 }
 

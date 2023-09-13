@@ -52,16 +52,14 @@ function App() {
     event.preventDefault();
     const inputData = getInputData();
 
-    let path = '/';
     let operation = createUser;
     if (typeUser === 'rrpp') {
-      path = '/mi-evento-rrpp';
       operation = createRRPP;
     }
 
     try {
       await API.graphql(graphqlOperation(operation, { input: inputData }));
-      navigate(path);
+      navigate('/');
     } catch (error) {
       console.error("Error creating user", error);
     }

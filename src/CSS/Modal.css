@@ -1,6 +1,7 @@
 /* MODAL */
 
-.custom-modal {
+.custom-modal,
+.custom-modal-rrpp {
     font-family: 'Helvetica Display Bold', sans-serif;
     position: fixed;
     top: 50%;
@@ -13,12 +14,14 @@
     max-height: 100%;
 }
 
-.custom-modal form {
+.custom-modal,
+.custon-modal-rrpp form {
     display: grid;
     gap: 25px;
 }
 
-.custom-modal input {
+.custom-modal,
+.custon-modal-rrpp input {
     width: 100%;
     padding: 3px;
     font-size: 30px;
@@ -28,7 +31,8 @@
     text-transform: uppercase;
 }
 
-.custom-modal input:focus {
+.custom-modal,
+.custon-modal-rrpp input:focus {
     background-color: #272727;
     outline: none;
     color: #E8EBF7;

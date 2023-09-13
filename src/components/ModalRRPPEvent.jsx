@@ -63,7 +63,7 @@ const LinkEventModal = ({ onEventLinked }) => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <input
-                            className="form-control"
+                            className="event-input"
                             type="text"
                             id="eventId"
                             name="eventId"
