@@ -37,7 +37,7 @@ const InputModal = ({ handleModalSubmit, cart }) => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <input
-                            class="form-control"
+                            class="event-input"
                             type="text"
                             id="name"
                             name="name"
@@ -49,7 +49,7 @@ const InputModal = ({ handleModalSubmit, cart }) => {
                     </div>
                     <div>
                         <input
-                            class="form-control"
+                            class="event-input"
                             type="text"
                             id="surname"
                             name="surname"
@@ -61,7 +61,7 @@ const InputModal = ({ handleModalSubmit, cart }) => {
                     </div>
                     <div>
                         <input
-                            class="form-control"
+                            class="event-input"
                             type="email"
                             id="email"
                             name="email1"
@@ -73,7 +73,7 @@ const InputModal = ({ handleModalSubmit, cart }) => {
                     </div>
                     <div>
                         <input
-                            class="form-control"
+                            class="event-input"
                             style={{ color: formData.email1 === formData.email2 ? '#E8EBF7' : 'red' }}
                             type="email"
                             id="email"
@@ -86,7 +86,7 @@ const InputModal = ({ handleModalSubmit, cart }) => {
                     </div>
                     <div>
                         <input
-                            class="form-control"
+                            class="event-input"
                             type="text"
                             id="dni"
                             name="dni"

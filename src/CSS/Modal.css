@@ -10,18 +10,17 @@
     background-color: #272727;
     border-radius: 10px;
     padding: 20px;
-    width: 50%;
-    max-height: 100%;
+    max-width: 50%;
 }
 
 .custom-modal,
-.custon-modal-rrpp form {
+.custom-modal-rrpp form {
     display: grid;
     gap: 25px;
 }
 
 .custom-modal,
-.custon-modal-rrpp input {
+.custom-modal-rrpp input {
     width: 100%;
     padding: 3px;
     font-size: 30px;
@@ -32,7 +31,7 @@
 }
 
 .custom-modal,
-.custon-modal-rrpp input:focus {
+.custom-modal-rrpp input:focus {
     background-color: #272727;
     outline: none;
     color: #E8EBF7;
@@ -95,8 +94,8 @@
         background-color: #272727;
         border-radius: 30px;
         padding: 20px;
-        width: 900px;
-        height: 1100px;
+        max-width: 100%;
+        width: 90%;
         overflow: auto;
     }
 

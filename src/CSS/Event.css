@@ -242,6 +242,7 @@
     resize: none;
     overflow: hidden;
     margin: 0;
+    text-transform: uppercase;
 
 }
 

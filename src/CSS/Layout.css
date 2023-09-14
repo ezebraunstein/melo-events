@@ -304,6 +304,7 @@ header {
         color: #E8EBF7;
         font-size: 90px;
         font-family: 'Helvetica Display ExtraBold', sans-serif;
+        text-align: center;
         text-transform: uppercase;
     }
 
@@ -312,31 +313,25 @@ header {
         color: #E8EBF7;
         font-size: 80px;
         font-family: 'Helvetica Display ExtraBold', sans-serif;
-        justify-content: center;
-        align-items: center;
-        display: flex;
+        text-align: center;
         text-transform: uppercase;
     }
 
     .textMessage2 {
         display: inline-block;
         color: #E8EBF7;
-        font-size: 30px;
+        font-size: 50px;
         font-family: 'Helvetica Display ExtraBold', sans-serif;
-        justify-content: center;
-        align-items: center;
-        display: flex;
+        text-align: center;
         text-transform: uppercase;
     }
 
     .textMessage3 {
         display: inline-block;
         color: #E8EBF7;
-        font-size: 20px;
+        font-size: 40px;
         font-family: 'Helvetica Display ExtraBold', sans-serif;
-        justify-content: center;
-        align-items: center;
-        display: flex;
+        text-align: center;
         text-transform: uppercase;
     }
 
