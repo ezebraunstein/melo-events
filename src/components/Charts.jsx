@@ -278,7 +278,7 @@ const Charts = () => {
   var misoptions = {
     responsive: true,
     maintainAspectRatio: false,
-    animation: false,
+    animation: true,
     plugins: {
       legend: {
         display: false
@@ -312,7 +312,7 @@ const Charts = () => {
   const lineOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    animation: false,
+    animation: true,
     font:
     {
       family: 'Helvetica Display Bold'
