@@ -1,11 +1,10 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { API, graphqlOperation } from 'aws-amplify';
-import { listPayments } from '../graphql/queries';
-import { listEvents } from "../graphql/queries";
+import { listPayments, listEvents, listTickets } from '../graphql/queries';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
-import { Helmet } from 'react-helmet';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import Marquee from './Marquee';
 import { Bar, Line, Pie, Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -53,13 +52,14 @@ const Charts = () => {
         {
           data: Object.values(eventCounts),
           backgroundColor: [
-            'rgba(0, 220, 195, 0.5)',
-            'rgba(255, 99, 132, 0.5)',
+            '#7D53DE',
+            '#E4FF1A',
             'rgba(54, 162, 235, 0.5)',
             'rgba(255, 206, 86, 0.5)',
             // Add more colors if needed for different locations
           ],
-          borderColor: 'rgba(0, 220, 195, 1)',
+          hoverBackgroundColor: ['#7D53DE', '#E4FF1A', '#FFCE56', '#33FFCC', '#FF99FF'],
+          borderColor: 'white',
           borderWidth: 1,
         },
       ],
@@ -67,45 +67,57 @@ const Charts = () => {
 
     return data;
   };
-
+  
   const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh', // Set the height of the container to fill the viewport
-  };
+    justifyContent: 'space-between',  // This will space the rows more evenly
+    height: '90vh',   // Reduced the height a bit
+    marginTop: '5vh',               // Added margin to the top
+    marginBottom: '30vh',            // Added margin to the bottom
+};
 
   const rowStyle = {
     display: 'flex',
     justifyContent: 'center',
     margin: '10px 0', // Add vertical space between rows
+    marginBottom: '10vh'
   };
 
-  const textStyle = {
+  const superQuadrantStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+  };
+
+  const titleStyle = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '20px',
-    margin: '20px',
-    maxWidth: '800px', // Set the maximum width of the container if needed
-    fontFamily: 'Fun City 2',
+    fontFamily: 'Helvetica Display ExtraBold',
+    fontSize: '30px',        // Adjust font size of the title
+    fontWeight: 'bold',     // Make the title bold
+    marginBottom: '1vh',   // Spacing between the title and the chart
+    color: '#E8EBF7',
   };
-
+  
   const quadrantStyle = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    border: '2px solid green',
-    padding: '20px',
+    border: '2px solid rgba(228, 255, 26, 0.7)', // Green border with 50% opacity
+    backgroundColor: 'rgba(255, 255, 255, 0)', // White background with 70% opacity
+    padding: '2vh',
     borderRadius: '8px',
-    maxWidth: '400px', // Set the maximum width of each quadrant if needed
-    height: '400px', // Set the height of each quadrant if needed
-    margin: '10px',
-  };
-
+    width: '50vh',
+    // maxWidth: '400px', 
+    height: '40vh', // Set the height of each quadrant if needed
+    margin: '10px 200px', // Adjusted right and left margins to 20px
+};
+  
   const chartStyle = {
-    maxWidth: '100%', // Set the maximum width of the chart if needed
+    width: '100%', 
+    height: '100%',
   };
 
   const [events, setEvents] = useState([]);
@@ -124,10 +136,15 @@ const Charts = () => {
       const allPaymentsData = await API.graphql(graphqlOperation(listPayments));
       const allPaymentsList = allPaymentsData.data.listPayments.items;
 
+      // Fetch all tickets data
+      const allTicketsData = await API.graphql(graphqlOperation(listTickets));
+      const allTicketsList = allTicketsData.data.listTickets.items;
+      
+
       // Calculate total income for each event for Chart 1
       const eventsWithPayments = filterEventsList.map((event) => {
-        const eventPayments = allPaymentsList.filter((payment) => payment.eventID === event.id);
-        const totalIncome = eventPayments.reduce((acc, payment) => acc + payment.amount, 0);
+        const eventPayments = allPaymentsList.filter((payment) => payment.eventID === event.id && payment.paymentStatus === 'COMPLETED');
+        const totalIncome = eventPayments.reduce((acc, payment) => acc + payment.amount * 0.8695689981, 0);
         return { ...event, totalIncome };
       });
 
@@ -139,28 +156,63 @@ const Charts = () => {
         last5Days.push(date.toISOString().slice(0, 10));
       }
 
+      // Calculate daily combined incomes for all events for Chart 2
+      const dailyCombinedIncomes = last5Days.map((day) => {
+      const dailyIncome = eventsWithPayments.reduce((acc, event) => {
+      const eventPayments = allPaymentsList.filter((payment) => 
+        payment.eventID === event.id && 
+        payment.paymentStatus === 'COMPLETED' && 
+        payment.createdDate.slice(0, 10) === day
+      );
+      const dailyEventIncome = eventPayments.reduce((innerAcc, payment) => innerAcc + payment.amount * 0.8695689981, 0);
+      return acc + dailyEventIncome;
+    }, 0);
+      return dailyIncome;
+    });
+
       // Set the data for Chart 4 (Bubble Chart)
       const eventLocationsData = getEventLocationsData(filterEventsList);
       console.log('eventLocationsData:', eventLocationsData); // Add this line
       setEventLocations(eventLocationsData);
 
+      // LINECHART X EVENTO
+
+      // const lineChartData = {
+      //   labels: last5Days,
+      //   datasets: eventsWithPayments.map((event) => {
+      //     const eventPayments = allPaymentsList.filter((payment) => payment.eventID === event.id && payment.paymentStatus === 'COMPLETED');
+      //     const dailyIncomes = last5Days.map((day) => {
+      //       const income = eventPayments.reduce((acc, payment) => {
+      //         return acc + (payment.createdDate.slice(0, 10) === day ? payment.amount : 0);
+      //       }, 0);
+      //       return income;
+      //     });
+      //     return {
+      //       label: event.nameEvent,
+      //       data: dailyIncomes,
+      //       backgroundColor: 'rgba(228, 255, 26)',
+      //     };
+      //   }),
+      // };
+      // setLineData(lineChartData);
+
+      // LINECHART TOTAL
+
       const lineChartData = {
         labels: last5Days,
-        datasets: eventsWithPayments.map((event) => {
-          const eventPayments = allPaymentsList.filter((payment) => payment.eventID === event.id);
-          const dailyIncomes = last5Days.map((day) => {
-            const income = eventPayments.reduce((acc, payment) => {
-              return acc + (payment.createdDate.slice(0, 10) === day ? payment.amount : 0);
-            }, 0);
-            return income;
-          });
-          return {
-            label: event.nameEvent,
-            data: dailyIncomes,
-            backgroundColor: 'rgba(0, 220, 195, 0.5)',
-          };
-        }),
+        datasets: [
+          {
+            label: "INGRESOS TOTALES",
+            font: {
+              family: 'Helvetica Display Bold' 
+            },
+            data: dailyCombinedIncomes,
+            backgroundColor: '#E4FF1A',
+            borderColor: '#7D53DE',
+          }
+        ],
       };
+      
       setLineData(lineChartData);
 
       const eventNamesArray = eventsWithPayments.map((event) => event.nameEvent);
@@ -176,14 +228,21 @@ const Charts = () => {
         return { ...event, completedPaymentsCount };
       });
 
+      // Calculate count of tickets for each event for Chart 3
+      const eventsWithTickets = filterEventsList.map((event) => {
+      const eventTickets = allTicketsList.filter((ticket) => ticket.eventID === event.id);
+      const ticketCount = eventTickets.length;
+      return { ...event, ticketCount };
+      });
+
       // Prepare data for Chart 3 (Pie Chart)
       const data3 = {
-        labels: eventsWithPaymentsNew.map((event) => event.nameEvent),
+        labels: eventsWithTickets.map((event) => event.nameEvent),
         datasets: [
           {
-            data: eventsWithPaymentsNew.map((event) => event.completedPaymentsCount),
-            backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#33FFCC', '#FF99FF'], // You can add more colors if needed
-            hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#33FFCC', '#FF99FF'],
+            data: eventsWithTickets.map((event) => event.ticketCount),
+            backgroundColor: ['#E4FF1A', '#7D53DE', '#FFCE56', '#33FFCC', '#FF99FF'], // You can add more colors if needed
+            hoverBackgroundColor: ['#E4FF1A', '#7D53DE', '#FFCE56', '#33FFCC', '#FF99FF'],
           },
         ],
       };
@@ -218,7 +277,8 @@ const Charts = () => {
 
   var misoptions = {
     responsive: true,
-    animation: false,
+    maintainAspectRatio: false,
+    animation: true,
     plugins: {
       legend: {
         display: false
@@ -230,7 +290,10 @@ const Charts = () => {
         max: 7000
       },
       x: {
-        ticks: { color: 'rgba(0, 220, 195)' }
+        ticks: { color: 'rgba(228, 255, 26)',
+        font: {
+          family: 'Helvetica Display Bold',
+      } }
       }
     }
   };
@@ -241,21 +304,31 @@ const Charts = () => {
       {
         label: 'Ingresos',
         data: events.map((event) => event.totalIncome),
-        backgroundColor: 'rgba(0, 220, 195, 0.5)'
+        backgroundColor: 'rgba(228, 255, 26, 0.5)'
       }
     ]
   };
 
   const lineOptions = {
     responsive: true,
-    animation: false,
+    maintainAspectRatio: false,
+    animation: true,
+    font:
+    {
+      family: 'Helvetica Display Bold'
+    },
     scales: {
       y: {
         min: 0,
         max: 6000,
+        font: {
+          family: 'Helvetica Display Bold'
+        }
       },
       x: {
-        ticks: { color: 'rgba(0, 220, 195)' },
+        ticks: { color: 'rgba(228, 255, 26)',
+        font: {
+          family: 'Helvetica Display Bold'} },
       },
     },
   };
@@ -267,42 +340,46 @@ const Charts = () => {
 
   const bubbleOptions = {
     responsive: true,
+    font:
+    {
+      family: 'Helvetica Display Bold'
+    },
     plugins: {
       legend: {
         display: false, // Hide the legend since we are using custom labels
       },
-      tooltip: {
-        callbacks: {
-          label: (context) => {
-            const label = context.label || '';
-            const value = context.parsed.y || 0;
-            return `${label}: ${value} events`;
-          },
-        },
-      },
+      // tooltip: {
+      //   callbacks: {
+      //     label: (context) => {
+      //       const label = context.label || '';
+      //       const value = context.parsed.y || 0;
+      //       return `${label}: ${value} events`;
+      //     },
+      //   },
+      // },
     },
     scales: {
       y: {
-        min: 0,
-        max: 10, // Adjust the maximum value based on your data
+        grid: {display: false},
+        display: false
       },
       x: {
-        ticks: { color: 'rgba(0, 220, 195)' },
+        grid: {display: false},
+        display: false
       },
     },
   };
 
   return (
+    <>
+    <br />
+    <br />
+    <Marquee text='DASHBOARD' />
     <div style={containerStyle}>
-      <Helmet>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" />
-      </Helmet>
-      <h1 style={{ ...textStyle, fontFamily: 'Titan One, cursive', color: '#869e31' }}>
-        <FontAwesomeIcon icon={faGaugeHigh} beat style={{ color: "#1f513a", marginRight: '16px' }} />
-        Dashboard
-        <FontAwesomeIcon icon={faGaugeHigh} beat style={{ color: "#1f513a", marginLeft: '16px' }} />
-      </h1>
+      <br />
       <div style={rowStyle}>
+      <div style={superQuadrantStyle}>
+      <div style={titleStyle}>INGRESOS POR EVENTO</div>
         <div style={quadrantStyle}>
           {/* Chart 1 */}
           {eventNames && (
@@ -311,6 +388,9 @@ const Charts = () => {
             </div>
           )}
         </div>
+      </div>
+      <div style={superQuadrantStyle}>
+      <div style={titleStyle}>INGRESOS POR DÍA</div>
         <div style={quadrantStyle}>
           {/* Chart 2 */}
           {lineData && (
@@ -319,8 +399,11 @@ const Charts = () => {
             </div>
           )}
         </div>
+        </div>
       </div>
       <div style={rowStyle}>
+      <div style={superQuadrantStyle}>
+      <div style={titleStyle}>TICKETS VENDIDOS</div>
         <div style={quadrantStyle}>
           {/* Chart 3 */}
           {ticketData && (
@@ -329,6 +412,9 @@ const Charts = () => {
             </div>
           )}
         </div>
+        </div>
+        <div style={superQuadrantStyle}>
+        <div style={titleStyle}>UBICACIONES DE MIS EVENTOS</div>
         <div style={quadrantStyle}>
           {/* Chart 4 */}
           {eventLocations && (
@@ -339,16 +425,34 @@ const Charts = () => {
             </div>
           )}
         </div>
+        </div>
+        <br />
+        <br />
       </div>
       {/* Add the Modal component here */}
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)} selectedChartInfo={selectedChartInfo} />
       )}
     </div>
+    </>
   );
 };
 
 const Modal = ({ onClose, selectedChartInfo }) => {
+  const buttonBackStyle = {
+    marginTop: '10px',
+    fontFamily: 'Helvetica Display ExtraBold',
+    fontSize: '25px',
+    alignItems: 'center',
+    background: '#E4FF1A',
+    padding: '10px 15px',
+    color: '#272727',
+    transition: '0.2s',
+    width: 'auto',
+    border: 0,
+    borderRadius: '10px',
+    display: 'inline-block',
+  }
   return (
     <div
       style={{
@@ -365,7 +469,7 @@ const Modal = ({ onClose, selectedChartInfo }) => {
     >
       <div
         style={{
-          background: 'white',
+          background: 'rgba(255, 255, 255, 0.8)',
           padding: '20px',
           borderRadius: '8px',
           boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
@@ -400,9 +504,9 @@ const Modal = ({ onClose, selectedChartInfo }) => {
             <Doughnut data={selectedChartInfo.data} options={selectedChartInfo.options} />
           </div>
         )}
-        <button onClick={onClose} style={{ marginTop: '10px' }} className="btn-Buy">
+        <button onClick={onClose} style={buttonBackStyle} className="btn-Buy">
           <FontAwesomeIcon icon={faArrowLeft} style={{ marginRight: '8px' }} />
-          Volver
+          VOLVER
         </button>
       </div>
     </div>
