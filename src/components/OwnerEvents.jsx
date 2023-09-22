@@ -36,6 +36,10 @@ const OwnerEvents = () => {
     navigate(`/crear-evento`);
   };
 
+  function onclick2() {
+    navigate(`/charts`);
+  };
+
   if (loading) {
     return <div className="circular-progress">
       <CircularProgress />
@@ -76,6 +80,11 @@ const OwnerEvents = () => {
               </button>
             </div>
             <br />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <button className="btnMain" onClick={onclick2}>
+                IR AL DASHBOARD
+              </button>
+            </div>
             <br />
           </div>
         ) : (
