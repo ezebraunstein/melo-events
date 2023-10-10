@@ -69,7 +69,7 @@ const Charts = () => {
 
     return data;
   };
-  
+
   const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -78,7 +78,7 @@ const Charts = () => {
     height: '90vh',   // Reduced the height a bit
     marginTop: '5vh',               // Added margin to the top
     marginBottom: '30vh',            // Added margin to the bottom
-};
+  };
 
   const rowStyle = {
     display: 'flex',
@@ -102,7 +102,7 @@ const Charts = () => {
     marginBottom: '1vh',   // Spacing between the title and the chart
     color: '#E8EBF7',
   };
-  
+
   const quadrantStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -114,11 +114,11 @@ const Charts = () => {
     width: '50vh',
     // maxWidth: '400px', 
     height: '40vh', // Set the height of each quadrant if needed
-    margin: '10px 200px', // Adjusted right and left margins to 20px
-};
-  
+    margin: '10px 50px', // Adjusted right and left margins to 20px
+  };
+
   const chartStyle = {
-    width: '100%', 
+    width: '100%',
     height: '100%',
   };
 
@@ -141,7 +141,7 @@ const Charts = () => {
       // Fetch all tickets data
       const allTicketsData = await API.graphql(graphqlOperation(listTickets));
       const allTicketsList = allTicketsData.data.listTickets.items;
-      
+
 
       // Calculate total income for each event for Chart 1
       const eventsWithPayments = filterEventsList.map((event) => {
@@ -160,17 +160,17 @@ const Charts = () => {
 
       // Calculate daily combined incomes for all events for Chart 2
       const dailyCombinedIncomes = last5Days.map((day) => {
-      const dailyIncome = eventsWithPayments.reduce((acc, event) => {
-      const eventPayments = allPaymentsList.filter((payment) => 
-        payment.eventID === event.id && 
-        payment.paymentStatus === 'COMPLETED' && 
-        payment.createdDate.slice(0, 10) === day
-      );
-      const dailyEventIncome = eventPayments.reduce((innerAcc, payment) => innerAcc + payment.amount * 0.8695689981, 0);
-      return acc + dailyEventIncome;
-    }, 0);
-      return dailyIncome;
-    });
+        const dailyIncome = eventsWithPayments.reduce((acc, event) => {
+          const eventPayments = allPaymentsList.filter((payment) =>
+            payment.eventID === event.id &&
+            payment.paymentStatus === 'COMPLETED' &&
+            payment.createdDate.slice(0, 10) === day
+          );
+          const dailyEventIncome = eventPayments.reduce((innerAcc, payment) => innerAcc + payment.amount * 0.8695689981, 0);
+          return acc + dailyEventIncome;
+        }, 0);
+        return dailyIncome;
+      });
 
       // Set the data for Chart 4 (Bubble Chart)
       const eventLocationsData = getEventLocationsData(filterEventsList);
@@ -204,7 +204,7 @@ const Charts = () => {
           }
         }
       };
-  
+
       const localLineOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -230,7 +230,7 @@ const Charts = () => {
           }
         }
       };
-  
+
       // Set the state with these new options:
       setMisOptionsState(localMisOptions);
       setLineOptionsState(localLineOptions);
@@ -264,7 +264,7 @@ const Charts = () => {
           {
             label: "INGRESOS TOTALES",
             font: {
-              family: 'Helvetica Display Bold' 
+              family: 'Helvetica Display Bold'
             },
             data: dailyCombinedIncomes,
             backgroundColor: '#E4FF1A',
@@ -272,7 +272,7 @@ const Charts = () => {
           }
         ],
       };
-      
+
       setLineData(lineChartData);
 
       const eventNamesArray = eventsWithPayments.map((event) => event.nameEvent);
@@ -290,9 +290,9 @@ const Charts = () => {
 
       // Calculate count of tickets for each event for Chart 3
       const eventsWithTickets = filterEventsList.map((event) => {
-      const eventTickets = allTicketsList.filter((ticket) => ticket.eventID === event.id);
-      const ticketCount = eventTickets.length;
-      return { ...event, ticketCount };
+        const eventTickets = allTicketsList.filter((ticket) => ticket.eventID === event.id);
+        const ticketCount = eventTickets.length;
+        return { ...event, ticketCount };
       });
 
       // Prepare data for Chart 3 (Pie Chart)
@@ -350,10 +350,12 @@ const Charts = () => {
         max: 7000
       },
       x: {
-        ticks: { color: 'rgba(228, 255, 26)',
-        font: {
-          family: 'Helvetica Display Bold',
-      } }
+        ticks: {
+          color: 'rgba(228, 255, 26)',
+          font: {
+            family: 'Helvetica Display Bold',
+          }
+        }
       }
     }
   };
@@ -386,9 +388,12 @@ const Charts = () => {
         }
       },
       x: {
-        ticks: { color: 'rgba(228, 255, 26)',
-        font: {
-          family: 'Helvetica Display Bold'} },
+        ticks: {
+          color: 'rgba(228, 255, 26)',
+          font: {
+            family: 'Helvetica Display Bold'
+          }
+        },
       },
     },
   };
@@ -420,11 +425,11 @@ const Charts = () => {
     },
     scales: {
       y: {
-        grid: {display: false},
+        grid: { display: false },
         display: false
       },
       x: {
-        grid: {display: false},
+        grid: { display: false },
         display: false
       },
     },
@@ -432,68 +437,70 @@ const Charts = () => {
 
   return (
     <>
-    <br />
-    <br />
-    <Marquee text='DASHBOARD' />
-    <div style={containerStyle}>
       <br />
-      <div style={rowStyle}>
-      <div style={superQuadrantStyle}>
-      <div style={titleStyle}>INGRESOS POR EVENTO</div>
-        <div style={quadrantStyle}>
-          {/* Chart 1 */}
-          {eventNames && (
-            <div style={chartStyle}>
-              <Bar data={midata} options={misOptionsState} onClick={() => handleChartClick(midata, misoptions, 'Bar')} />
-            </div>
-          )}
-        </div>
-      </div>
-      <div style={superQuadrantStyle}>
-      <div style={titleStyle}>INGRESOS POR DÍA</div>
-        <div style={quadrantStyle}>
-          {/* Chart 2 */}
-          {lineData && (
-            <div style={chartStyle}>
-              <Line data={lineData} options={lineOptionsState} onClick={() => handleChartClick(lineData, lineOptions, 'Line')} />
-            </div>
-          )}
-        </div>
-        </div>
-      </div>
-      <div style={rowStyle}>
-      <div style={superQuadrantStyle}>
-      <div style={titleStyle}>TICKETS VENDIDOS</div>
-        <div style={quadrantStyle}>
-          {/* Chart 3 */}
-          {ticketData && (
-            <div style={chartStyle}>
-              <Pie data={ticketData} options={options3} onClick={() => handleChartClick(ticketData, options3, 'Pie')} />
-            </div>
-          )}
-        </div>
-        </div>
-        <div style={superQuadrantStyle}>
-        <div style={titleStyle}>UBICACIONES DE MIS EVENTOS</div>
-        <div style={quadrantStyle}>
-          {/* Chart 4 */}
-          {eventLocations && (
-            <div>
-              <div style={chartStyle}>
-                <Doughnut data={eventLocations} options={bubbleOptions} onClick={() => handleChartClick(eventLocations, bubbleOptions, 'Doughnut')} />
+      <br />
+      <Marquee text='DASHBOARD' />
+      <div className="event-class">
+        <div style={containerStyle}>
+          <br />
+          <div style={rowStyle}>
+            <div style={superQuadrantStyle}>
+              <div style={titleStyle}>INGRESOS POR EVENTO</div>
+              <div style={quadrantStyle}>
+                {/* Chart 1 */}
+                {eventNames && (
+                  <div style={chartStyle}>
+                    <Bar data={midata} options={misOptionsState} onClick={() => handleChartClick(midata, misoptions, 'Bar')} />
+                  </div>
+                )}
               </div>
             </div>
+            <div style={superQuadrantStyle}>
+              <div style={titleStyle}>INGRESOS POR DÍA</div>
+              <div style={quadrantStyle}>
+                {/* Chart 2 */}
+                {lineData && (
+                  <div style={chartStyle}>
+                    <Line data={lineData} options={lineOptionsState} onClick={() => handleChartClick(lineData, lineOptions, 'Line')} />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          <div style={rowStyle}>
+            <div style={superQuadrantStyle}>
+              <div style={titleStyle}>TICKETS VENDIDOS</div>
+              <div style={quadrantStyle}>
+                {/* Chart 3 */}
+                {ticketData && (
+                  <div style={chartStyle}>
+                    <Pie data={ticketData} options={options3} onClick={() => handleChartClick(ticketData, options3, 'Pie')} />
+                  </div>
+                )}
+              </div>
+            </div>
+            <div style={superQuadrantStyle}>
+              <div style={titleStyle}>UBICACIONES DE MIS EVENTOS</div>
+              <div style={quadrantStyle}>
+                {/* Chart 4 */}
+                {eventLocations && (
+                  <div>
+                    <div style={chartStyle}>
+                      <Doughnut data={eventLocations} options={bubbleOptions} onClick={() => handleChartClick(eventLocations, bubbleOptions, 'Doughnut')} />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+            <br />
+            <br />
+          </div>
+          {/* Add the Modal component here */}
+          {isModalOpen && (
+            <Modal onClose={() => setIsModalOpen(false)} selectedChartInfo={selectedChartInfo} />
           )}
         </div>
-        </div>
-        <br />
-        <br />
       </div>
-      {/* Add the Modal component here */}
-      {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)} selectedChartInfo={selectedChartInfo} />
-      )}
-    </div>
     </>
   );
 };
