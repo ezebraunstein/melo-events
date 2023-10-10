@@ -20,12 +20,12 @@ async function handleCheckoutMP(data, path, cart, eventData) {
         id: paymentId,
         cart: cartJson,
         paymentStatus: 'PENDING',
-        userEmail: data.email,
+        emailBuyer: data.email,
+        dniBuyer: data.dni,
         amount: updatedPrice,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        data: dataJson,
-        eventData: eventDataJson,
+        eventName: eventData.nameEvent,
+        createdDate: new Date().toISOString(),
+        updatedDate: new Date().toISOString(),
         eventID: eventData.id,
     };
 

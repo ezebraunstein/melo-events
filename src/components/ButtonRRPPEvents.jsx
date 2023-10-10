@@ -12,7 +12,7 @@ const ButtonRRPPEvents = () => {
   return (
     <div className="box-1">
       <button className="btnHeader" onClick={onclick}>
-        <span>Mis Eventos</span>
+        <span>Mis Eventos RRPP</span>
       </button>
     </div>
   );

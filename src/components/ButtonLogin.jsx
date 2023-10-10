@@ -15,6 +15,7 @@ const ButtonLogin = () => {
       </div>
     );
   }
+
   return (
     <div className="box-1" style={{ paddingRight: '50px' }}>
       <button className="btnHeader" onClick={() => loginWithRedirect()}>
@@ -25,3 +26,4 @@ const ButtonLogin = () => {
 };
 
 export default ButtonLogin;
+

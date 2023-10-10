@@ -131,7 +131,6 @@ function AddEvent() {
             locationEvent: JSON.stringify(selectedLocation),
             descriptionEvent: eventData.descriptionEvent,
             flyerMiniEvent: "",
-            flyerEvent: "",
             startDateE: new Date(eventData.startDateE),
             upDateE: new Date(),
             downDateE: new Date(),

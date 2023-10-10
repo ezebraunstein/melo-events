@@ -4,14 +4,13 @@ import { listRRPPEvents } from '../graphql/queries';
 import { useNavigate } from 'react-router-dom';
 import ModalRRPPEvent from './ModalRRPPEvent';
 import CircularProgress from '@mui/material/CircularProgress';
+import { getEvent } from "../graphql/queries";
 import Marquee from "./Marquee";
 import { useAuth0 } from "@auth0/auth0-react";
 
-//CLOUDFRONT URL
 const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
 
 const RRPPEvents = () => {
-
     const navigate = useNavigate();
     const [rrppEvents, setRrppEvents] = useState([]);
     const [refreshKey, setRefreshKey] = useState(0);
@@ -20,11 +19,12 @@ const RRPPEvents = () => {
 
     useEffect(() => {
         fetchRrppEvents();
-    }, [refreshKey]);
+    });
 
     const handleEventLinked = () => {
         setRefreshKey(oldKey => oldKey + 1);
     };
+
 
     const fetchRrppEvents = async () => {
         try {
@@ -33,14 +33,20 @@ const RRPPEvents = () => {
                     filter: { rrppID: { eq: user.sub } },
                 })
             );
-
             const rrppEventsList = rrppEventsData.data.listRRPPEvents.items;
+
             const rrppEventsWithImages = await Promise.all(
                 rrppEventsList.map(async (rrppEvent) => {
-                    const event = rrppEvent.Event;
-                    const imagePath = `${event.flyerMiniEvent}`;
+                    const eventId = rrppEvent.rRPPEventEventId;
+
+                    const eventResponse = await API.graphql(graphqlOperation(getEvent, { id: eventId }));
+                    const eventData = eventResponse.data.getEvent;
+
+                    const imagePath = `${eventData.flyerMiniEvent}`;
                     const imageUrl = `${cloudFrontUrl}/${imagePath}`;
-                    rrppEvent.Event.imageUrl = imageUrl;
+                    eventData.imageUrl = imageUrl;
+
+                    rrppEvent.Event = eventData;
                     return rrppEvent;
                 })
             );
@@ -48,6 +54,8 @@ const RRPPEvents = () => {
             setLoading(false);
         } catch (error) {
             console.error('Error fetching rrpp events', error);
+            setLoading(false);
+        } finally {
             setLoading(false);
         }
     };
@@ -57,16 +65,18 @@ const RRPPEvents = () => {
     };
 
     if (loading) {
-        return <div className="circular-progress">
-            <CircularProgress />
-        </div>
+        return (
+            <div className="circular-progress">
+                <CircularProgress />
+            </div>
+        );
     }
 
     return (
         <>
             <br />
             <br />
-            <Marquee text="MIS EVENTOS " />
+            <Marquee text="EVENTOS RRPP " />
             <br />
             <br />
             <div className="event-class">
@@ -90,7 +100,7 @@ const RRPPEvents = () => {
                             ))}
                         </div>
                         <div>
-                            <ModalRRPPEvent onEventLinked={handleEventLinked} user={user} />
+                            <ModalRRPPEvent onEventLinked={handleEventLinked} setLoading={setLoading} user={user} />
                         </div>
                         <br />
                         <br />
@@ -102,7 +112,7 @@ const RRPPEvents = () => {
                         </div>
                         <br />
                         <div>
-                            <ModalRRPPEvent onEventLinked={handleEventLinked} user={user} />
+                            <ModalRRPPEvent onEventLinked={handleEventLinked} setLoading={setLoading} user={user} />
                         </div>
                     </div>
                 )}

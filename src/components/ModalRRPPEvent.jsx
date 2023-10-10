@@ -6,7 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 Modal.setAppElement("#root");
 
-const LinkEventModal = ({ onEventLinked }) => {
+const LinkEventModal = ({ onEventLinked, setLoading }) => {
 
     const { user } = useAuth0();
 
@@ -18,6 +18,8 @@ const LinkEventModal = ({ onEventLinked }) => {
     };
 
     const handleModalSubmit = async (eventId) => {
+
+        setLoading(true);
 
         const rrppEventInput = {
             id: uuid(),

@@ -4,6 +4,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { getRRPP, getRRPPEvent } from '../graphql/queries';
 import ModalCheckout from './ModalCheckout';
 import stripeCheckout from '../functions/stripeCheckout';
+import mercadopagoCheckout from './CheckoutMercadoPago';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 import { CircularProgress } from '@mui/material';
 import fetchEventData from '../functions/fetchEventData';
@@ -56,6 +57,7 @@ const BuyEvent = () => {
     setIsSubmitting(true);
     await stripeCheckout(cart, data, eventData);
     //await mercadopagoCheckout(data, path, cart, eventData);
+    //await mercadopagoCheckout(data, cart, eventData);
   };
 
   const fetchRRPPEvent = async (rrppEventId) => {

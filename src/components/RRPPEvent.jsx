@@ -73,19 +73,22 @@ const RRPPEvent = () => {
   };
 
   const renderTypeTickets = () => {
-    return typeTickets.map((typeTicket) => (
-      <div>
-        <div key={typeTicket.id} class="ticket-containerRRPP">
-          <div class="ticket-column">
-            <h2 class="ticket-text">{typeTicket.nameTT}</h2>
-          </div>
-          <div class="ticket-column">
-            <h2 class="ticket-text"><TicketIcon /> {typeTicket.count}</h2>
-          </div>
-        </div>
-      </div>
-    ));
-  };
+    return typeTickets.map((typeTicket) => {
+        const ticketStyle = typeTicket.count === 0 ? { opacity: 0.5, filter: 'grayscale(30%)' } : {};
+        
+        return (
+            <div key={typeTicket.id} class="ticket-containerRRPP" style={ticketStyle}>
+                <div class="ticket-column">
+                    <h2 class="ticket-text">{typeTicket.nameTT}</h2>
+                </div>
+                <div class="ticket-column">
+                    <h2 class="ticket-text"><TicketIcon /> {typeTicket.count}</h2>
+                </div>
+            </div>
+        );
+    });
+};
+
 
   const copyEventLinkToClipboard = async () => {
     const link = `${baseUrl}/comprar-tickets/${eventData.id}/${rrppEventId}`;
