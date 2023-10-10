@@ -27,6 +27,8 @@ const Charts = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedChartInfo, setSelectedChartInfo] = useState(null);
+  const [misOptionsState, setMisOptionsState] = useState(null);
+  const [lineOptionsState, setLineOptionsState] = useState(null);
 
   // Add the event handler for chart click
   const handleChartClick = (chartData, chartOptions, chartType) => {
@@ -174,6 +176,64 @@ const Charts = () => {
       const eventLocationsData = getEventLocationsData(filterEventsList);
       console.log('eventLocationsData:', eventLocationsData); // Add this line
       setEventLocations(eventLocationsData);
+
+      const maxIncome = Math.floor(Math.max(...eventsWithPayments.map(event => event.totalIncome)));
+      const maxDailyIncome = Math.floor(...dailyCombinedIncomes);
+
+      const localMisOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: true,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: maxIncome + Math.floor(maxIncome * 0.1)
+          },
+          x: {
+            ticks: {
+              color: 'rgba(228, 255, 26)',
+              font: {
+                family: 'Helvetica Display Bold',
+              }
+            }
+          }
+        }
+      };
+  
+      const localLineOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: true,
+        font: {
+          family: 'Helvetica Display Bold'
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: maxDailyIncome + Math.floor(maxDailyIncome * 0.1),
+            font: {
+              family: 'Helvetica Display Bold'
+            }
+          },
+          x: {
+            ticks: {
+              color: 'rgba(228, 255, 26)',
+              font: {
+                family: 'Helvetica Display Bold'
+              }
+            }
+          }
+        }
+      };
+  
+      // Set the state with these new options:
+      setMisOptionsState(localMisOptions);
+      setLineOptionsState(localLineOptions);
 
       // LINECHART X EVENTO
 
@@ -384,7 +444,7 @@ const Charts = () => {
           {/* Chart 1 */}
           {eventNames && (
             <div style={chartStyle}>
-              <Bar data={midata} options={misoptions} onClick={() => handleChartClick(midata, misoptions, 'Bar')} />
+              <Bar data={midata} options={misOptionsState} onClick={() => handleChartClick(midata, misoptions, 'Bar')} />
             </div>
           )}
         </div>
@@ -395,7 +455,7 @@ const Charts = () => {
           {/* Chart 2 */}
           {lineData && (
             <div style={chartStyle}>
-              <Line data={lineData} options={lineOptions} onClick={() => handleChartClick(lineData, lineOptions, 'Line')} />
+              <Line data={lineData} options={lineOptionsState} onClick={() => handleChartClick(lineData, lineOptions, 'Line')} />
             </div>
           )}
         </div>
@@ -483,13 +543,13 @@ const Modal = ({ onClose, selectedChartInfo }) => {
         {selectedChartInfo && selectedChartInfo.type === 'Bar' && (
           <div style={{ width: '100%', height: '100%' }}>
             {/* Render the Bar chart with the selected data and options */}
-            <Bar data={selectedChartInfo.data} options={selectedChartInfo.options} />
+            <Bar data={selectedChartInfo.data} options={selectedChartInfo.localMisOptions} />
           </div>
         )}
         {selectedChartInfo && selectedChartInfo.type === 'Line' && (
           <div style={{ width: '100%', height: '100%' }}>
             {/* Render the Line chart with the selected data and options */}
-            <Line data={selectedChartInfo.data} options={selectedChartInfo.options} />
+            <Line data={selectedChartInfo.data} options={selectedChartInfo.localLineOptions} />
           </div>
         )}
         {selectedChartInfo && selectedChartInfo.type === 'Pie' && (
