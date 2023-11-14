@@ -23,10 +23,16 @@ const RRPPData = () => {
   const fetchRRPPEvents = async () => {
     try {
       const rrppEventData = await API.graphql(graphqlOperation(listRRPPEvents));
+
+
+
       const filteredRRPPEvents = rrppEventData.data.listRRPPEvents.items.filter(
-        item => item.Event.id === eventId
+        item => item.id === eventId
       );
+      
+
       const rrppIDs = filteredRRPPEvents.map(item => item.rrppID);
+      debugger;
       const rrppPromises = rrppIDs.map(rrppID => API.graphql(graphqlOperation(getRRPP, { id: rrppID })));
       const rrppData = await Promise.all(rrppPromises);
 

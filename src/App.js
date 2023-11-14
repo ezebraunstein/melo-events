@@ -1,5 +1,6 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, Route, Routes } from 'react-router-dom';
 import Slider from "./components/Slider";
 import HomeEvents from "./components/HomeEvents";
 import CreateEvent from "./components/CreateEvent";
@@ -16,7 +17,8 @@ import RRPPEvent from "./components/RRPPEvent";
 import RRPPData from "./components/RRPPData";
 import ProtectedRoute from "./functions/protectedRoute";
 import Logo from "./components/Logo";
-import { Route, Routes } from 'react-router-dom';
+import LinearProgress from '@mui/material/LinearProgress';
+import Box from '@mui/material/Box';
 import './CSS/Buttons.css'
 import './CSS/Event.css'
 import './CSS/EventBox.css'
@@ -24,6 +26,58 @@ import './CSS/Layout.css'
 import './CSS/Modal.css'
 import './CSS/Ticket.css'
 import './CSS/Hamburguer.css'
+
+const SuccessfulPurchaseRedirect = () => {
+  const navigate = useNavigate();
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const timerDuration = 4500; // Total duration for the timer
+    const updateInterval = 50; // How often to update the progress bar (in ms)
+
+    const timer = setTimeout(() => {
+      navigate('/');
+    }, timerDuration);
+
+    const progressInterval = setInterval(() => {
+      setProgress((oldProgress) => {
+        if (oldProgress === 100) {
+          clearInterval(progressInterval);
+          return 100;
+        }
+        const diff = (updateInterval / timerDuration) * 100;
+        return Math.min(oldProgress + diff, 100);
+      });
+    }, updateInterval);
+
+    return () => {
+      clearTimeout(timer);
+      clearInterval(progressInterval);
+    };
+  }, [navigate]);
+
+  return (
+    <Layout>
+      <div className="message-container">
+        <h1 className="titleMessage">Gracias por tu compra!</h1>
+        <p className="textMessage2">Enviamos los tickets a tu mail</p>
+        <p className="textMessage3">Revisá la casilla de spam</p>
+        <br />
+        <br />
+        <br />
+        <p className="textMessage3">Redirigiendo a la página principal...</p>
+        <Box sx={{ width: '60%' }}>
+          <LinearProgress sx={{
+            backgroundColor: '#272727',
+            '& .MuiLinearProgress-bar': {
+              backgroundColor: '#E4FF1A'
+            }
+          }} variant="determinate" value={progress} />
+        </Box>
+      </div>
+    </Layout>
+  );
+};
 
 function App() {
 
@@ -110,7 +164,7 @@ function App() {
             </Layout>
           </ProtectedRoute>
         } />
-        <Route path="/compra-exitosa" element={
+        {/* <Route path="/compra-exitosa" element={
           <Layout>
             <div className="message-container">
               <h1 className="titleMessage">Gracias por tu compra!</h1>
@@ -118,7 +172,8 @@ function App() {
               <p2 className="textMessage3">Revisá la casilla de spam</p2>
             </div>
           </Layout>
-        } />
+        } /> */}
+        <Route path="/compra-exitosa" element={<SuccessfulPurchaseRedirect />} />
         <Route path="/compra-fallida" element={
           <Layout>
             <div className="message-container">

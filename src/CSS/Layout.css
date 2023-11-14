@@ -375,7 +375,7 @@ header {
     font-family: 'Helvetica Display ExtraBlack', sans-serif;
     font-size: 60px;
     color: #E8EBF7;
-    animation: marquee 12s linear infinite;
+    /* animation: marquee 12s linear infinite; */
 }
 
 @keyframes marquee {
@@ -396,6 +396,10 @@ header {
         font-family: 'Helvetica Display ExtraBlack', sans-serif;
         font-size: 100px;
         color: #E8EBF7;
-        animation: marquee 20s linear infinite;
+        /* animation: marquee 20s linear infinite; */
     }
+}
+
+.MuiCircularProgress-colorPrimary {
+    color: #E4FF1A !important;
 }

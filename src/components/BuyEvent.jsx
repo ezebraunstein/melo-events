@@ -129,20 +129,51 @@ const BuyEvent = () => {
   };
 
 
-  const addToCart = (typeTicket, quantity) => {
-    const existingItemIndex = cart.findIndex((item) => item.id === typeTicket.id);
+  // const addToCart = (typeTicket, quantity) => {
+  //   const existingItemIndex = cart.findIndex((item) => item.id === typeTicket.id);
 
+  //   if (existingItemIndex !== -1) {
+  //     const updatedCart = [...cart];
+  //     const newQuantity = updatedCart[existingItemIndex].selectedQuantity + quantity;
+  //     if (newQuantity <= 3) {
+  //       updatedCart[existingItemIndex].selectedQuantity = newQuantity;
+  //     } else {
+  //       updatedCart[existingItemIndex].selectedQuantity = 3; // Limit to 5
+  //     }
+  //     if (updatedCart[existingItemIndex].selectedQuantity <= 0) {
+  //       updatedCart.splice(existingItemIndex, 1);
+  //     }
+  //     setCart(updatedCart);
+  //   } else if (quantity > 0 && quantity <= 3) {
+  //     setCart([...cart, { ...typeTicket, selectedQuantity: quantity, rrppEventId: rrppEventId }]);
+  //   }
+  // };
+  const addToCart = (typeTicket, quantityToAdd) => {
+    const totalQuantityInCart = cart.reduce((total, item) => total + item.selectedQuantity, 0);
+    const existingItemIndex = cart.findIndex((item) => item.id === typeTicket.id);
+  
     if (existingItemIndex !== -1) {
       const updatedCart = [...cart];
-      updatedCart[existingItemIndex].selectedQuantity += quantity;
+      let newQuantity = updatedCart[existingItemIndex].selectedQuantity + quantityToAdd;
+  
+      // Check if the total quantity in the cart exceeds 3 after adding the new quantity
+      if (totalQuantityInCart + quantityToAdd > 3) {
+        newQuantity = 3 - (totalQuantityInCart - updatedCart[existingItemIndex].selectedQuantity); // Adjust to not exceed 3 in total
+      }
+      
+      updatedCart[existingItemIndex].selectedQuantity = newQuantity > 0 ? newQuantity : 0;
+  
       if (updatedCart[existingItemIndex].selectedQuantity <= 0) {
         updatedCart.splice(existingItemIndex, 1);
       }
       setCart(updatedCart);
-    } else if (quantity > 0) {
+    } else if (quantityToAdd > 0 && totalQuantityInCart < 3) {
+      const quantity = Math.min(quantityToAdd, 3 - totalQuantityInCart); // Adjust to not exceed 3 in total
       setCart([...cart, { ...typeTicket, selectedQuantity: quantity, rrppEventId: rrppEventId }]);
     }
   };
+  
+
 
   const isAnyTicketAvailable = typeTickets.some(typeTicket => typeTicket.activeTT && typeTicket.quantityTT > 0);
 

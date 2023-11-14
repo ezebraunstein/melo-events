@@ -24,6 +24,7 @@ async function handleCheckoutStripe(cart, data, eventData) {
     const eventName = eventData.nameEvent;
     const paymentId = uuid();
     const updatedPrice = ((lineItems.reduce((acc, item) => acc + (item.price_data.unit_amount * item.quantity), 0)) / 100) * 1.75;
+    //const updatedPrice = ((lineItems.reduce((acc, item) => acc + (item.price_data.unit_amount * item.quantity), 0)) / 100) * 1;
 
     const baseUrl = `${window.location.protocol}//${window.location.host}`;
 
@@ -75,7 +76,8 @@ async function handleCheckoutStripe(cart, data, eventData) {
 
     function convertCartToLineItems() {
         const items = cart.map((item) => {
-            const updatedPrice = item.priceTT / 1.75
+            //const updatedPrice = item.priceTT / 1.75
+            const updatedPrice = item.priceTT
             return {
                 price_data: {
                     currency: 'ars',
