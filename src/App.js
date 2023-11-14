@@ -79,6 +79,57 @@ const SuccessfulPurchaseRedirect = () => {
   );
 };
 
+const FailedPurchaseRedirect = () => {
+  const navigate = useNavigate();
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const timerDuration = 4500; // Total duration for the timer
+    const updateInterval = 50; // How often to update the progress bar (in ms)
+
+    const timer = setTimeout(() => {
+      navigate('/');
+    }, timerDuration);
+
+    const progressInterval = setInterval(() => {
+      setProgress((oldProgress) => {
+        if (oldProgress === 100) {
+          clearInterval(progressInterval);
+          return 100;
+        }
+        const diff = (updateInterval / timerDuration) * 100;
+        return Math.min(oldProgress + diff, 100);
+      });
+    }, updateInterval);
+
+    return () => {
+      clearTimeout(timer);
+      clearInterval(progressInterval);
+    };
+  }, [navigate]);
+
+  return (
+    <Layout>
+      <div className="message-container">
+        <h1 className="titleMessage">Hubo un error!</h1>
+        <p1 className="textMessage2">Por favor volvé a intentarlo</p1>
+        <br />
+        <br />
+        <br />
+        <p className="textMessage3">Redirigiendo a la página principal...</p>
+        <Box sx={{ width: '60%' }}>
+          <LinearProgress sx={{
+            backgroundColor: '#272727',
+            '& .MuiLinearProgress-bar': {
+              backgroundColor: '#E4FF1A'
+            }
+          }} variant="determinate" value={progress} />
+        </Box>
+      </div>
+    </Layout>
+  );
+};
+
 function App() {
 
   return (
@@ -174,14 +225,15 @@ function App() {
           </Layout>
         } /> */}
         <Route path="/compra-exitosa" element={<SuccessfulPurchaseRedirect />} />
-        <Route path="/compra-fallida" element={
+        {/* <Route path="/compra-fallida" element={
           <Layout>
             <div className="message-container">
               <h1 className="titleMessage">Hubo un error!</h1>
               <p1 className="textMessage2">Por favor volvé a intentarlo</p1>
             </div>
           </Layout>
-        } />
+        } /> */}
+        <Route path="/compra-fallida" element={<FailedPurchaseRedirect />} />
         <Route path="/logo" element={
           <Layout>
             <Logo />
