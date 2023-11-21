@@ -32,6 +32,7 @@
     "bootstrap": "^5.2.3",
     "canvas": "^2.11.0",
     "dayjs": "^1.11.9",
+    "enzyme": "^3.11.0",
     "fuse.js": "^6.6.2",
     "mercadopago": "^0.0.6",
     "modal": "^1.2.0",
@@ -50,11 +51,18 @@
     "sweetalert2-react-content": "^5.0.7",
     "web-vitals": "^2.1.4"
   },
+  "type": "module",
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  },
   "scripts": {
     "start": "HTTPS=true SSL_CRT_FILE=cert.pem SSL_KEY_FILE=key.pem react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "jest",
+    "eject": "react-scripts eject",
+    "test:ci": "npm run test -- --watchAll=false --ci --coverage"
   },
   "eslintConfig": {
     "extends": [
@@ -73,5 +81,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-flow": "^7.23.3",
+    "@babel/preset-react": "^7.23.3",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-plugin-styled-components": "^2.1.4",
+    "cypress": "^13.6.0"
   }
 }
