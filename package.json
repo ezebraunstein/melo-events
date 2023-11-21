@@ -51,7 +51,6 @@
     "sweetalert2-react-content": "^5.0.7",
     "web-vitals": "^2.1.4"
   },
-  "type": "module",
   "jest": {
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
