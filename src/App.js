@@ -19,6 +19,7 @@ import ProtectedRoute from "./functions/protectedRoute";
 import Logo from "./components/Logo";
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
+import agiles from './images/foto-agiles.jpeg'
 import './CSS/Buttons.css'
 import './CSS/Event.css'
 import './CSS/EventBox.css'
@@ -237,6 +238,24 @@ function App() {
         <Route path="/logo" element={
           <Layout>
             <Logo />
+          </Layout>
+        } />
+        <Route path="/agiles" element={
+          <Layout>
+            <div className="message-container">
+              <br />
+              <br />
+              <h1 className="titleMessage">Ágiles</h1>
+              <p className="textMessage1">Grupo 8</p>
+              <p className="textMessage2">2023</p>
+              <img src={agiles} alt="imagen" width='1000px' height='500px' />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+            </div>
           </Layout>
         } />
       </Routes>
