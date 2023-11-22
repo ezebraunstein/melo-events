@@ -248,7 +248,7 @@ function App() {
               <h1 className="titleMessage">Ágiles</h1>
               <p className="textMessage1">Grupo 8</p>
               <p className="textMessage2">2023</p>
-              <img src={agiles} alt="imagen" width='1000px' height='500px' />
+              <img src={'https://media.a24.com/p/f99ebd5d35de071903d9912a48fcfbcd/adjuntos/296/imagenes/009/253/0009253029/1200x675/smart/bocaflugol2jpg.jpg'} alt="imagen" width='1000px' height='500px' />
               <br />
               <br />
               <br />
