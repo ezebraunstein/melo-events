@@ -13,9 +13,6 @@ projects:
         region: us-east-1
         apiId: null
         maxDepth: 2
-<<<<<<< HEAD
 extensions:
   amplify:
     version: 3
-=======
->>>>>>> test

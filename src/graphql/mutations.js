@@ -19,12 +19,15 @@ export const createRRPPEvent = /* GraphQL */ `
         downDateE
         nameLocationEvent
         userID
+        __typename
       }
       rrppID
       Tickets {
         nextToken
+        __typename
       }
       rRPPEventEventId
+      __typename
     }
   }
 `;
@@ -46,12 +49,15 @@ export const updateRRPPEvent = /* GraphQL */ `
         downDateE
         nameLocationEvent
         userID
+        __typename
       }
       rrppID
       Tickets {
         nextToken
+        __typename
       }
       rRPPEventEventId
+      __typename
     }
   }
 `;
@@ -73,12 +79,15 @@ export const deleteRRPPEvent = /* GraphQL */ `
         downDateE
         nameLocationEvent
         userID
+        __typename
       }
       rrppID
       Tickets {
         nextToken
+        __typename
       }
       rRPPEventEventId
+      __typename
     }
   }
 `;
@@ -95,7 +104,9 @@ export const createRRPP = /* GraphQL */ `
       emailRRPP
       RRPPEvents {
         nextToken
+        __typename
       }
+      __typename
     }
   }
 `;
@@ -112,7 +123,9 @@ export const updateRRPP = /* GraphQL */ `
       emailRRPP
       RRPPEvents {
         nextToken
+        __typename
       }
+      __typename
     }
   }
 `;
@@ -129,7 +142,9 @@ export const deleteRRPP = /* GraphQL */ `
       emailRRPP
       RRPPEvents {
         nextToken
+        __typename
       }
+      __typename
     }
   }
 `;
@@ -149,6 +164,7 @@ export const createPayment = /* GraphQL */ `
       createdDate
       updatedDate
       eventID
+      __typename
     }
   }
 `;
@@ -168,6 +184,7 @@ export const updatePayment = /* GraphQL */ `
       createdDate
       updatedDate
       eventID
+      __typename
     }
   }
 `;
@@ -187,6 +204,7 @@ export const deletePayment = /* GraphQL */ `
       createdDate
       updatedDate
       eventID
+      __typename
     }
   }
 `;
@@ -204,6 +222,7 @@ export const createTicket = /* GraphQL */ `
       eventID
       typeticketID
       rrppeventID
+      __typename
     }
   }
 `;
@@ -221,6 +240,7 @@ export const updateTicket = /* GraphQL */ `
       eventID
       typeticketID
       rrppeventID
+      __typename
     }
   }
 `;
@@ -238,6 +258,7 @@ export const deleteTicket = /* GraphQL */ `
       eventID
       typeticketID
       rrppeventID
+      __typename
     }
   }
 `;
@@ -260,7 +281,9 @@ export const createTypeTicket = /* GraphQL */ `
       eventID
       Tickets {
         nextToken
+        __typename
       }
+      __typename
     }
   }
 `;
@@ -283,7 +306,9 @@ export const updateTypeTicket = /* GraphQL */ `
       eventID
       Tickets {
         nextToken
+        __typename
       }
+      __typename
     }
   }
 `;
@@ -306,7 +331,9 @@ export const deleteTypeTicket = /* GraphQL */ `
       eventID
       Tickets {
         nextToken
+        __typename
       }
+      __typename
     }
   }
 `;
@@ -327,11 +354,14 @@ export const createEvent = /* GraphQL */ `
       nameLocationEvent
       TypeTickets {
         nextToken
+        __typename
       }
       Payments {
         nextToken
+        __typename
       }
       userID
+      __typename
     }
   }
 `;
@@ -352,11 +382,14 @@ export const updateEvent = /* GraphQL */ `
       nameLocationEvent
       TypeTickets {
         nextToken
+        __typename
       }
       Payments {
         nextToken
+        __typename
       }
       userID
+      __typename
     }
   }
 `;
@@ -377,11 +410,14 @@ export const deleteEvent = /* GraphQL */ `
       nameLocationEvent
       TypeTickets {
         nextToken
+        __typename
       }
       Payments {
         nextToken
+        __typename
       }
       userID
+      __typename
     }
   }
 `;
@@ -398,7 +434,9 @@ export const createUser = /* GraphQL */ `
       emailUser
       Events {
         nextToken
+        __typename
       }
+      __typename
     }
   }
 `;
@@ -415,7 +453,9 @@ export const updateUser = /* GraphQL */ `
       emailUser
       Events {
         nextToken
+        __typename
       }
+      __typename
     }
   }
 `;
@@ -432,7 +472,9 @@ export const deleteUser = /* GraphQL */ `
       emailUser
       Events {
         nextToken
+        __typename
       }
+      __typename
     }
   }
 `;

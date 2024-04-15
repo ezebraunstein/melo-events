@@ -16,12 +16,15 @@ export const getRRPPEvent = /* GraphQL */ `
         downDateE
         nameLocationEvent
         userID
+        __typename
       }
       rrppID
       Tickets {
         nextToken
+        __typename
       }
       rRPPEventEventId
+      __typename
     }
   }
 `;
@@ -36,8 +39,10 @@ export const listRRPPEvents = /* GraphQL */ `
         id
         rrppID
         rRPPEventEventId
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -60,8 +65,10 @@ export const rRPPEventsByRrppID = /* GraphQL */ `
         id
         rrppID
         rRPPEventEventId
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -75,7 +82,9 @@ export const getRRPP = /* GraphQL */ `
       emailRRPP
       RRPPEvents {
         nextToken
+        __typename
       }
+      __typename
     }
   }
 `;
@@ -92,8 +101,10 @@ export const listRRPPS = /* GraphQL */ `
         surnameRRPP
         dniRRPP
         emailRRPP
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -110,6 +121,7 @@ export const getPayment = /* GraphQL */ `
       createdDate
       updatedDate
       eventID
+      __typename
     }
   }
 `;
@@ -131,8 +143,10 @@ export const listPayments = /* GraphQL */ `
         createdDate
         updatedDate
         eventID
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -162,8 +176,10 @@ export const paymentsByEventID = /* GraphQL */ `
         createdDate
         updatedDate
         eventID
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -178,6 +194,7 @@ export const getTicket = /* GraphQL */ `
       eventID
       typeticketID
       rrppeventID
+      __typename
     }
   }
 `;
@@ -197,8 +214,10 @@ export const listTickets = /* GraphQL */ `
         eventID
         typeticketID
         rrppeventID
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -226,8 +245,10 @@ export const ticketsByTypeticketID = /* GraphQL */ `
         eventID
         typeticketID
         rrppeventID
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -255,8 +276,10 @@ export const ticketsByRrppeventID = /* GraphQL */ `
         eventID
         typeticketID
         rrppeventID
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -276,7 +299,9 @@ export const getTypeTicket = /* GraphQL */ `
       eventID
       Tickets {
         nextToken
+        __typename
       }
+      __typename
     }
   }
 `;
@@ -299,8 +324,10 @@ export const listTypeTickets = /* GraphQL */ `
         upDateTT
         downDateTT
         eventID
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -331,8 +358,10 @@ export const typeTicketsByEventID = /* GraphQL */ `
         upDateTT
         downDateTT
         eventID
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -350,11 +379,14 @@ export const getEvent = /* GraphQL */ `
       nameLocationEvent
       TypeTickets {
         nextToken
+        __typename
       }
       Payments {
         nextToken
+        __typename
       }
       userID
+      __typename
     }
   }
 `;
@@ -376,8 +408,10 @@ export const listEvents = /* GraphQL */ `
         downDateE
         nameLocationEvent
         userID
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -407,8 +441,10 @@ export const eventsByUserID = /* GraphQL */ `
         downDateE
         nameLocationEvent
         userID
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -422,7 +458,9 @@ export const getUser = /* GraphQL */ `
       emailUser
       Events {
         nextToken
+        __typename
       }
+      __typename
     }
   }
 `;
@@ -439,8 +477,10 @@ export const listUsers = /* GraphQL */ `
         surnameUser
         dniUser
         emailUser
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
