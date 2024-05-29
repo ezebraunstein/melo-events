@@ -7,14 +7,15 @@
 /* eslint-disable */
 import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { RRPP } from "../models";
-import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
+import { generateClient } from "aws-amplify/api";
+import { getRRPP } from "../graphql/queries";
+import { updateRRPP } from "../graphql/mutations";
+const client = generateClient();
 export default function RRPPUpdateForm(props) {
   const {
     id: idProp,
-    rRPP,
+    rRPP: rRPPModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -46,14 +47,21 @@ export default function RRPPUpdateForm(props) {
     setEmailRRPP(cleanValues.emailRRPP);
     setErrors({});
   };
-  const [rRPPRecord, setRRPPRecord] = React.useState(rRPP);
+  const [rRPPRecord, setRRPPRecord] = React.useState(rRPPModelProp);
   React.useEffect(() => {
     const queryData = async () => {
-      const record = idProp ? await DataStore.query(RRPP, idProp) : rRPP;
+      const record = idProp
+        ? (
+            await client.graphql({
+              query: getRRPP.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getRRPP
+        : rRPPModelProp;
       setRRPPRecord(record);
     };
     queryData();
-  }, [idProp, rRPP]);
+  }, [idProp, rRPPModelProp]);
   React.useEffect(resetStateValues, [rRPPRecord]);
   const validations = {
     nameRRPP: [{ type: "Required" }],
@@ -116,21 +124,26 @@ export default function RRPPUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            RRPP.copyOf(rRPPRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          await client.graphql({
+            query: updateRRPP.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: rRPPRecord.id,
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
@@ -260,7 +273,7 @@ export default function RRPPUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || rRPP)}
+          isDisabled={!(idProp || rRPPModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -272,7 +285,7 @@ export default function RRPPUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || rRPP) ||
+              !(idProp || rRPPModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

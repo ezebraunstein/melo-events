@@ -6,8 +6,16 @@
 
 import * as React from "react";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { RRPP } from "../models";
+export declare type EscapeHatchProps = {
+    [elementHierarchy: string]: Record<string, unknown>;
+} | null;
+export declare type VariantValues = {
+    [key: string]: string;
+};
+export declare type Variant = {
+    variantValues: VariantValues;
+    overrides: EscapeHatchProps;
+};
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -37,7 +45,7 @@ export declare type RRPPUpdateFormProps = React.PropsWithChildren<{
     overrides?: RRPPUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    rRPP?: RRPP;
+    rRPP?: any;
     onSubmit?: (fields: RRPPUpdateFormInputValues) => RRPPUpdateFormInputValues;
     onSuccess?: (fields: RRPPUpdateFormInputValues) => void;
     onError?: (fields: RRPPUpdateFormInputValues, errorMessage: string) => void;
