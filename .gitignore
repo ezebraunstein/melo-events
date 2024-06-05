@@ -26,3 +26,4 @@ amplifytools.xcconfig
 **.sample
 #amplify-do-not-edit-end
 node_modules
+cypress/report/mochawesome-report/
